@@ -118,7 +118,7 @@ export async function getServerSideProps(ctx) {
        if(!session.isEmployee){
            return{
                redirect: {
-                   destination: "/admin",
+                   destination: "/",
                    permanent: false,
                }
            }
