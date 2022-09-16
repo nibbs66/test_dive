@@ -30,7 +30,7 @@ export async function getServerSideProps ({req, res}){
 
     const {host} = req.headers;
     console.log(host)
-    const pic = await axios.get(`http://`+host+`/api/images`);
+    const pic = await axios.get(`https://`+host+`/api/images`);
     setCookie('visitor', `guest${uuidv4()}`, { req, res, maxAge: 60 * 6 * 24 });
 
     return{
