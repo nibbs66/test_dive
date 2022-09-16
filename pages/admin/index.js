@@ -114,10 +114,17 @@ Index.getLayout = function getLayout(page){
 }
 export async function getServerSideProps(ctx) {
     const session = await getSession(ctx)
-    if(!session.isAdmin || !session.isEmployee){
+    if(!session.isAdmin ){
         return{
             redirect: {
-                destination: "/",
+                destination: "/login",
+                permanent: false,
+            }
+        }
+    }else if(!session.isEmployee){
+        return{
+            redirect: {
+                destination: "/login",
                 permanent: false,
             }
         }
