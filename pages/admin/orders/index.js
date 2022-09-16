@@ -80,7 +80,7 @@ Index.getLayout = function getLayout(page){
 }
 export const getServerSideProps = async(ctx) => {
     const host = ctx.req.headers.host;
-    const res = await axios.get(`https://`+host+`/api/orders`);
+    const res = await axios.get(`http://`+host+`/api/orders`);
 
 
     return{

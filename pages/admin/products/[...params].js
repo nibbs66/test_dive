@@ -50,9 +50,9 @@ export const getServerSideProps = async (ctx) =>{
     let id= ctx.params.params[1]
 
 
-    const res = await axios.get(`https://`+host+`/api/products/${id}`);
-    //const order = await axios.get(`https://`+host+`/api/orders?prod=${id}`);
-    const order = await axios.get(`https://`+host+`/api/orders`);
+    const res = await axios.get(`http://`+host+`/api/products/${id}`);
+    //const order = await axios.get(`http://`+host+`/api/orders?prod=${id}`);
+    const order = await axios.get(`http://`+host+`/api/orders`);
 
     return{
         props:{

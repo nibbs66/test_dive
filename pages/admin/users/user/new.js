@@ -23,7 +23,7 @@ New.getLayout = function getLayout(page){
 export const getServerSideProps = async(ctx) => {
     const host = ctx.req.headers.host;
 
-    const res = await axios.get(`https://`+host+`/api/agency`);
+    const res = await axios.get(`http://`+host+`/api/agency`);
     return{
         props:{
 

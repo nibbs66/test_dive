@@ -75,7 +75,7 @@ Index.getLayout = function getLayout(page){
 }
 export const getServerSideProps = async (ctx) => {
     const host = ctx.req.headers.host;
-    const img = await axios.get(`https://`+host+`/api/images`);
+    const img = await axios.get(`http://`+host+`/api/images`);
 
     return{
         props: {

@@ -1,15 +1,20 @@
 import { withAuth } from "next-auth/middleware"
-
-export default withAuth(
-    // `withAuth` augments your `Request` with the user's token.
-    function middleware(req) {
-     console.log(req.nextauth.token)
-    },
-    {
+const secret = process.env.NEXTAUTH_SECRET
+export default withAuth({
         callbacks: {
-            authorized: ({ token }) => token?.isEmployee === true || token?.isAdmin === true,
+            authorized: ({req, token })=>{
+                if(req.nextUrl.pathname === '/admin'){
+               return token?.isEmployee === true || token?.isAdmin === true
+                }
+                if(req.nextUrl.pathname === '/admin/users/employee'){
+                    return token?.isAdmin === true
+                }
+                if(req.nextUrl.pathname === '/admin/users/customer'){
+                    return token?.isAdmin === true
+                }
+},
         },
     }
 )
 
-export const config = { matcher: ["/admin"] }
+export const config = { matcher: ["/admin", "/admin/users/employee", "/admin/users/customer"] }
