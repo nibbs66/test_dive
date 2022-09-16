@@ -4,7 +4,7 @@ export default withAuth({
         callbacks: {
             authorized: ({req, token })=>{
                 if(req.nextUrl.pathname === '/admin'){
-               return token?.isEmployee === true || token?.isAdmin === true
+               return token?.isAdmin === true || token?.isEmployee === true
                 }
                 if(req.nextUrl.pathname === '/admin/users/employee'){
                     return token?.isAdmin === true
