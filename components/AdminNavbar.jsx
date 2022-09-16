@@ -2,7 +2,14 @@ import {useState} from 'react';
 import CustomerSearch from "./Pos/CustomerSearch";
 import Nieuw from "./Nieuw/Nieuw";
 import { useSession, signOut } from "next-auth/react"
+import {useRouter} from "next/router";
+
 const AdminNavbar = () => {
+    const router = useRouter()
+    const handleLogOut = () => {
+        signOut()
+        router.push('/')
+    }
     const [showModal, setShowModal] = useState(false)
     return (
         <div  className=" bg-white border-b border-slate-200 z-50">
@@ -13,7 +20,7 @@ const AdminNavbar = () => {
 
                     <div className={'flex gap-3'}>
                         <button  onClick={()=>setShowModal(true)} className={'uppercase text-xs text-white bg-red-500 py-2 px-3 rounded font-bold'}>Nieuw</button>
-                        <button onClick={()=>signOut()} className={'uppercase text-xs text-white bg-blue-500 py-2 px-3 rounded font-bold'}>Logout</button>                          </div>
+                        <button onClick={handleLogOut} className={'uppercase text-xs text-white bg-blue-500 py-2 px-3 rounded font-bold'}>Logout</button>                          </div>
                 </div>
             </div>
         </div>
