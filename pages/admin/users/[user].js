@@ -63,6 +63,15 @@ Customers.getLayout = function getLayout(page){
     )
 }
 export const getServerSideProps = async(ctx) => {
+    const session = await getSession(ctx)
+    if(!session.isAdmin){
+        return{
+            redirect: {
+                destination: "/admin",
+                permanent: false,
+            }
+        }
+    }
 
     const host = ctx.req.headers.host;
     const res = await axios.get(`https://`+host+`/api/users?group=${ctx.params.user}`);
