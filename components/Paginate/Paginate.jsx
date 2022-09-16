@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import { usePagination} from './usePagination';
+import { usePagination, DOTS} from './usePagination';
 
 const Paginate = (props) => {
 
@@ -13,7 +13,7 @@ const Paginate = (props) => {
         className
     } = props;
 
-const DOTS = '...'
+
 
     const paginationRange = usePagination({
         currentPage,
