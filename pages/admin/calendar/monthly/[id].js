@@ -2,12 +2,15 @@ import React from 'react';
 import Admin from "../../../../components/layout/Admin";
 import Month from "../../../../components/Calendar/Month";
 import axios from "axios";
+import {useRouter} from "next/router";
 
 const Monthly = ({schedules}) => {
-
+const router = useRouter()
+    const {query} = router
+    console.log(query)
     return (
         <div>
-            <Month schedules={schedules}/>
+            <Month schedules={schedules} toShow={query.id}/>
         </div>
     );
 };

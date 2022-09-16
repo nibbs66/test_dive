@@ -31,7 +31,7 @@ function classNames(...classes) {
 }
 
 
-const Month = ({schedules}) => {
+const Month = ({schedules, toShow}) => {
     const [showModal, setShowModal] = useState(false)
     const [currentMonth, setCurrentMonth] = useState(format(today, 'MMMM yyyy'))
     const [currentWeek, setCurrentWeek] = useState(startOfWeek(today))
