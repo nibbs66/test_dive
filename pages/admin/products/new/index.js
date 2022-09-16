@@ -21,7 +21,7 @@ Index.getLayout = function getLayout(page){
         </Admin>
     )
 }
-export const getStaticProps = async() => {
+export const getServerSideProps = async() => {
 
 
 
