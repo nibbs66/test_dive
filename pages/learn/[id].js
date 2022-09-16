@@ -144,8 +144,8 @@ const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
         )
     }
 export async function getServerSideProps(ctx) {
-    console.log(ctx.params.id)
-    const res = await axios.get(process.env.PUBLIC_URL + `/api/cursusDescription/${ctx.params.id}`);
+    const host = ctx.req.headers.host;
+    const res = await axios.get(`https://`+host+ `/api/cursusDescription/${ctx.params.id}`);
     return {
         props: {
             cursus: res.data,

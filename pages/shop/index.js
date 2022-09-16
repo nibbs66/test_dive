@@ -61,9 +61,9 @@ Index.getLayout = function getLayout(page){
         </Client>
     )
 }
-export async function getServerSideProps() {
-
-    const res = await axios.get(process.env.PUBLIC_URL + `/api/catMenu`);
+export async function getServerSideProps(ctx) {
+    const host = ctx.req.headers.host;
+    const res = await axios.get(`https://`+host+`/api/catMenu`);
     return {
         props: {
             categories: res.data,
