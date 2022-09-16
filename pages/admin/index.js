@@ -115,19 +115,12 @@ Index.getLayout = function getLayout(page){
 export async function getServerSideProps(ctx) {
     const session = await getSession(ctx)
     if(!session.isAdmin ){
-        return{
-            redirect: {
-                destination: "/login",
-                permanent: false,
-            }
-        }
-    }else if(!session.isEmployee){
-        return{
-            redirect: {
-                destination: "/login",
-                permanent: false,
-            }
-        }
+        if(!session.isEmployee){
+            return{
+                redirect: {
+                    destination: "/login",
+                    permanent: false,
+                }
     }
     const host = ctx.req.headers.host;
     const res = await axios.get(`https://`+host+`/api/orders/income`);
