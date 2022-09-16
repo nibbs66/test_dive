@@ -8,6 +8,7 @@ import {getToken} from "next-auth/jwt";
 import {DashboardOrders, DashboardUsers} from "../../tableData";
 import Link from "next/link";
 import TableDisplay from "../../components/Table/TableDisplay";
+import {getSession} from "next-auth/react";
 
 const Index = ({orders, income, customers}) => {
     const [data, setData] = useState([])
