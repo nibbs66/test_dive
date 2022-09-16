@@ -68,8 +68,8 @@ export async function getServerSideProps ({req, res}){
 
     const {host} = req.headers;
 
-    const pic = await axios.get(`http://`+host+`/api/color`);
-    const range = await axios.get(`http://`+host+`/api/orders`);
+    const pic = await axios.get(`https://`+host+`/api/color`);
+    const range = await axios.get(`https://`+host+`/api/orders`);
 
 
     return{

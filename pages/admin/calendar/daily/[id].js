@@ -21,7 +21,7 @@ const Daily = ({schedules}) => {
     }
 export async function getServerSideProps(ctx) {
     const host = ctx.req.headers.host;
-    const res = await axios.get(`http://`+host+`/api/time`);
+    const res = await axios.get(`https://`+host+`/api/time`);
 
     return {
         props: {

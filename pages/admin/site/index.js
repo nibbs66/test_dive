@@ -33,7 +33,7 @@ Index.getLayout = function getLayout(page){
 }
 export const getServerSideProps = async(ctx) => {
     const host = ctx.req.headers.host;
-    const res = await axios.get(`http://`+host+`/api/users?group=employee`);
+    const res = await axios.get(`https://`+host+`/api/users?group=employee`);
 
     return{
         props: {

@@ -105,8 +105,8 @@ export const getServerSideProps = async (ctx) =>{
     const host = ctx.req.headers.host;
     let id= ctx.params.params[1]
 
-    const res = await axios.get(`http://`+host+`/api/users/${id}`);
-    const order = await axios.get(`http://`+host+`/api/orders?id=${id}`)
+    const res = await axios.get(`https://`+host+`/api/users/${id}`);
+    const order = await axios.get(`https://`+host+`/api/orders?id=${id}`)
     return{
         props:{
             user: res.data,

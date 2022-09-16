@@ -23,8 +23,8 @@ const Product= ({product, images}) => {
         export const getServerSideProps = async (ctx) =>{
 
             const host = ctx.req.headers.host;
-            const res = await axios.get(`http://`+host+`/api/products/${ctx.params.params[1]}`);
-            const img = await axios.get(`http://`+host+`/api/images`);
+            const res = await axios.get(`https://`+host+`/api/products/${ctx.params.params[1]}`);
+            const img = await axios.get(`https://`+host+`/api/images`);
             return{
                 props:{
                     product: res.data,
