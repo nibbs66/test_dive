@@ -13,10 +13,10 @@ const Index = ({categories, products}) => {
 };
 
 export default Index;
-export async function getServerSideProps() {
-
-    const res = await axios.get(process.env.PUBLIC_URL + `/api/catMenu`);
-    const prod = await axios.get(process.env.PUBLIC_URL + `/api/products`);
+export async function getServerSideProps(ctx) {
+    const {host} = req.headers;
+    const res = await axios.get(`https://`+host+ `/api/catMenu`);
+    const prod = await axios.get(`https://`+host+ `/api/products`);
     return {
         props: {
             categories: res.data,

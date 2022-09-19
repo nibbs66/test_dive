@@ -6,8 +6,8 @@ import {useRouter} from "next/router";
 
 const AdminNavbar = () => {
     const router = useRouter()
-    const handleLogOut = () => {
-        signOut()
+    const handleLogOut = async() => {
+       await signOut()
         router.push('/')
     }
     const [showModal, setShowModal] = useState(false)
