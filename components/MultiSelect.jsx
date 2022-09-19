@@ -3,7 +3,7 @@ import axios from "axios";
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const MultiSelect = ({colors}) => {
+const MultiSelect = ({data}) => {
     const [animal, setAnimal] = useState(null);
     const [query, setQuery] = useState('')
     const [open, setOpen] = useState(false)
@@ -15,7 +15,7 @@ const MultiSelect = ({colors}) => {
     useEffect(()=>{
         setMapColor([])
         const newColors = () => {
-            colors.map((color)=>{
+            data?.map((color)=>{
                 setMapColor( (prev)=>[...prev, {
                     value: color.color,
                     label: color.color,
@@ -52,12 +52,12 @@ const MultiSelect = ({colors}) => {
                                     ))}
                                 </div>
                                 <Combobox.Button>
-                                    <ChevronUpDownIcon className={`border-l   h-5 w-5 text-gray-400  `} onClick={()=>setOpen(!open)} />
+                                    <ChevronUpDownIcon className={`border-l h-5 w-5 text-gray-400  `} onClick={()=>setOpen(!open)} />
                                 </Combobox.Button>
                             </div>
 
 
-                            {open && <div className={` mt-0.5 shadow-lg px-2 top-8 bg-white`}>
+                            {open && <div className={` mt-0.5 shadow-lg w-full top-8 bg-white`}>
                                 <Combobox.Options static className={`w-full text-slate-400 text-center pt-0.5`}>
                                     <div className={`relative flex items-center  gap-1 border-b border-slate-200`}>
                                         <MagnifyingGlassIcon className={` absolute h-4 w-4 left-1 text-slate-400`}/>

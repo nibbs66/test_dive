@@ -10,6 +10,7 @@ import {useSession} from "next-auth/react";
 import axios from "axios";
 import Select from '../../Select'
 import { HeartIcon} from '@heroicons/react/24/outline'
+import SingleSelect from "../../SingleSelect";
 const ProductPage = ({product}) => {
     const {data: session, status} = useSession()
     const router = useRouter()
@@ -246,6 +247,7 @@ const ProductPage = ({product}) => {
                             <div className='flex flex-col w-1/3'>
 
                                 <label className='pl-1 text-slate-400' htmlFor="">Size</label>
+
                                 <select  type="select"
                                          onChange={handleChange}
                                          name={`size`}

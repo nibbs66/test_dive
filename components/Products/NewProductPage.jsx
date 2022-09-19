@@ -251,6 +251,7 @@ const NewProductPage = ({category, productColors, productSizes}) => {
                             <div className={`flex flex-col gap-1 `}>
                                 <label className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
                                 <div className={` flex items-center gap-2`}>
+
                                     <input className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2`}
                                                name={`color`}
                                                onChange={(e) =>setColor(e.target.value)}
