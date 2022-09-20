@@ -9,6 +9,7 @@ const AdminNavbar = () => {
     const handleLogOut = async() => {
        await signOut().then(
            router.push('/')
+
        )
 
     }

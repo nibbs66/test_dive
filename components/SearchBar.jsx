@@ -17,9 +17,10 @@
 import {Fragment, useEffect, useState} from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { DocumentPlusIcon, FolderPlusIcon, FolderIcon, HashtagIcon, TagIcon } from '@heroicons/react/24/outline'
+import { DocumentPlusIcon, FolderPlusIcon, FolderIcon, HashtagIcon, TagIcon,CheckIcon, CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 import axios from "axios";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 const projects = [
     { id: 1, name: 'Workflow Inc. / Website Redesign', url: '/service' },
@@ -27,9 +28,9 @@ const projects = [
 ]
 const recent = ['']
 const quickActions = [
-    { name: 'Shop...', icon: DocumentPlusIcon, shortcut: 'N', url: '/shop' },
-    { name: 'Cursus...', icon: FolderPlusIcon, shortcut: 'F', url: '/cursus' },
-    { name: 'Rentals...', icon: HashtagIcon, shortcut: 'H', url: '/rental' },
+    { name: 'Shop...', icon: CheckIcon, shortcut: 'N', url: '/shop' },
+    { name: 'Cursus...', icon: CheckBadgeIcon, shortcut: 'F', url: '/cursus' },
+    { name: 'Rentals...', icon: CheckCircleIcon, shortcut: 'H', url: '/rental' },
     { name: 'Service...', icon: TagIcon, shortcut: 'L', url: '/service' },
 ]
 
@@ -112,39 +113,35 @@ const SearchBar = ({open, setOpen}) => {
                                             static
                                             className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto"
                                         >
-                                            <li className="p-2">
-                                                {query === '' && (
-                                                    <h2 className="mt-4 mb-2  px-3 text-xs font-semibold text-gray-900">Recent searches</h2>
-                                                )}
-                                                <ul className="text-sm text-gray-700">
-                                                    {(query === '' ? recent : filteredProjects).map((product) => (
-                                                        <Combobox.Option
-                                                            key={product._id}
-                                                            value={product.name}
-                                                            className={({ active }) =>
-                                                                classNames(
-                                                                    'flex cursor-default select-none items-center rounded-md px-3 py-2',
-                                                                    active && 'bg-gray-900 bg-opacity-5 text-gray-900'
-                                                                )
-                                                            }
-                                                        >
-                                                            {({ active }) => (
-                                                                <>
-                                                                    <FolderIcon
-                                                                        className={classNames(
-                                                                            'h-6 w-6 flex-none text-gray-900 text-opacity-40',
-                                                                            active && 'text-opacity-100'
-                                                                        )}
-                                                                        aria-hidden="true"
-                                                                    />
-                                                                    <span onClick={()=>handleClick(product)} className="ml-3 flex-auto truncate">{product.name}</span>
-                                                                    {active && <span className="ml-3 flex-none text-gray-500">Jump to...</span>}
-                                                                </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                    ))}
-                                                </ul>
-                                            </li>
+                                            <ul className="text-sm text-gray-700">
+                                                {( filteredProjects).map((product) => (
+                                                    <Combobox.Option
+                                                        key={product._id}
+                                                        value={product.name}
+                                                        className={({ active }) =>
+                                                            classNames(
+                                                                'flex cursor-pointer select-none items-center rounded-md px-3 py-2',
+                                                                active && 'bg-gray-900 bg-opacity-5 text-gray-900'
+                                                            )
+                                                        }
+                                                    >
+                                                        {({ active }) => (
+                                                            <>
+                                                                {active && <CheckIcon
+                                                                    className={classNames(
+                                                                        'h-6 w-6 flex-none text-gray-900 text-opacity-40',
+                                                                        active && 'text-opacity-100'
+                                                                    )}
+                                                                    aria-hidden="true"
+                                                                />}
+                                                                <span onClick={()=>handleClick(product)} className="ml-3 flex-auto truncate">{product.name}</span>
+                                                                {active && <span className="ml-3 flex-none text-gray-500">Jump to...</span>}
+                                                            </>
+                                                        )}
+                                                    </Combobox.Option>
+                                                ))}
+                                            </ul>
+
                                             {query === '' && (
                                                 <li className="p-2">
                                                     <h2 className="sr-only">Quick actions</h2>
@@ -160,22 +157,22 @@ const SearchBar = ({open, setOpen}) => {
                                                                     )
                                                                 }
                                                             >
+
                                                                 {({ active }) => (
                                                                     <>
-                                                                        <action.icon
+                                                                        {active && <CheckIcon
                                                                             className={classNames(
                                                                                 'h-6 w-6 flex-none text-gray-900 text-opacity-40',
                                                                                 active && 'text-opacity-100'
                                                                             )}
                                                                             aria-hidden="true"
-                                                                        />
-                                                                        <span className="ml-3 flex-auto truncate">{action.name}</span>
-                                                                        <span className="ml-3 flex-none text-xs font-semibold text-gray-500">
-                                    <kbd className="font-sans">⌘</kbd>
-                                    <kbd className="font-sans">{action.shortcut}</kbd>
-                                  </span>
+                                                                        />}
+                                                                        <span onClick={()=>router.push(action.url)} className="ml-3 flex-auto truncate">{action.name}</span>
+                                                                        {active && <span className="ml-3 flex-none text-gray-500">Jump to...</span>}
                                                                     </>
+
                                                                 )}
+
                                                             </Combobox.Option>
                                                         ))}
                                                     </ul>

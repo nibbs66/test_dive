@@ -13,41 +13,44 @@ import Table from "../../components/Table/Table";
 import TableDisplay from "../../components/Table/TableDisplay";
 import {Cursus} from "../../tableData";
 import axios from "axios";
+import ScheduleModal from "../../components/ScheduleModal";
+
 
 const Course = ({cursus}) => {
     const [index, setIndex] = useState(0)
     const [activeIndex, setActiveIndex] = useState(0);
+    const [showModal, setShowModal] = useState(false)
     const router = useRouter()
     const {id} = router.query
-const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
+    const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
     const courseSchedule = [
 
         {
             items: [   <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 sep 2022</span> ,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
-                <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
+                <button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
 
         },
         {
             items: [<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 oct 2022</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
-                <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
+                <button  onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
 
         },
         {
             items: [<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 nov 2022</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
-                <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
+                <button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
 
         },
         {
             items: [<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 dec 2022</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
-                <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
+                <button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
 
         },
     ]
@@ -57,14 +60,15 @@ const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
     console.log(cursus)
     return (
         <div className='flex flex-col w-screen min-h-fit m-auto mb-2 md:mb-auto  pt-1'>
-           <div>
-               <ClientHeader  title={cursus.cursus} lastPage={'/learn'}/>
-           </div>
+            <ScheduleModal setShowModal={setShowModal} showModal={showModal}/>
+            <div>
+                <ClientHeader  title={cursus.cursus} lastPage={'/learn'}/>
+            </div>
             <div className={'flex flex-col justify-center items-center md:items-start   md:gap-5 px-10 pt-5 '}>
                 <div className={'flex flex-col sm:flex-row mt-5 gap-10 lg:gap-0'}>
                     <div className={'flex items-center md:w-3/4 flex-col gap-10 '}>
                         <Image  src={cursus.img[index]} alt='' width={700} height={350} objectFit={'contain'}
-                               className=" h-3/4 w-3/4 object-contain rounded-md cursor-pointer" />
+                                className=" h-3/4 w-3/4 object-contain rounded-md cursor-pointer" />
 
                         <div className={'flex gap-5'}>
                             {cursus.img.map((img, idx)=>(
@@ -72,7 +76,7 @@ const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
                                         onClick={()=>handlePhoto(idx)}/>
                             ))}
                             <Image src={vid} alt="" height={100} width={100} objectFit="contain" className='cursor-pointer'
-                                   />
+                            />
                         </div>
                     </div>
                     <div className={'flex md:w-1/3 md:pr-5 '}>
@@ -87,44 +91,44 @@ const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
                     <span className={`uppercase`}>Call</span><span> RnG Diving</span><span  className={`uppercase`}> today to start your undersea adventure!!</span>
                 </div>
 
-                    <AccordionLayout
-                        title={`Wanneer start er een ${cursus.cursus}`}
-                        bg={'bg-blue-500'}
-                        text={'text-white'}
-                        titleSize={`text-xs  md:text-base`}
-                        mx={'mx-10'}
-                        width={`w-full`}
-                        bodyMargin={'mx-10'}
-                        index={0}
-                        activeIndex={activeIndex}
-                        setActiveIndex={setActiveIndex}
+                <AccordionLayout
+                    title={`Wanneer start er een ${cursus.cursus}`}
+                    bg={'bg-blue-500'}
+                    text={'text-white'}
+                    titleSize={`text-xs  md:text-base`}
+                    mx={'mx-10'}
+                    width={`w-full`}
+                    bodyMargin={'mx-10'}
+                    index={0}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
 
-                    >
-                        <div className={`hidden md:flex w-full`}>
-                       <TableDisplay tableTitle={true} title={'Upcoming Classe'} rows={courseSchedule} columns={Cursus} font={'text-slate-500'} textSize={'lg:text-2xl'}
-                                       PageSize={6} action={false} showButton={false}/>
-                        </div>
-                        <div className={`md:hidden flex justify-center flex-col gap-1 px-5 `}>
-                            {courseSchedule.map((item, idx)=>(
-                                item.items.map((each, idx)=>(
-                                    (idx + 1 < item.items.length) ?
+                >
+                    <div className={`hidden md:flex w-full`}>
+                        <TableDisplay tableTitle={true} title={'Upcoming Classe'} rows={courseSchedule} columns={Cursus} font={'text-slate-500'} textSize={'lg:text-2xl'}
+                                      PageSize={6} action={false} showButton={false}/>
+                    </div>
+                    <div className={`md:hidden flex justify-center flex-col gap-1 px-5 `}>
+                        {courseSchedule.map((item, idx)=>(
+                            item.items.map((each, idx)=>(
+                                (idx + 1 < item.items.length) ?
 
-                                       <div >
+                                    <div >
                                              <span  className={`text-sm `} key={idx}>
                                            {each}
                                        </span>
-                                       </div> :
+                                    </div> :
 
 
 
-                                        <span className={`text-xs`}>
+                                    <span className={`text-xs`}>
                                             {each}
                                         </span>
-                                ))
+                            ))
 
-                            ))}
-                        </div>
-                    </AccordionLayout>
+                        ))}
+                    </div>
+                </AccordionLayout>
 
 
             </div>
@@ -135,7 +139,7 @@ const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
     );
 };
 
-    export default Course;
+export default Course;
     Course.getLayout = function getLayout(page){
         return(
             <Client>

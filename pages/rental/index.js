@@ -4,29 +4,31 @@ import AccordionLayout from "../../components/Accordion/AccordionLayout";
 import {ScubaPackage, ScubaItem, DashboardUsers} from "../../tableData";
 import TableDisplay from "../../components/Table/TableDisplay";
 import ClientHeader from "../../components/ClientHeader";
-
+import ScheduleModal from "../../components/ScheduleModal";
 const Index = () => {
     const [activeIndex, setActiveIndex] = useState(0)
+    const [showModal, setShowModal] = useState(false)
     const packageData = [{items:[
-        <div className={`flex flex-col gap-1`}>
-            <span className={`font-bold uppercase text-slate-400`}>Rental of Full Equipment Set (Day or Weekend)</span>
-            <span  className={`text-slate-500`}>Includes a wetsuit, BCD, regulator, tank, weights, and a bag.</span>
-        </div>,
+            <div className={`flex flex-col gap-1`}>
+                <span className={`font-bold uppercase text-slate-400`}>Rental of Full Equipment Set (Day or Weekend)</span>
+                <span  className={`text-slate-500`}>Includes a wetsuit, BCD, regulator, tank, weights, and a bag.</span>
+            </div>,
             <span  className={`text-slate-500`}><span className={`md:hidden uppercase`}>Price:{' '}</span>€75.00</span>,
-            <button className={`bg-red-500 px-2 py-1 rounded text-white uppercase font-semibold  text-xs md:text-base`}>Reserve</button>
+            <button onClick={()=>setShowModal(true)} className={`bg-red-500 px-2 py-1 rounded text-white uppercase font-semibold  text-xs md:text-base`}>Reserve</button>
         ]},
-    {items:[
-        <div className={`flex flex-col gap-1`}>
-            <span className={`font-bold uppercase text-slate-400`}>Personal Gear Rental Set (Day or Weekend)</span>
-            <span className={`text-slate-500`}>Includes a mask, snorkel, pair of boots, and fins.</span>
-        </div>,
-            <span  className={`text-slate-500`}> <span className={`md:hidden uppercase`}>Price:{' '}</span>€45.00</span>,
-            <button className={`bg-red-500  px-2 py-1 rounded text-white uppercase font-semibold text-xs md:text-base`}>Reserve</button>
-    ]}]
+        {items:[
+                <div className={`flex flex-col gap-1`}>
+                    <span className={`font-bold uppercase text-slate-400`}>Personal Gear Rental Set (Day or Weekend)</span>
+                    <span className={`text-slate-500`}>Includes a mask, snorkel, pair of boots, and fins.</span>
+                </div>,
+                <span  className={`text-slate-500`}> <span className={`md:hidden uppercase`}>Price:{' '}</span>€45.00</span>,
+                <button onClick={()=>setShowModal(true)} className={`bg-red-500  px-2 py-1 rounded text-white uppercase font-semibold text-xs md:text-base`}>Reserve</button>
+            ]}]
+
 
     return (
         <div className={`min-h-screen w-screen`}>
-
+            <ScheduleModal showModal={showModal} setShowModal={setShowModal}/>
 
         <div className={`flex flex-col gap-5 my-5 w-full px-5 md:px-10 items-center justify-center`}>
             <ClientHeader title={'Te Huur'} lastPage={'/'}/>
