@@ -40,7 +40,7 @@ const ContactForm = ({subject, regarding}) => {
             console.log(res)
 
 
-            if (res.statusText === 'Created') {
+            if (res.status === 201) {
                 toast.success(res.data)
                 reset({fullName: '', email: '',  phone: '', message: ''})
             }
