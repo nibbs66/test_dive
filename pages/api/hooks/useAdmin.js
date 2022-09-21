@@ -4,11 +4,11 @@ import {fetcher} from "../../../components/helper/fetcher";
 
 export default function useRegister (){
 
-    const {data: messages, error, isValidating, mutate} = useSWR( `/api/messages/`, fetcher)
+    const {data: notifications, error, isValidating, mutate} = useSWR( `/api/messages/`, fetcher)
 
 
     return{
-        messages,
+        notifications,
         error,
         isValidating,
         mutate

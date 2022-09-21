@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import CustomerSearch from "./Pos/CustomerSearch";
+
 import Nieuw from "./Nieuw/Nieuw";
 import { useSession, signOut } from "next-auth/react"
 import useAdmin from '../pages/api/hooks/useAdmin'
@@ -7,7 +7,7 @@ import {EnvelopeIcon} from '@heroicons/react/24/outline'
 import Link from "next/link";
 const AdminNavbar = () => {
     const {data: session} = useSession()
-    const {messages, error, isValidating} = useAdmin()
+    const {notifications, error, isValidating} = useAdmin()
     const [showModal, setShowModal] = useState(false)
     const [message, setMessage] = useState(false)
     const [user, setUser] = useState({})
@@ -17,12 +17,15 @@ const AdminNavbar = () => {
         }else{
             setUser(null)
         }
-        if(messages?.length > 0){
+        if(notifications?.length > 0){
             setMessage(true)
+        }else{
+            setMessage(false)
         }
 
-    },[session, messages])
-    console.log(messages)
+
+    },[session, notifications])
+
     return (
         <div  className=" bg-white border-b border-slate-200 z-50">
             <Nieuw showModal={showModal} setShowModal={setShowModal} />
@@ -39,7 +42,7 @@ const AdminNavbar = () => {
                                 {message && <EnvelopeIcon className={`h-8 w-8 absolute animate-ping opacity-75 text-sky-400`}/>}
                                 <span className="flex h-3 w-3">
                                 <span className="absolute inline-flex right-2 -top-2 rounded-full h-5 w-5 bg-red-500"></span>
-                               <span className={`text-white text-sm absolute right-3.5 -top-2`}>{message ? messages.length : 0}</span>
+                               <span className={`text-white text-sm absolute right-3.5 -top-2`}>{message ? notifications.length : 0}</span>
                             </span>
                             </div>
                         </Link>
