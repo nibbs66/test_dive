@@ -1,24 +1,75 @@
-import React from 'react';
+import {useState, useMemo, useEffect} from "react";
+import axios from "axios";
+import toast, {Toaster} from 'react-hot-toast'
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import countryList from 'react-select-country-list'
+import phone from 'phone'
+import postalCodes from 'zipcodes-regex'
+import 'react-phone-number-input/style.css'
+
+import 'react-phone-input-2/lib/style.css'
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
 const ContactForm = ({subject, regarding}) => {
+    const schema = yup.object().shape({
+        fullName: yup.string().required('Required'),
+        email: yup.string()
+            .required('Required')
+            .email('is not valid')
+            .matches(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'is not valid'),
+        message: yup.string().required(),
+        phone: yup.string().required('Required'),
+    })
+
+    const { register, handleSubmit, setFocus, formState: {errors}, reset } = useForm({
+        resolver: yupResolver(schema),
+    });
+    const onSubmit = async(data) => {
+
+        try{
+            const res = await axios.post(`/api/messages`,
+                {
+                    fullName: data.fullName,
+                    phone: Number((data.phone).split(' ').join('')),
+                    email: data.email,
+                    subject: subject,
+                    regarding: regarding,
+                    message: data.message,
+                });
+            console.log(res)
+
+
+            if (res.statusText === 'Created') {
+                toast.success(res.data)
+                reset({fullName: '', email: '',  phone: '', message: ''})
+            }
+        }catch(err){
+            console.log(err)
+            //toast.error(err.response.data)
+
+
+        }
+    };
     return (
         <div className={`px-5 `}>
             <h2 className="text-2xl font-bold tracking-tight text-slate-500 sm:text-3xl mb-3">Contact Formulier</h2>
             <div className={`  grid grid-cols-5  gap-6`}>
                 <div className="bg-white lg:col-span-2">
                     <div className="">
-                        <form action="#" method="POST" className="grid grid-cols-1 gap-y-6">
+                        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-y-6">
                             <div>
                                 <label htmlFor="full-name" className="sr-only">
                                     Full name
                                 </label>
+
                                 <input
                                     type="text"
-                                    name="full-name"
-                                    id="full-name"
-                                    autoComplete="name"
-                                    className="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    placeholder="Naam"
+                                    {...register("fullName")}
+                                    id="fullName"
+                                    autoComplete="fullName"
+                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.fullName && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    placeholder={`${errors.fullName ? 'Naam Verplicht' : 'Naam'}`}
                                 />
                             </div>
                             <div>
@@ -27,11 +78,11 @@ const ContactForm = ({subject, regarding}) => {
                                 </label>
                                 <input
                                     id="email"
-                                    name="email"
+                                    {...register("email")}
                                     type="email"
                                     autoComplete="email"
-                                    className="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    placeholder="E-mailadres"
+                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.email && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    placeholder={`${errors.email ? 'E-mailadres Verplicht' : 'E-mailadres'}`}
                                 />
                             </div>
                             <div>
@@ -40,11 +91,11 @@ const ContactForm = ({subject, regarding}) => {
                                 </label>
                                 <input
                                     type="text"
-                                    name="phone"
+                                    {...register("phone")}
                                     id="phone"
                                     autoComplete="tel"
-                                    className="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    placeholder="Telefoonnummer"
+                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.phone && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    placeholder={`${errors.phone ? 'Telefoon Verplicht' : 'Telefoon'}`}
                                 />
                             </div>
                             <div>
@@ -53,16 +104,16 @@ const ContactForm = ({subject, regarding}) => {
                                 </label>
                                 <textarea
                                     id="message"
-                                    name="message"
+                                    {...register("message")}
                                     rows={4}
-                                    className="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    placeholder="Bericht"
+                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.message && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    placeholder={`${errors.message ? 'Bericht Verplicht' : 'Bericht'}`}
                                     defaultValue={''}
                                 />
                             </div>
                             <div>
                                 <button
-                                    type="submit"
+                                    type={`submit`}
                                     className="inline-flex uppercase justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 >
                                     Verstuur
