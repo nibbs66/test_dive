@@ -104,3 +104,47 @@ export const MessageGroupColumns = [
 
     { header: "Action", field: "action",  sortable: false },
 ];
+export const people = [
+    {
+        name: 'Remco Van \'t Hooft',
+        role: 'Course Director',
+        imageUrl:  remco,
+        twitterUrl: '#',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Patrick Van Merode',
+        role: 'Staff Instructor',
+        imageUrl:  patrick,
+        twitterUrl: '#',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Ronald Van Gils',
+        role: 'Instructor',
+        imageUrl:  ronald,
+        twitterUrl: '#',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Dennis De Jongh',
+        role: 'Instructor',
+        imageUrl:  dennis,
+        twitterUrl: '#',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Marcel Middeldorp',
+        role: 'Instructor',
+        imageUrl:  marcel,
+        twitterUrl: '#',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Pascal Van \'t Hooft',
+        role: 'Shop Staff',
+        imageUrl:  pascal,
+        twitterUrl: '#',
+        linkedinUrl: '#',
+    },
+]
