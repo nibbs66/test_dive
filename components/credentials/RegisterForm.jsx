@@ -115,7 +115,7 @@ const handleClick = () => {
                     <span className={`text-3xl text-slate-400 uppercase`}>Register</span>
                 </div>
                 <div className={`flex justify-center md:my-5 text-sm gap-2`}>
-                    <span>Already have an account?</span><span  onClick={handleClick} className={`text-blue-500 cursor-pointer`}>LogIn!</span>
+                    <span>Already have an account?</span><span  onClick={handleClick} className={`text-blue-500 cursor-pointer`}>Log In!</span>
                 </div>
                 <form className={`flex flex-col xl:w-1/2  w-3/4 items-center py-10 mx-5 md:border rounded md:shadow-xl text-slate-400`} onSubmit={handleSubmit(onSubmit)}>
                     <div  className={`grid md:grid-cols-2 gap-x-10 md:gap-y-2 pb-5  h-full content-around`}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
-const ContactForm = () => {
+const ContactForm = ({subject, regarding}) => {
     return (
         <div className={`px-5 `}>
             <h2 className="text-2xl font-bold tracking-tight text-slate-500 sm:text-3xl mb-3">Contact Formulier</h2>

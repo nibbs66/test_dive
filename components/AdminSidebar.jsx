@@ -8,7 +8,7 @@ import Danger from "./icons/Danger";
 import Timer from "./icons/Timer";
 import Calendar from "./icons/Calendar";
 import TrendingUp from "./icons/TrendingUp";
-
+import { WrenchIcon, AcademicCapIcon, ClockIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
 import AccordionLayout from "./Accordion/AccordionLayout";
 import Person from "./icons/Person";
 import Employee from "./icons/Employee";
@@ -30,211 +30,250 @@ const AdminSidebar = () => {
                     </a>
                 </Link>
             </div>
-           <div className={'flex flex-col gap-5 '}>
-               <AccordionLayout
-                   title={`main`}
-                   bg={'bg-slate-400'}
-                   mx={'mx-2'}
-                   bodyMargin={'mx-2'}
-                   text={'text-white'}
-                   index={0}
-                   activeIndex={activeIndex}
-                   setActiveIndex={setActiveIndex}
+            <div className={'flex flex-col gap-5 '}>
+                <AccordionLayout
+                    title={`main`}
+                    bg={'bg-slate-400'}
+                    mx={'mx-2'}
+                    bodyMargin={'mx-2'}
+                    text={'text-white'}
+                    index={0}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
 
-               >
-                   <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
-                       <Link href="/admin" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           dashboard
-                       </li>
-                       </Link>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Profile/>
-                           Profile
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Exit/>
-                           logout
-                       </li>
+                >
+                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                        <Link href="/admin" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Dashboard/>
+                                dashboard
+                            </li>
+                        </Link>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Profile/>
+                            Profile
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Exit/>
+                            logout
+                        </li>
 
-                   </ul>
-               </AccordionLayout>
-               <AccordionLayout
-                   title={`calendar`}
-                   bg={'bg-slate-400'}
-                   mx={'mx-2'}
-                   bodyMargin={'mx-2'}
-                   text={'text-white'}
-                   index={1}
-                   activeIndex={activeIndex}
-                   setActiveIndex={setActiveIndex}
+                    </ul>
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`Messages`}
+                    bg={'bg-slate-400'}
+                    mx={'mx-2'}
+                    bodyMargin={'mx-2'}
+                    text={'text-white'}
+                    index={5}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                >
+                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                        <Link href="/admin/messages" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <CalendarDaysIcon className={`h-6 w-6 `}/>
+                                Alles
+                            </li>
+                        </Link>
+                        <Link href="/admin/messages/cursus" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <AcademicCapIcon  className={`h-6 w-6 `}/>
+                                Cursus
+                            </li>
+                        </Link>
+                        <Link href="/admin/messages/tehuur" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <ClockIcon className={`h-6 w-6 `}/>
+                                Rental
+                            </li>
+                        </Link>
+                        <Link href="/admin/messages/service" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <WrenchIcon className={`h-6 w-6 `}/>
+                                Service
+                            </li>
+                        </Link>
 
-               >
-                   <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
-                       <Link href="/admin/calendar/monthly/alles" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Calendar/>
-                           Alles
-                       </li>
-                       </Link>
-                       <Link href="/admin/calendar/monthly/cursus" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <School/>
-                           Cursus
-                       </li>
-                       </Link>
-                       <Link href="/admin/calendar/monthly/service" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Danger/>
-                           Service
-                       </li>
-                       </Link>
-                           <Link href="/admin/calendar/monthly/tehuur" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Timer/>
-                           Rental
-                       </li>
-                           </Link>
-                   </ul>
+                    </ul>
 
-               </AccordionLayout>
-               <AccordionLayout
-                   title={`nieuw`}
-                   bg={'bg-slate-400'}
-                   bodyMargin={'mx-2'}
-                   mx={'mx-2'}
-                   text={'text-white'}
-                   index={2}
-                   activeIndex={activeIndex}
-                   setActiveIndex={setActiveIndex}
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`calendar`}
+                    bg={'bg-slate-400'}
+                    mx={'mx-2'}
+                    bodyMargin={'mx-2'}
+                    text={'text-white'}
+                    index={1}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
 
-               >
-                   <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
-                       <Link href="/admin/store" passHref>
-                           <li className={'flex gap-2 items-center cursor-pointer '}>
-                               <TrendingUp/>
-                               Sale
-                           </li>
-                       </Link>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <School/>
-                           Invoice
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           User
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           Product
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           dashboard
-                       </li>
-                       <Link href="/admin/rental_equipment/new" passHref>
-                           <li className={'flex gap-2 items-center cursor-pointer '}>
-                               <Rental/>
-                               Rentals
-                           </li>
-                       </Link>
-                   </ul>
+                >
+                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                        <Link href="/admin/calendar/monthly/alles" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Calendar/>
+                                Alles
+                            </li>
+                        </Link>
+                        <Link href="/admin/calendar/monthly/cursus" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <AcademicCapIcon  className={`h-6 w-6 `}/>
+                                Cursus
+                            </li>
+                        </Link>
+                        <Link href="/admin/calendar/monthly/service" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <WrenchIcon className={`h-6 w-6 `}/>
+                                Service
+                            </li>
+                        </Link>
+                        <Link href="/admin/calendar/monthly/tehuur" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <ClockIcon className={`h-6 w-6 `}/>
+                                Rental
+                            </li>
+                        </Link>
+                    </ul>
 
-               </AccordionLayout>
-               <AccordionLayout
-                   title={`lists`}
-                   bg={'bg-slate-400'}
-                   mx={'mx-2'}
-                   bodyMargin={'mx-2'}
-                   text={'text-white'}
-                   index={3}
-                   activeIndex={activeIndex}
-                   setActiveIndex={setActiveIndex}
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`nieuw`}
+                    bg={'bg-slate-400'}
+                    bodyMargin={'mx-2'}
+                    mx={'mx-2'}
+                    text={'text-white'}
+                    index={2}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
 
-               >
-                   <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
-                       <Link href="/admin/store" passHref>
-                           <li className={'flex gap-2 items-center cursor-pointer '}>
-                               <TrendingUp/>
-                               Sales
-                           </li>
-                       </Link>
-                       <Link href="/admin/users/customer" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Person/>
-                           Customers
-                       </li>
-                       </Link>
-                       <Link href="/admin/users/employee" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Employee/>
-                           Employees
-                       </li>
-                       </Link>
-                           <Link href="/admin/products" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Product/>
-                           Products
-                       </li>
-                           </Link>
-                       <Link href="/admin/orders" passHref>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Payment/>
-                           Orders
-                       </li>
-                       </Link>
-                       <Link href="/admin/rental_equipment" passHref>
-                           <li className={'flex gap-2 items-center cursor-pointer '}>
-                               <Rental/>
-                               Rentals
-                           </li>
-                       </Link>
-                   </ul>
-               </AccordionLayout>
+                >
+                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                        <Link href="/admin/store" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <TrendingUp/>
+                                Sale
+                            </li>
+                        </Link>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <School/>
+                            Invoice
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Dashboard/>
+                            User
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Dashboard/>
+                            Product
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Dashboard/>
+                            dashboard
+                        </li>
+                        <Link href="/admin/rental_equipment/new" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Rental/>
+                                Rentals
+                            </li>
+                        </Link>
+                    </ul>
 
-               <AccordionLayout
-                   title={`settings`}
-                   bg={'bg-slate-400'}
-                   mx={'mx-2'}
-                   bodyMargin={'mx-2'}
-                   text={'text-white'}
-                   index={4}
-                   activeIndex={activeIndex}
-                   setActiveIndex={setActiveIndex}
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`lists`}
+                    bg={'bg-slate-400'}
+                    mx={'mx-2'}
+                    bodyMargin={'mx-2'}
+                    text={'text-white'}
+                    index={3}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
 
-               >
-                   <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
-                       <Link href="/admin/site" passHref>
-                           <li className={'flex gap-2 items-center cursor-pointer '}>
-                               <Web/>
-                               Site
-                           </li>
-                       </Link>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <School/>
-                           Profile
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           Service
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           Rental
-                       </li>
-                       <li className={'flex gap-2 items-center cursor-pointer '}>
-                           <Dashboard/>
-                           dashboard
-                       </li>
-                   </ul>
-               </AccordionLayout>
+                >
+                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                        <Link href="/admin/store" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <TrendingUp/>
+                                Sales
+                            </li>
+                        </Link>
+                        <Link href="/admin/users/customer" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Person/>
+                                Customers
+                            </li>
+                        </Link>
+                        <Link href="/admin/users/employee" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Employee/>
+                                Employees
+                            </li>
+                        </Link>
+                        <Link href="/admin/products" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Product/>
+                                Products
+                            </li>
+                        </Link>
+                        <Link href="/admin/orders" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Payment/>
+                                Orders
+                            </li>
+                        </Link>
+                        <Link href="/admin/rental_equipment" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Rental/>
+                                Rentals
+                            </li>
+                        </Link>
+                    </ul>
+                </AccordionLayout>
+
+                <AccordionLayout
+                    title={`settings`}
+                    bg={'bg-slate-400'}
+                    mx={'mx-2'}
+                    bodyMargin={'mx-2'}
+                    text={'text-white'}
+                    index={4}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+
+                >
+                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                        <Link href="/admin/site" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Web/>
+                                Site
+                            </li>
+                        </Link>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <School/>
+                            Profile
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Dashboard/>
+                            Service
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Dashboard/>
+                            Rental
+                        </li>
+                        <li className={'flex gap-2 items-center cursor-pointer '}>
+                            <Dashboard/>
+                            dashboard
+                        </li>
+                    </ul>
+                </AccordionLayout>
 
 
 
 
 
-           </div>
+            </div>
 
 
         </div>

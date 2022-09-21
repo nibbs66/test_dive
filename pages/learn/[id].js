@@ -60,7 +60,7 @@ const Course = ({cursus}) => {
     console.log(cursus)
     return (
         <div className='flex flex-col w-screen min-h-fit m-auto mb-2 md:mb-auto  pt-1'>
-            <ScheduleModal setShowModal={setShowModal} showModal={showModal}/>
+            <ScheduleModal setShowModal={setShowModal} showModal={showModal}  subject={'cursus'} regarding={cursus.cursus}/>
             <div>
                 <ClientHeader  title={cursus.cursus} lastPage={'/learn'}/>
             </div>

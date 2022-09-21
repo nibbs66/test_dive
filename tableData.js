@@ -86,3 +86,21 @@ export const ProductsColumns = [
     {field: "new", header: "New", sortable: true},
     { header: "Action", field: "action",  sortable: false },
 ];
+export const MessageColumns = [
+
+    {field: "fullName", header: "Naam", sortable: true},
+    {field: "phone", header: "Telefoon", sortable: true},
+    {field: "email", header: "Email", sortable: true},
+    {field: "subject", header: "Subject", sortable: true},
+
+    { header: "Action", field: "action",  sortable: false },
+];
+export const MessageGroupColumns = [
+
+    {field: "fullName", header: "Naam", sortable: true},
+    {field: "phone", header: "Telefoon", sortable: true},
+    {field: "email", header: "Email", sortable: true},
+    {field: "regarding", header: "Regarding", sortable: true},
+
+    { header: "Action", field: "action",  sortable: false },
+];
