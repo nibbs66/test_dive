@@ -1,3 +1,10 @@
+import remco from "./public/img/staff/remco.jpeg";
+
+import marcel from './public/img/staff/Marcel_mi.jpeg'
+import dennis from './public/img/staff/Dennis.jpeg'
+import pascal from './public/img/staff/pascal.jpeg'
+import patrick from './public/img/staff/Patrick_(2).jpeg'
+import ronald from './public/img/staff/Ronald.jpeg'
 
 
 export const userColumns = [
