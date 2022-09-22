@@ -11,7 +11,12 @@ import 'react-phone-number-input/style.css'
 
 import 'react-phone-input-2/lib/style.css'
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
+import {useSession} from "next-auth/react";
+import useUser from '../pages/api/hooks/useUser'
 const ContactForm = ({subject, regarding}) => {
+    const {user} = useUser()
+    const {data: session, status} = useSession()
+
     const schema = yup.object().shape({
         fullName: yup.string().required('Required'),
         email: yup.string()
@@ -36,6 +41,7 @@ const ContactForm = ({subject, regarding}) => {
                     subject: subject,
                     regarding: regarding,
                     message: data.message,
+                    userId: user._id,
                 });
             console.log(res)
 
@@ -53,7 +59,7 @@ const ContactForm = ({subject, regarding}) => {
     };
     return (
         <div className={`px-5 `}>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-500 sm:text-3xl mb-3">Contact Formulier</h2>
+
             <div className={`  grid grid-cols-5  gap-6`}>
                 <div className="bg-white lg:col-span-2">
                     <div className="">
@@ -68,7 +74,7 @@ const ContactForm = ({subject, regarding}) => {
                                     {...register("fullName")}
                                     id="fullName"
                                     autoComplete="fullName"
-                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.fullName && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    className={`block w-full text-slate-500 rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.fullName && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
                                     placeholder={`${errors.fullName ? 'Naam Verplicht' : 'Naam'}`}
                                 />
                             </div>
@@ -81,7 +87,7 @@ const ContactForm = ({subject, regarding}) => {
                                     {...register("email")}
                                     type="email"
                                     autoComplete="email"
-                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.email && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    className={`block w-full text-slate-500 rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.email && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
                                     placeholder={`${errors.email ? 'E-mailadres Verplicht' : 'E-mailadres'}`}
                                 />
                             </div>
@@ -94,7 +100,7 @@ const ContactForm = ({subject, regarding}) => {
                                     {...register("phone")}
                                     id="phone"
                                     autoComplete="tel"
-                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.phone && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    className={`block w-full text-slate-500 rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.phone && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
                                     placeholder={`${errors.phone ? 'Telefoon Verplicht' : 'Telefoon'}`}
                                 />
                             </div>
@@ -106,7 +112,7 @@ const ContactForm = ({subject, regarding}) => {
                                     id="message"
                                     {...register("message")}
                                     rows={4}
-                                    className={`block w-full rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.message && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
+                                    className={`block w-full text-slate-500 rounded-md border-slate-300 py-3 px-4 placeholder-slate-400 shadow-sm focus:outline-0 focus:border-slate-300 ${errors.message && 'border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold'}`}
                                     placeholder={`${errors.message ? 'Bericht Verplicht' : 'Bericht'}`}
                                     defaultValue={''}
                                 />
@@ -114,9 +120,10 @@ const ContactForm = ({subject, regarding}) => {
                             <div>
                                 <button
                                     type={`submit`}
-                                    className="inline-flex uppercase justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    className="inline-flex gap-2 uppercase justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 >
-                                    Verstuur
+                                    <EnvelopeIcon className={`h-6 w-6`}/>
+                                    stuur
                                 </button>
                             </div>
                         </form>

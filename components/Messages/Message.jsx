@@ -1,18 +1,20 @@
-import React from 'react';
-import {ChevronLeftIcon } from '@heroicons/react/24/outline'
+import {useState} from 'react';
+import {ChevronLeftIcon, EnvelopeIcon} from '@heroicons/react/24/outline'
 import Link from "next/link";
 import axios from "axios";
 import useAdmin from '../../pages/api/hooks/useAdmin'
 import {useRouter} from "next/router";
+import ReplyModal from "./ReplyModal";
 const Message = ({messages}) => {
     const router = useRouter()
     const {notifications, mutate, isValidating} = useAdmin()
+    const [showModal, setShowModal] = useState(false)
     const handleDelete = async () => {
         try{
             const res = await axios.delete(`/api/messages/${messages?._id}`)
             if(res.status === 200){
                 mutate()
-                router.push('/admin')
+               await router.push('/admin')
             }
         }catch(err){
             console.log(err)
@@ -22,6 +24,7 @@ const Message = ({messages}) => {
     return (
         <div>
             <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+                <ReplyModal showModal={showModal} setShowModal={setShowModal} messages={messages}/>
                 <div className="px-4 py-5 sm:px-6">
                     <h3 className="text-lg font-lg leading-6 text-slate-500 uppercase">{messages.subject}</h3>
 
@@ -54,14 +57,17 @@ const Message = ({messages}) => {
                     </dl>
                 </div>
             </div>
-            <div className={`flex justify-between my-5 gap-5 text-white uppercase font-bold px-10`}>
+            <div className={`flex justify-around my-5 gap-5 text-white uppercase font-bold px-10`}>
                 <Link href={`/admin/messages`}>
                     <button className={`flex items-center justify-center  bg-red-500 hover:bg-red-700 px-4 py-2 uppercase rounded`}>
                         <ChevronLeftIcon className={`h-4 w-4`}/>
                         Terug
                     </button>
                 </Link>
-                <button className={`bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded uppercase`}>Reply</button>
+                <button onClick={()=>setShowModal(true)} className={` flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded uppercase`}>
+                    <EnvelopeIcon className={`h-6 w-6`}/>
+                    Reply
+                </button>
                 <button onClick={handleDelete} className={`bg-red-500 hover:bg-red-700 px-4 py-2 uppercase rounded`}>Delete</button>
             </div>
         </div>
