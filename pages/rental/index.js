@@ -28,7 +28,7 @@ const Index = () => {
 
     return (
         <div className={`min-h-screen w-screen`}>
-            <ScheduleModal showModal={showModal} setShowModal={setShowModal} subject={'tehuur'} cursus={'duiken tank'}/>
+            <ScheduleModal showModal={showModal} setShowModal={setShowModal} subject={'Tehuur'} regarding={'Full Set'}/>
 
         <div className={`flex flex-col gap-5 my-5 w-full px-5 md:px-10 items-center justify-center`}>
             <ClientHeader title={'Te Huur'} lastPage={'/'}/>

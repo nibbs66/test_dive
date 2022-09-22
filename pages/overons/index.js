@@ -41,7 +41,7 @@ const Index = () => {
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
               >
-                  <ContactForm/>
+                  <ContactForm subject={`Alles`}/>
 
               </AccordionLayout>
               <AccordionLayout
