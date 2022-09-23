@@ -4,12 +4,11 @@ const RentalSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true,
             maxlength: 60
         },
         modelId: {
             type: String,
-            required: true,
+
         },
         gender: {
             type: String,
@@ -46,11 +45,6 @@ const RentalSchema = new mongoose.Schema(
         stock: {
             type: Number,
 
-        },
-
-        aanbiedingen: {
-            type: Boolean,
-            default: false
         },
         purchaseType: {
             type: String,
