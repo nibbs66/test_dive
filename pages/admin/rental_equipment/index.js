@@ -11,38 +11,40 @@ const Index = ({rentals}) => {
     useEffect(()=>{
         setData([])
 
-        rentals.map((product, idx)=>{
+        const createRental = async() => {
+            await rentals.map((product, idx)=>{
 
 
-            let stockText;
+                let stockText;
 
 
-            if(product.stock > 5){
+                if(product.stock > 5){
 
-                stockText = 'text-green-700'
-            }
-            if(product.stock < 5){
+                    stockText = 'text-green-700'
+                }
+                if(product.stock < 5){
 
-                stockText = 'text-red-700'
-            }
+                    stockText = 'text-red-700'
+                }
 
 
-            setData( (prev)=>[...prev, {
-                id: product._id,
-                items: [
+                setData( (prev)=>[...prev, {
+                    id: product._id,
+                    items: [
 
-                    <span key={idx}>{product.name.slice(0, 10)}...</span>,
-                    product.category,
-                    product.halfDayPrice,
-                    product.fullDayPrice,
-                    <span  key={idx} className={`${stockText} uppercase font-bold`}>{product.stock}</span>,
+                        <span key={idx}>{product.name.slice(0, 10)}...</span>,
+                        product.category,
+                        product.halfDayPrice,
+                        product.fullDayPrice,
+                        <span  key={idx} className={`${stockText} uppercase font-bold`}>{product.stock}</span>,
 
-                    <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`}  id={product._id}/>
-                ]
-            }])
+                        <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`}  id={product._id}/>
+                    ]
+                }])
 
-        })
-
+            })
+        }
+        createRental()
 
     },[rentals])
 
