@@ -6,7 +6,6 @@ import pascal from './public/img/staff/pascal.jpeg'
 import patrick from './public/img/staff/Patrick_(2).jpeg'
 import ronald from './public/img/staff/Ronald.jpeg'
 
-
 export const userColumns = [
     { header: "Avatar", field: "avatar" , sortable: false },
     { header: "Name", field: "name",  sortable: true },
@@ -21,7 +20,7 @@ export const orderColumns = [
     {field: "quantity", header: "Quantity", sortable: true},
     {field: "amount", header: "Total", sortable: true},
     { header: "Action", field: "action", sortable: false },
-    ];
+];
 
 export const certificationColumns = [
     {field: "number", header: "Dive Number",  sortable: true},
@@ -73,7 +72,8 @@ export const DashboardOrders = [
 
 export const ScubaPackage = [
     { header: "Package", field: "package" },
-    { header: "Price", field: "price" },
+    { header: "Dag", field: "dag" },
+    { header: "Weekend", field: "Weekend" },
     { header: "Reserve", field: "reserve" },
 ]
 
@@ -89,8 +89,17 @@ export const ProductsColumns = [
     {field: "category", header: "Category", sortable: true},
     {field: "cost", header: "Cost", sortable: true},
     {field: "price", header: "Price", sortable: true},
-    {field: "inStock", header: "inStock", sortable: true},
+    {field: "stock", header: "Stock", sortable: true},
     {field: "new", header: "New", sortable: true},
+    { header: "Action", field: "action",  sortable: false },
+];
+export const RentalTableColumns = [
+
+    {field: "name", header: "Name", sortable: true},
+    {field: "category", header: "Category", sortable: true},
+    {field: "halfDayPrice", header: "1/2 Dag Prijs", sortable: true},
+    {field: "fullDayPrice", header: "Dag Prijs", sortable: true},
+    {field: "stock", header: "Stock", sortable: true},
     { header: "Action", field: "action",  sortable: false },
 ];
 export const MessageColumns = [
