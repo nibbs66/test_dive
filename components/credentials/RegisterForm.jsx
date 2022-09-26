@@ -10,7 +10,7 @@ import countryList from 'react-select-country-list'
 import phone from 'phone'
 import postalCodes from 'zipcodes-regex'
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import Input, { getCountries, getCountryCallingCode } from 'react-phone-number-input/input';
 import PhoneInput2 from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -20,6 +20,7 @@ const RegisterForm = () => {
     const router = useRouter()
     const countries = useMemo(() => countryList().getData(), [])
     const [country, setCountry] = useState('NL')
+    const [countryCode, setCountryCode] = useState(getCountryCallingCode('NL'))
     const [userType, setUserType]= useState(initialUser)
     const [number, setNumber] = useState('')
     const [value, setValue] = useState()
@@ -61,14 +62,14 @@ const RegisterForm = () => {
     const { register, handleSubmit, setFocus, formState: {errors}, reset } = useForm({
         resolver: yupResolver(schema),
     });
-   useEffect(()=>{
-       setFocus('firstName', {shouldSelect: true})
-   },[setFocus])
+    useEffect(()=>{
+        setFocus('firstName', {shouldSelect: true})
+    },[setFocus])
     const onSubmit = async(data) => {
-       if(userNameError){
-           setUserNameError(false)
-       }
-
+        if(userNameError){
+            setUserNameError(false)
+        }
+        const telephone = (Number((countryCode + data.phone).split(' ').join('')))
         try{
             const res = await axios.post(`/api/users`,
                 {
@@ -76,7 +77,7 @@ const RegisterForm = () => {
                     lastName: data.lastName,
                     password: data.password,
                     personal: {
-                        phone: Number((data.phone).split(' ').join('')),
+                        phone: telephone,
                         email: data.email,
                         username: data.username
                     },
@@ -93,18 +94,22 @@ const RegisterForm = () => {
 
             if (res.statusText === 'Created') {
                 toast.success(res.data)
-                reset({username: '', password: ''})
+                reset({username: '', password: '', confirmPassword: '',
+                    firstName: '', lastName: '',  phone: '', email: '', address: '', city: '', postalCode: '',
+                    country: ''
+
+                })
             }
         }catch(err){
             console.log(err)
-             //toast.error(err.response.data)
+            //toast.error(err.response.data)
             setUserNameError(true)
 
         }
     };
-const handleClick = () => {
-    router.push('/login')
-}
+    const handleClick = () => {
+        router.push('/login')
+    }
 
 
     return (
@@ -115,7 +120,7 @@ const handleClick = () => {
                     <span className={`text-3xl text-slate-400 uppercase`}>Register</span>
                 </div>
                 <div className={`flex justify-center md:my-5 text-sm gap-2`}>
-                    <span>Already have an account?</span><span  onClick={handleClick} className={`text-blue-500 cursor-pointer`}>Log In!</span>
+                    <span>Already have an account?</span><span  onClick={handleClick} className={`text-blue-500 cursor-pointer`}>LogIn!</span>
                 </div>
                 <form className={`flex flex-col xl:w-1/2  w-3/4 items-center py-10 mx-5 md:border rounded md:shadow-xl text-slate-400`} onSubmit={handleSubmit(onSubmit)}>
                     <div  className={`grid md:grid-cols-2 gap-x-10 md:gap-y-2 pb-5  h-full content-around`}>
@@ -176,6 +181,7 @@ const handleClick = () => {
                                      {...register("country")}
                                      onChange={(e) => {
                                          setCountry(e.target.value)
+                                         setCountryCode(getCountryCallingCode(e.target.value))
                                          setCode(postalCodes[e.target.value])
                                      }}
                             >
@@ -191,13 +197,13 @@ const handleClick = () => {
                             <label className={`${errors.phone && 'text-red-500 font-bold'}`} htmlFor="">
                                 Phone {errors.phone?.message}
                             </label>
-                            <PhoneInput className={`border rounded border-slate-600 text-sm text-slate-500 p-1 focus:outline-0 ${errors.phone && 'border-2 border-red-500'}`}
-                                        {...register("phone")}
 
-                                        placeholder="Enter phone number"
-                                        defaultCountry={country}
-                                        value={value}
-                                        onChange={setValue}/>
+                            <Input   className={` border rounded border-slate-600 text-sm text-slate-500 focus:outline-0 ${errors.phone && 'border-2 border-red-500'}`}
+                                     {...register("phone")}
+
+                                     defaultCountry={country}
+                                     value={value}
+                                     onChange={setValue}/>
 
 
                         </div>
