@@ -150,7 +150,7 @@ const AdminSidebar = () => {
 
                 >
                     <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
-                        <Link href="/admin/store" passHref>
+                        <Link href="/admin/store" >
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <TrendingUp/>
                                 Sale
@@ -160,14 +160,19 @@ const AdminSidebar = () => {
                             <School/>
                             Invoice
                         </li>
-                        <li className={'flex gap-2 items-center cursor-pointer '}>
-                            <Dashboard/>
-                            User
-                        </li>
-                        <li className={'flex gap-2 items-center cursor-pointer '}>
-                            <Dashboard/>
-                            Product
-                        </li>
+                        <Link href={`/admin/users/user/new`}>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Dashboard/>
+                                User
+                            </li>
+                        </Link>
+                        <Link href={`/admin/products/new`}>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <Dashboard/>
+                                Product
+                            </li>
+                        </Link>
+
                         <li className={'flex gap-2 items-center cursor-pointer '}>
                             <Dashboard/>
                             dashboard
