@@ -15,6 +15,7 @@ import useUser from "../../pages/api/hooks/useUser";
 
 const CartLogin = () => {
     const {cart,mutateCart,isValidating} = useUser()
+    const [originalCart, setOriginalCart] = useState(cart)
     const router = useRouter()
     const schema = yup.object().shape({
         username: yup.string().required('Required'),
@@ -37,22 +38,46 @@ const CartLogin = () => {
                 username:  data.username,
                 password:   data.password,
             });
+            console.log('signIn info',res)
 
             if(res.error){
                 toast.error(res.error)
 
             }else if(res.ok){
-                toast.success(`Welcome Back!!`)
-                await getSession()
+                const session = await getSession()
+                try{
+                    originalCart.items.map(async (newItem)=>{
+                        const updateCart = await axios.put(`/api/cart?cart=${session?.id}`,
+
+                            {  items: {
+                                    productId: newItem._id,
+                                    color: newItem.color,
+                                    size: newItem.size,
+                                    quantity: newItem.quantity,
+                                    name: newItem.name,
+                                    img: newItem.img,
+                                    price: newItem.price,
+                                    modelId: newItem.modelId
+                                },
+                                addToTotal: newItem.price * newItem.quantity,
+                            });
+                        console.log(updateCart.data)
+                    })
+                    toast.success(`Welcome Back!!`)
+                    mutateCart()
+                }catch(err){
+                    console.log(err)
+                }
+
                 reset()
-                router.push(`/cart/${cart._id}`)
+                //router.push(`/cart/${cart._id}`)
 
             }
         }catch(err){
             console.log(err)
         }
     }
-
+    //console.log(originalCart)
     return (
         <form className='px-5 gap-3  flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
             <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'

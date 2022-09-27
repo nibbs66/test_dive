@@ -6,6 +6,7 @@ import ClientHeader from "../../../components/ClientHeader";
 import NewCard from "../../../components/Card/NewCard";
 import Image from "next/image";
 import Paginate from "../../../components/Paginate/Paginate";
+import NoPic from "../../../components/icons/NoPic";
 const Category = ({category, subCat}) => {
     const router = useRouter()
     const {cat} = router.query
@@ -33,7 +34,9 @@ const Category = ({category, subCat}) => {
                         <div onClick={()=>handleClick(item._id)}  key={item._id}>
                             <NewCard>
                                 <div className=' flex justify-center'>
-                             <Image src={`/img/${item.img[0]}`} alt="" width={100} height={100} objectFit="contain"/>
+                                    {item.img.length > 0 ?
+                                        <Image src={`${item.img[0]}`} alt="" width={100} height={100} objectFit="contain"/>  :
+                                        <NoPic height={`h-24`} width={`h-24`}/>  }
                                 </div>
 
                                    <div className='flex pt-5 pr-2 justify-center lg:justify-end'>
