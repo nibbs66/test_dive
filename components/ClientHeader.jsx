@@ -1,7 +1,7 @@
 import React from 'react';
 import ArrowBack from "./icons/ArrowBack";
 import {useRouter} from "next/router";
-
+import {ChevronDoubleLeftIcon} from '@heroicons/react/24/outline'
 const ClientHeader = ({title, lastPage}) => {
     const router = useRouter()
     const handleClick = () => {
@@ -12,10 +12,10 @@ const ClientHeader = ({title, lastPage}) => {
             <div className="flex items-center sm:justify-around justify-evenly pt-6 uppercase text-slate-400 font-thin w-screen">
                 <div onClick={handleClick} className="flex items-center gap-1 cursor-pointer hover:text-slate-600  md:text-3xl">
                     <div className={`hidden sm:block`}>
-                        <ArrowBack  height={'h-8'} width={'w-8'}/>
+                        <ChevronDoubleLeftIcon className={`h-8 w-8`}/>
                     </div>
                     <div  className={`sm:hidden block`}>
-                        <ArrowBack  height={'h-6'} width={'w-6'}/>
+                        <ChevronDoubleLeftIcon  className={`h-8 w-8`}/>
                     </div>
                     <span >Terug</span>
 
