@@ -3,15 +3,14 @@ import ProductPageDisplay from "./ProductPageDisplay";
 import AccordionLayout from "../Accordion/AccordionLayout";
 import Upload from "../icons/Upload";
 import Image from "next/image";
-import Submit from "../icons/Submit";
-import MultiSelect from '../MultiSelect'
+
 import {ArrowUpTrayIcon} from '@heroicons/react/24/outline'
 import axios from "axios";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import app from "../../lib/firebase";
 import toast, {Toaster} from 'react-hot-toast'
-import SingleSelect from "../SingleSelect";
-import ComboboxDisplay from "../ComboboxDisplay";
+
+
 
 const NewProductPage = ({category, productColors, productSizes}) => {
     const [inputs, setInputs] = useState({})
