@@ -12,7 +12,7 @@ const Index = ({products, categories}) => {
         setData([])
 
         products.map((product, idx)=>{
-            let stock;
+
             let isNew;
             let stockText;
             let newText;
@@ -24,12 +24,12 @@ const Index = ({products, categories}) => {
                 isNew = 'Nee'
                 newText = 'text-red-700'
             }
-            if(product.inStock){
-                stock = 'Ja'
-                stockText = 'text-blue-700'
+            if(product.stock > 5){
+
+                stockText = 'text-green-700'
             }
-            if(!product.inStock){
-                stock = 'Nee'
+            if(product.stock < 5){
+
                 stockText = 'text-red-700'
             }
 
@@ -42,9 +42,9 @@ const Index = ({products, categories}) => {
                     product.categories[0],
                     product.cost,
                     product.price.toFixed(2),
-                    <span  key={idx} className={`${stockText} uppercase font-bold`}>{stock}</span>,
+                    <span  key={idx} className={`${stockText} uppercase font-bold`}>{product.stock}</span>,
                     <span  key={idx} className={`${newText} uppercase font-bold`}>{isNew}</span>,
-                    <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`}  id={product._id}/>
+                    <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  id={product._id}/>
                 ]
             }])
 
@@ -52,7 +52,15 @@ const Index = ({products, categories}) => {
 
 
     },[products])
-
+    const handleDelete = async(id) => {
+        try{
+            const res = await axios.delete(`/api/products/${id}`)
+            console.log(res.data)
+        }catch(err){
+            console.log(err)
+        }
+        console.log(id)
+    }
 
     return (
         <div className={`p-10`}>

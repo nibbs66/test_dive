@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import {ArrowLeftIcon, ArrowRightIcon} from '@heroicons/react/24/outline'
 import { usePagination, DOTS} from './usePagination';
 
 const Paginate = (props) => {
@@ -47,19 +47,17 @@ const Paginate = (props) => {
         <ul className="flex items-center justify-end pt-5 pr-16 space-x-1 text-sm ">
             <li
                 onClick={onPrevious}
-                className="flex items-center px-2 py-1 text-gray-500 bg-gray-300 rounded-md  hover:bg-blue-400 hover:text-white" >
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
-                </svg>
+
+                className="flex items-center px-2 py-1.5 text-gray-500 bg-gray-300 rounded-md  hover:bg-blue-400 hover:text-white" >
+                <ArrowLeftIcon className={`w-4 h-4`}/>
+
             </li>
-            {paginationRange.map((pageNumber)=>{
+            {paginationRange.map((pageNumber,idx)=>{
                 if(pageNumber === DOTS){
                     return  <li className="px-2 py-1 text-gray-700 bg-gray-200 rounded-md hover:bg-blue-400 hover:text-white">&#8230;</li>
                 }
                 return (
-                    <li
+                    <li key={idx}
                         onClick={()=> onPageChange(pageNumber)}
                         className="px-2 py-1 text-gray-700 bg-gray-200 rounded-md hover:bg-blue-400 hover:text-white">
                         {pageNumber}
@@ -68,12 +66,10 @@ const Paginate = (props) => {
             })}
             <li
                 onClick={onNext}
-                className="px-2 py-1 text-gray-500 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                </svg>
+                className="px-2 py-1.5 text-gray-500 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white">
+                <ArrowRightIcon className={`w-4 h-4`}/>
+
+
             </li>
         </ul>
     );
