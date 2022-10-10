@@ -13,7 +13,7 @@ const Index = ({categories, products}) => {
 };
 
 export default Index;
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(req, res) {
     const {host} = req.headers;
     const res = await axios.get(`https://`+host+ `/api/catMenu`);
     const prod = await axios.get(`https://`+host+ `/api/products`);
