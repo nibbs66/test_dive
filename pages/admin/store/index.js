@@ -1,7 +1,6 @@
 import React from 'react';
 import Pos from "../../../components/Pos/Pos";
 import axios from "axios";
-
 import Admin from "../../../components/layout/Admin";
 
 const Index = ({categories, products}) => {
@@ -13,8 +12,8 @@ const Index = ({categories, products}) => {
 };
 
 export default Index;
-export async function getServerSideProps(req, res) {
-    const {host} = req.headers;
+export async function getServerSideProps(ctx) {
+    const host = ctx.req.headers.host;
     const cat = await axios.get(`https://`+host+ `/api/catMenu`);
     const prod = await axios.get(`https://`+host+ `/api/products`);
     return {
