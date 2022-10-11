@@ -115,6 +115,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
         },
     pages: {
             signIn: '/',
+            signOut: '/',
             error: '/'
     }
 

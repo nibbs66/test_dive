@@ -26,9 +26,9 @@ const AdminNavbar = () => {
         }
 
     },[session, notifications])
-    const logOut = () => {
-        signOut()
-        router.push('/')
+    const logOut = async() => {
+        await  signOut({ callbackUrl: process.env.PUBLIC_URL })
+
     }
     return (
         <div  className=" bg-white border-b border-slate-200 z-50">
