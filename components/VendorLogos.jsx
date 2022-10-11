@@ -9,7 +9,7 @@ const VendorLogos = ({images, as}) => {
                 <div key={idx}  className='flex items-center py-2 bg-repeat-x'>
                     <Image  src={img.pic.img} alt='' height={200}
                             width={200} priority={true} objectFit='contain' as={as}
-                            crossOrigin="anonymous"/>
+                          />
                 </div>
 
 
