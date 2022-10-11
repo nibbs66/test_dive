@@ -39,7 +39,7 @@ const Login = () => {
                 username:  data.username,
                 password:   data.password,
             });
-            console.log(res)
+
             if(res.error){
                 toast.error(res.error)
 
