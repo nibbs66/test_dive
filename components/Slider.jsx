@@ -1,10 +1,25 @@
-import {useState, useEffect} from 'react';
-import Image from "next/image";
+import {Fragment, useState, useEffect} from 'react'
+import {Transition } from '@headlessui/react'
+import { useTimeoutFn } from 'react-use'
+import Image from 'next/image'
 import Link from "next/link";
+const NewSlider = ({images, as}) => {
+    const [isShowing, setIsShowing] = useState(true)
+    const [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 1000)
+    const [carousel, setCarousel] = useState([])
+    const [index, setIndex] = useState(0)
+    const [bIndex, setBIndex] = useState(0)
 
-const Slider = ({images, as}) => {
-    const[index, setIndex] = useState(0)
 
+    useEffect(() =>{
+
+        images.map((img)=>{
+
+            if(img.pic.category === 'webPic'){
+                setCarousel(prev=>[...prev, img])
+            }
+        })
+    },[images])
     const buttonLinks = [
         <Link  href="/shop" passHref>
             <button className='flex justify-center whitespace-nowrap  ml-16 -mt-16 uppercase  bg-green-500 hover:bg-green-500/90 p-5 lg:p-10  lg:text-4xl text-xl rounded-xl text-white font-light hover:font-normal'>
@@ -30,42 +45,57 @@ const Slider = ({images, as}) => {
     useEffect(()=>{
 
         const interval = setInterval(()=>{
+            if(bIndex  + 1 < buttonLinks.length){
+                setBIndex(bIndex + 1)
+            }else{
+                setBIndex(0)
+            }
 
-            if(index + 1 < buttonLinks.length){
+            if(index + 1 < carousel.length){
 
                 setIndex(index + 1)
+                setIsShowing(false)
+                resetIsShowing()
             }else{
                 setIndex(0)
+                setIsShowing(false)
+                resetIsShowing()
             }
         }, 6000);
         return () => clearInterval(interval)
 
     })
-
     return (
-        <div className='h-[calc(80vh-100px)] w-full   my-5 relative '>
+        <div className="w-full h-[calc(80vh-100px)] bg-[ghost-white] my-5">
 
-               <div  className=' w-[calc(600vw-500vw)] p-16  absolute  text-white flex items-center top-56 -left-16.5  lg:top-50 lg:left-16 z-10'>
-                   {buttonLinks[index]}
+            <Transition
 
-               </div>
+                as={Fragment}
+                show={isShowing}
+                enter="transform transition duration-[1000ms]"
+                enterFrom="opacity-0 rotate-[-120deg] scale-50"
+                enterTo="opacity-100 rotate-0 scale-100"
+                leave="transform duration-500 transition ease-in-out"
+                leaveFrom="opacity-100 rotate-0 scale-100 "
+                leaveTo="opacity-0 rotate-[120deg] scale-50 "
+            >
 
-            <div className=" flex w-[600vw]   h-full  whitespace-nowrap animate-[scroll_60s_linear_infinite] ">
+                {/*<div className="h-full w-full rounded-md bg-blue-500 shadow-lg"/>*/}
+                <div  className=" h-full w-full    whitespace-nowrap  relative">
+                    <div className={` absolute  top-56 -left-16.5  lg:top-50 lg:left-16 z-10`}>{buttonLinks[bIndex]}</div>
+                    <div >
+                        <Image  src={carousel[index]?.pic.img} priority={true} as={as} alt=""
+                                layout="fill" objectFit="cover"/>
+                    </div>
+                </div>
 
-                    {images?.map((img, idx)=>(
-                        img.pic.category === 'webPic' &&
-
-                        <div key={idx} className="w-screen h-full relative">
-                            <Image className=' bg-repeat-x ' src={img.pic.img} priority={true} alt="" layout="fill" as={as} objectFit="cover"/>
-                        </div>
-
-                    ))}
+            </Transition>
 
 
-            </div>
 
         </div>
-    );
-};
+    )
 
-export default Slider;
+}
+export default NewSlider;
+
