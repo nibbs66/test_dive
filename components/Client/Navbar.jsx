@@ -10,7 +10,7 @@ import Youtube from "../icons/YouTube";
 import Twitter from "../icons/Twitter";
 import useUser from "../../pages/api/hooks/useUser";
 import SearchBar from "../SearchBar";
-import Logo from "../icons/Logo";
+
 
 
 const Navbar = () => {
