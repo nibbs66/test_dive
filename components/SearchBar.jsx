@@ -1,19 +1,4 @@
-/*
-  This example requires Tailwind CSS v3.0+
 
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import {Fragment, useEffect, useState} from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
@@ -113,7 +98,7 @@ const SearchBar = ({open, setOpen}) => {
                                             static
                                             className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto"
                                         >
-                                            <ul className="text-sm text-gray-700">
+                                            <ul className="text-sm text-slate-500 pt-4">
                                                 {( filteredProjects).map((product) => (
                                                     <Combobox.Option
                                                         key={product._id}
@@ -134,7 +119,7 @@ const SearchBar = ({open, setOpen}) => {
                                                                     )}
                                                                     aria-hidden="true"
                                                                 />}
-                                                                <span onClick={()=>handleClick(product)} className="ml-3 flex-auto truncate">{product.name}</span>
+                                                                <span onClick={()=>handleClick(product)} className="ml-3 flex-auto truncate">{product.manufacturer}{' '}{product.name}</span>
                                                                 {active && <span className="ml-3 flex-none text-gray-500">Jump to...</span>}
                                                             </>
                                                         )}

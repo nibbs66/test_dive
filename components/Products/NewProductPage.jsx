@@ -3,14 +3,15 @@ import ProductPageDisplay from "./ProductPageDisplay";
 import AccordionLayout from "../Accordion/AccordionLayout";
 import Upload from "../icons/Upload";
 import Image from "next/image";
-
+import Submit from "../icons/Submit";
+import MultiSelect from '../MultiSelect'
 import {ArrowUpTrayIcon} from '@heroicons/react/24/outline'
 import axios from "axios";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import app from "../../lib/firebase";
 import toast, {Toaster} from 'react-hot-toast'
-
-
+import SingleSelect from "../SingleSelect";
+import ComboboxDisplay from "../ComboboxDisplay";
 
 const NewProductPage = ({category, productColors, productSizes}) => {
     const [inputs, setInputs] = useState({})
@@ -46,7 +47,7 @@ const NewProductPage = ({category, productColors, productSizes}) => {
 
         try{
             const res = await axios.post(`/api/products`,
-                { ...inputs, color: colors, barcode: barCode, size: sizes, }
+                { ...inputs, img, color: colors, barcode: barCode, size: sizes, }
             );
             res.status === 201 && toast.success('New Product Created!!')
 
@@ -57,66 +58,76 @@ const NewProductPage = ({category, productColors, productSizes}) => {
     const handleBarCode = (e) => {
         e.preventDefault()
         setBarCode(prev=>[...prev, code])
+        toast.success('Barcode added')
         setCode('')
     };
     const changeColor = (e) => {
         e.preventDefault()
         setColors(prev=>[...prev, color])
+        toast.success('Color added')
         setColor('')
     };
     const changeSize = (e) => {
         e.preventDefault()
         setSizes(prev=>[...prev, size])
+        toast.success('Size added')
         setSize('')
     };
     const handleClick = async (e) =>{
 
         e.preventDefault()
+        if(img.length >= 3){
+            toast.error('Maximum number of product images has been reached')
+            setUpload(false)
+            setFile([])
 
-        const fileName = new Date().getTime() + file.name;
-        const storage = getStorage(app);
-        const storageRef = ref(storage, fileName)
+        }else{
+            const fileName = new Date().getTime() + file.name;
+            const storage = getStorage(app);
+            const storageRef = ref(storage, fileName)
 
 
-        const uploadTask = uploadBytesResumable(storageRef, file);
+            const uploadTask = uploadBytesResumable(storageRef, file);
 
 // Register three observers:
 // 1. 'state_changed' observer, called any time the state changes
 // 2. Error observer, called on failure
 // 3. Completion observer, called on successful completion
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case 'paused':
-                        console.log('Upload is paused');
-                        break;
-                    case 'running':
-                        console.log('Upload is running');
-                        break;
-                    default:
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                        default:
+                    }
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                },
+                () => {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                        downloadURL && toast.success('Image Saved!!')
+                        setUpload(false)
+                        setFile([])
+                        setImg(prev=>[...prev, downloadURL])
+
+                    });
                 }
-            },
-            (error) => {
-                // Handle unsuccessful uploads
-            },
-            () => {
-                // Handle successful uploads on complete
-                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                    downloadURL && toast.success('Image Saved!!')
-                    setUpload(false)
-                    setFile([])
-                    setImg(prev=>[...prev, downloadURL])
+            );
+        }
 
-                });
-            }
-        );
     }
-
+    console.log(img)
     return (
         <form action=""onSubmit={handleSubmit}>
             <ProductPageDisplay product={inputs} submitButton={true}>
