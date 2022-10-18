@@ -113,7 +113,15 @@ Index.getLayout = function getLayout(page){
     )
 }
 export async function getServerSideProps(ctx) {
-
+    const session = await getSession(ctx)
+    if(!session.isEmployee){
+        return{
+            redirect: {
+                destination: "/",
+                permanent: false,
+            }
+        }
+    }
     const host = ctx.req.headers.host;
     const res = await axios.get(`https://`+host+`/api/orders/income`);
     const range = await axios.get(`https://`+host+`/api/orders`);
