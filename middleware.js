@@ -14,7 +14,7 @@ export default withAuth(function middleware(req){
         return NextResponse.redirect(new URL("/", req.url));
     }
 })
-//export const config = { matcher: ["/admin/:path*"] }
+export const config = { matcher: ["/admin/:path*"] }
 /*export default withAuth({
         callbacks: {
             authorized: ({req, token })=>{
