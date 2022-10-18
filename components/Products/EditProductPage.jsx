@@ -151,12 +151,12 @@ const EditProductPage = ({product}) => {
     }
     const handleEdit = async() => {
 
-        /*try{
+        try{
               const res = await axios.put("/api/products/"+product._id, {...inputs,  stock: product.stock + Number(newStock.stock), color: colors, barcode: barCode, size: sizes,})
              res.status === 201 && toast.success(`${product.name} successfully updated`)
           }catch(err){
               console.log(err)
-          }*/
+          }
     }
     //console.log(product.img)
     return (
