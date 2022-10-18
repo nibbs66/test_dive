@@ -27,7 +27,7 @@ const AdminNavbar = () => {
 
     },[session, notifications])
     const logOut = async() => {
-        await  signOut({redirect: true})
+        await  signOut()
         await router.push('/')
 
     }
