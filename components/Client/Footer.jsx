@@ -23,14 +23,21 @@ const Footer = () => {
                      </div>
                    </div>
                </div>
-               <div className="flex flex-col items-center gap-1 order-2 md:order-3">
-                   <span className="r">Maandag: Op afspraak</span>
-                   <span className="r">Dinsdag: 18:00 - 20:00</span>
-                   <span className="r">Woensdag: Op afspraak</span>
-                   <span className="r">Donderdag: 18:00 - 20:00</span>
-                   <span className="r">Vrijdag: 12:00 - 20:00</span>
-                   <span className="r">Zaterdag: 10:00 - 17:00</span>
-                   <span className="r">Zondag : Op afspraak</span>
+               <div className="grid grid-cols-2 items-start gap-1 order-2 md:order-3">
+                   <span className="r">Maandag: </span>
+                   <span>Op afspraak</span>
+                   <span className="r">Dinsdag: </span>
+                   <span>18:00 - 20:00</span>
+                   <span className="r">Woensdag: </span>
+                   <span>Op afspraak</span>
+                   <span className="r">Donderdag:</span>
+                   <span>18:00 - 20:00</span>
+                   <span className="r">Vrijdag: </span>
+                   <span>12:00 - 20:00</span>
+                   <span className="r">Zaterdag: </span>
+                   <span>10:00 - 17:00</span>
+                   <span className="r">Zondag : </span>
+                   <span>Op afspraak</span>
                </div>
            </div>
 
