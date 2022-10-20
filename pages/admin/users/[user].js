@@ -29,13 +29,13 @@ const Customers = ({customers}) => {
         customers.map((option, idx)=>{
             setData( (prev)=>[...prev, {
                 id: option._id,
-                items: [
-                    option.firstName[0].toUpperCase()+option.lastName[0].toUpperCase(),
-                    option.firstName+' '+option.lastName,
-                    option.personal.email,
-                    option.personal.phone,
-                    <TableActions key={idx} link={`/admin/users/${user}/`} editLink={`/admin/users/edit/`} id={option._id}/>
-                ]
+
+                avatar: option.firstName[0].toUpperCase()+option.lastName[0].toUpperCase(),
+                name: option.firstName+' '+option.lastName,
+                email: option.personal.email,
+                phone: option.personal.phone,
+                action: <TableActions key={idx} link={`/admin/users/${user}/`} editLink={`/admin/users/edit/`} id={option._id}/>
+
             }])
 
         })

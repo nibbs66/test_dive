@@ -10,21 +10,22 @@ const MessageMainTable = ({messages}) => {
         messages.map((option, idx)=>{
             setData( (prev)=>[...prev, {
                 id: option._id,
-                items: [
 
-                    option.fullName,
-                    option.phone,
-                    option.email,
-                    option.subject,
 
-                    <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} id={option._id}/>
-                ]
+                fullName: option.fullName,
+                phone: option.phone,
+                email: option.email,
+                subject: option.subject,
+
+                action: <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} id={option._id}/>
+
             }])
 
         })
 
 
     },[messages])
+
 
     return (
         <div className={' flex p-10 '}>

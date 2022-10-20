@@ -15,10 +15,11 @@ export const userColumns = [
 ];
 
 export const orderColumns = [
-    {field: "id", header: "Order Number", sortable: true},
+    {field: "orderId", header: "Order Number", sortable: true},
     {field: "date", header: "Order Date", sortable: true},
     {field: "quantity", header: "Quantity", sortable: true},
     {field: "amount", header: "Total", sortable: true},
+    {field: "icon", header: "Status", sortable: true},
     { header: "Action", field: "action", sortable: false },
 ];
 
@@ -31,10 +32,10 @@ export const certificationColumns = [
 ]
 
 export const OrdersColumns = [
-    { header: "Order Number", field: "id",sortable: true },
+    { header: "Order Number", field: "orderId",sortable: true },
     { header: "Type", field: "type",  sortable: true },
     { header: "Total", field: "total",  sortable: true },
-    { header: "Carrier", field: "carrier,  sortable: true" },
+    { header: "Carrier", field: "carrier",  sortable: true},
     { header: "Status", field: "status",  sortable: true },
     { header: "Action", field: "action",  sortable: false },
 ]
@@ -62,7 +63,7 @@ export const DashboardUsers = [
 ]
 
 export const DashboardOrders = [
-    { header: "Customer", field: "Customer", sortable: false },
+    { header: "Customer", field: "customer", sortable: false },
     { header: "Date", field: "date",  sortable: false },
     { header: "Type", field: "type",  sortable: false },
     { header: "Amount", field: "amount",  sortable: false },
@@ -73,14 +74,14 @@ export const DashboardOrders = [
 export const ScubaPackage = [
     { header: "Package", field: "package" },
     { header: "Dag", field: "dag" },
-    { header: "Weekend", field: "Weekend" },
+    { header: "Weekend", field: "weekend" },
     { header: "Reserve", field: "reserve" },
 ]
 
 export const ScubaItem = [
     { header: "Item", field: "item" },
-    { header: "1/2 Day", field: "1/2 day" },
-    { header: "Full Day", field: "full day" },
+    { header: "1/2 Day", field: "halfDay" },
+    { header: "Full Day", field: "fullDay" },
     { header: "Reserve", field: "reserve" },
 ]
 export const ProductsColumns = [
@@ -89,8 +90,8 @@ export const ProductsColumns = [
     {field: "category", header: "Category", sortable: true},
     {field: "cost", header: "Cost", sortable: true},
     {field: "price", header: "Price", sortable: true},
-    {field: "stock", header: "Stock", sortable: true},
-    {field: "new", header: "New", sortable: true},
+    {field: "stock", header: "Stock", sortable: false},
+    {field: "isNew", header: "New", sortable: true},
     { header: "Action", field: "action",  sortable: false },
 ];
 export const RentalTableColumns = [

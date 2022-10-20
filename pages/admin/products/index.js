@@ -6,16 +6,18 @@ import TableActions from "../../../components/Table/TableActions";
 import TableDisplay from "../../../components/Table/TableDisplay";
 
 const Index = ({products, categories}) => {
-    const [data, setData] = useState([]);
+    const [rows, setRows] = useState([]);
 
     useEffect(()=>{
-        setData([])
+        setRows([])
 
         products.map((product, idx)=>{
 
             let isNew;
             let stockText;
             let newText;
+            let prodName;
+            let newStock;
             if(product.new){
                 isNew = 'Ja'
                 newText = 'text-blue-700'
@@ -27,25 +29,28 @@ const Index = ({products, categories}) => {
             if(product.stock > 5){
 
                 stockText = 'text-green-700'
+                newStock = <span  key={idx} className={`text-green-700 uppercase font-bold`}>{product.stock}</span>
             }
             if(product.stock < 5){
-
+                newStock = <span  key={idx} className={`text-red-700 uppercase font-bold`}>{product.stock}</span>
                 stockText = 'text-red-700'
+            }
+            if(product.name){
+                prodName = product.name.slice(0, 10)+'...'
             }
 
 
-            setData( (prev)=>[...prev, {
+            setRows( (prev)=>[...prev, {
                 id: product._id,
-                items: [
-                    product.manufacturer,
-                    <span key={idx}>{product.name.slice(0, 10)}...</span>,
-                    product.categories[0],
-                    product.cost,
-                    product.price.toFixed(2),
-                    <span  key={idx} className={`${stockText} uppercase font-bold`}>{product.stock}</span>,
-                    <span  key={idx} className={`${newText} uppercase font-bold`}>{isNew}</span>,
-                    <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  id={product._id}/>
-                ]
+                manufacturer: product.manufacturer,
+                name: product.name.slice(0, 10)+'...',
+                category: product.categories[0],
+                cost: product.cost,
+                price: product.price.toFixed(2),
+                stock: product.stock,
+                isNew: isNew,
+                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  id={product._id}/>
+
             }])
 
         })
@@ -65,7 +70,7 @@ const Index = ({products, categories}) => {
     return (
         <div className={`p-10`}>
             <TableDisplay   columns={ProductsColumns} tableTitle={true} font={'text-slate-800'} textSize={'text-3xl'}
-                            rows={data} setRows={setData}  title={'Product'}  PageSize={10}
+                            rows={rows} setRows={setRows}  title={'Product'}  PageSize={10}
             />
 
         </div>

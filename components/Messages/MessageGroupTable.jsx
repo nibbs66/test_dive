@@ -10,15 +10,15 @@ const MessageGroupTable = ({messages, title}) => {
         messages.map((option, idx)=>{
             setData( (prev)=>[...prev, {
                 id: option._id,
-                items: [
 
-                    option.fullName,
-                    option.phone,
-                    option.email,
-                    option.regarding,
 
-                    <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} id={option._id}/>
-                ]
+                fullName: option.fullName,
+                phone: option.phone,
+                email: option.email,
+                regarding: option.regarding,
+
+                action: <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} id={option._id}/>
+
             }])
 
         })

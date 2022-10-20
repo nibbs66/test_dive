@@ -18,67 +18,48 @@ const Index = ({orders, income, customers}) => {
         setData([])
         const tableView = customers.slice((customers.length-5))
 
-        tableView.map((option)=>{
+        tableView.reverse().map((option)=>{
             setData( (prev)=>[...prev, {
                 id: option._id,
-                items: [
-                    option.firstName+' '+option.lastName,
-                    option.personal.email,
 
-                    <Link  href={`/admin/users/customer/${option._id}`} style={{textDecoration: "none"}} passHref>
-                        <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>View</button>
-                    </Link>
+                name: option.firstName+' '+option.lastName,
+                email: option.personal.email,
 
-                ]
+                view: <Link  href={`/admin/users/customer/${option._id}`} style={{textDecoration: "none"}} >
+                    <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>View</button>
+                </Link>
+
+
             }])
         })
 
     },[customers])
-   useEffect(()=>{
-       setOrderData([])
-       const orderView = orders.slice(orders.length-5)
-       orderView.map((item)=>{
-           let newStatus;
-           let text;
-           if(item.status === 0){
-               newStatus = 'Received'
-               text = 'text-blue-700'
-           }
-           if(item.status === 1){
-               newStatus = 'Ready-Ship'
-               text = 'text-orange-500'
-           }
-           if(item.status === 2){
-               newStatus = 'Shipped'
-               text = 'text-green-700'
-           }
-           if(item.status === 3){
-               newStatus = 'Delivered'
-               text='text-slate-700'
-           }
-           if(item.status === 4){
-               newStatus = 'Cancelled'
-               text = 'text-red-700'
-           }
+    useEffect(()=>{
+        setOrderData([])
+        const orderView = orders.slice(orders.length-5)
+        orderView.reverse().map((item)=>{
 
 
-           setOrderData( (prev)=>[...prev, {
-               id: item._id,
-               items: [
-                   item._id.slice(0,5),
-                   dayjs(item.createdAt).format('DD MMM YYYY'),
-                   item.purchaseType,
-                  <span>€{item.total.toFixed(2)}</span>,
-                   <span className={`${text} font-bold`}>{newStatus}</span>,
-                   <Link  href={`/admin/orders/${item._id}`} style={{textDecoration: "none"}} passHref>
-                       <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>View</button>
-                   </Link>
 
-               ]
-           }])
-       })
+            setOrderData( (prev)=>[...prev, {
+                id: item._id,
 
-   },[orders])
+                customer: item._id.slice(0,5),
+                date: dayjs(item.createdAt).format('DD MMM YYYY'),
+                type: item.purchaseType,
+                amount: <span>€{item.total.toFixed(2)}</span>,
+                status: item.status,
+                view: <Link  href={`/admin/orders/${item._id}`} style={{textDecoration: "none"}} passHref>
+                    <button className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>View</button>
+                </Link>
+
+
+            }])
+        })
+
+    },[orders])
+
+
 
 
     return (

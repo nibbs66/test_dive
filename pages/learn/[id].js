@@ -23,7 +23,7 @@ const Course = ({cursus}) => {
     const router = useRouter()
     const {id} = router.query
     const picRotation = [OpenImg1, OpenImg2, OpenImg3,OpenImg4]
-    const courseSchedule = [
+    const courseSchedule2 = [
 
         {
             items: [   <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 sep 2022</span> ,
@@ -54,13 +54,48 @@ const Course = ({cursus}) => {
 
         },
     ]
+    const courseSchedule = [
+
+        {
+
+            date:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 sep 2022</span> ,
+            course: <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
+            price:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
+            register:<button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>,
+
+        },
+        {
+
+            date:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 oct 2022</span>,
+            course: <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
+            price:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
+            register:<button  onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>,
+
+        },
+        {
+
+            date:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 nov 2022</span>,
+            course: <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
+            price:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
+            register:<button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>,
+
+        },
+        {
+
+            date:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 dec 2022</span>,
+            course: <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
+            price:<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
+            register:<button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>,
+
+        },
+    ]
     const handlePhoto = (idx) => {
         setIndex(idx)
     }
     console.log(cursus)
     return (
         <div className='flex flex-col w-screen min-h-fit m-auto mb-2 md:mb-auto  pt-1'>
-            <ScheduleModal setShowModal={setShowModal} showModal={showModal}  subject={'Cursus'} regarding={cursus.cursus}/>
+            <ScheduleModal setShowModal={setShowModal} showModal={showModal} subject={'cursus'} regarding={cursus.cursus}/>
             <div>
                 <ClientHeader  title={cursus.cursus} lastPage={'/learn'}/>
             </div>
@@ -109,7 +144,7 @@ const Course = ({cursus}) => {
                                       PageSize={6} action={false} showButton={false}/>
                     </div>
                     <div className={`md:hidden flex justify-center flex-col gap-1 px-5 `}>
-                        {courseSchedule.map((item, idx)=>(
+                        {courseSchedule2.map((item, idx)=>(
                             item.items.map((each, idx)=>(
                                 (idx + 1 < item.items.length) ?
 

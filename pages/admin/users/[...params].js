@@ -1,20 +1,7 @@
 import React, {useState, useEffect} from 'react';
-
 import {useRouter} from "next/router";
-
-import Check from "../../../components/icons/Check";
-import Edit from "../../../components/icons/Edit";
 import dayjs from "dayjs";
 import axios from "axios";
-import {certificationColumns, orderColumns} from "../../../tableData";
-
-
-
-import CardDisplay from "../../../components/Card/CardDisplay";
-import Card from "../../../components/Card/Card";
-import Accordion from "../../../components/Accordion/Accordion"
-import Table from "../../../components/Table/Table"
-import TableDisplay from "../../../components/Table/TableDisplay";
 import ShowUser from "../../../components/User/ShowUser"
 import EditUser from "../../../components/User/EditUser";
 import Admin from "../../../components/layout/Admin";

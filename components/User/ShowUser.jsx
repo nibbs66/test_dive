@@ -36,13 +36,13 @@ const Index = ({user, orders}) => {
 
             setDiving((prev)=>[...prev, {
                 id: cert._id,
-                items: [
-                    cert.diverNumber,
-                    cert.certificationAgency,
-                    dayjs(user.experience.date).format('DD MMM YYYY'),
-                    cert.instructorNumber,
-                    cert.certificationLevel[0],
-                ]
+
+                number: cert.diverNumber,
+                agency: cert.certificationAgency,
+                date: dayjs(user.experience.date).format('DD MMM YYYY'),
+                instructor: cert.instructorNumber,
+                level: cert.certificationLevel[0],
+
             }])
         })
 
@@ -55,20 +55,20 @@ const Index = ({user, orders}) => {
 
             setData( (prev)=>[...prev, {
                 id: option._id,
-                items: [
-                    `${option._id.slice(0, 5)}...`,
-                    dayjs(option.createdAt).format('DD MMM YYYY'),
-                    option.items.length,
-                    `€${option.total.toFixed(2)}`,
-                    <TableActions key={option._id} link={`/admin/orders/`} id={option._id}/>
-                ]
+
+                orderId: `${option._id.slice(0, 5)}...`,
+                date: dayjs(option.createdAt).format('DD MMM YYYY'),
+                quantity: option.items.length,
+                amount: `€${option.total.toFixed(2)}`,
+                icon: <div className={`flex w-full justify-center cursor-pointer`}> <ReceiptPercentIcon className={`h-6 w-6 text-green-500`}/></div>,
+                action: <TableActions key={option._id} link={`/admin/orders/`} id={option._id}/>
+
             }])
 
 
 
         })
     },[orders])
-
     const handleClick = (data) => {
         if(section !==data){
             setSection(data)

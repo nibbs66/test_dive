@@ -10,7 +10,6 @@ const Index = ({rentals}) => {
 
     useEffect(()=>{
         setData([])
-
         const createRental = async() => {
             await rentals.map((product, idx)=>{
 
@@ -30,21 +29,22 @@ const Index = ({rentals}) => {
 
                 setData( (prev)=>[...prev, {
                     id: product._id,
-                    items: [
 
-                        <span key={idx}>{product.name.slice(0, 10)}...</span>,
-                        product.category,
-                        product.halfDayPrice,
-                        product.fullDayPrice,
-                        <span  key={idx} className={`${stockText} uppercase font-bold`}>{product.stock}</span>,
 
-                        <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`}  id={product._id}/>
-                    ]
+                    name: product.name.slice(0, 10)+'...',
+                    category: product.category,
+                    halfDayPrice: product.halfDayPrice,
+                    fullDayPrice:  product.fullDayPrice,
+                    stock: product.stock,
+
+                    action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`}  id={product._id}/>
+
                 }])
 
             })
         }
         createRental()
+
 
     },[rentals])
 

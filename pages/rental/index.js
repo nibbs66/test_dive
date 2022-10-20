@@ -13,6 +13,8 @@ const Index = ({rentals}) => {
     const [showModal, setShowModal] = useState(false)
     const [data, setData] = useState([])
     const [packageData, setPackageData] = useState([])
+    const [mobileData, setMobileData] = useState([])
+    const [mobilePackageData, setMobilePackageData] = useState([])
 
     useEffect(()=>{
         setData([])
@@ -20,6 +22,38 @@ const Index = ({rentals}) => {
         rentals.map((rental, idx)=>{
             if(rental.category !== undefined){
                 setData( (prev)=>[...prev, {
+                    id: rental._id,
+                    category: rental.category,
+                    item: <div className={`flex flex-col gap-1`}>
+                        <span className={`font-bold uppercase text-slate-400`}>{rental.name}</span>
+                        <span  className={`text-slate-500`}>{rental.desc}</span>
+                    </div>,
+                    halfDay: <span  className={`text-slate-500`}><span className={`md:hidden uppercase`}>Price:{' '}</span>€{rental.halfDayPrice}</span>,
+                    fullDay: <span  className={`text-slate-500`}><span className={`md:hidden uppercase`}>Price:{' '}</span>€{rental.fullDayPrice}</span>,
+                    reserve: <button onClick={()=>setShowModal(true)} className={`bg-red-500 px-2 py-1 rounded text-white uppercase font-semibold  text-xs md:text-base`}>Reserve</button>
+                }])
+            }else{
+                setPackageData( (prev)=>[...prev, {
+                    id: rental._id,
+                    category: rental.category,
+                    package: <div className={`flex flex-col gap-1`}>
+                        <span className={`font-bold uppercase text-slate-400`}>{rental.name}</span>
+                        <span  className={`text-slate-500`}>{rental.desc}</span>
+                    </div>,
+                    dag: <span  className={`text-slate-500`}><span className={`md:hidden uppercase`}>Price:{' '}</span>€{rental.halfDayPrice}</span>,
+                    weekend: <span  className={`text-slate-500`}><span className={`md:hidden uppercase`}>Price:{' '}</span>€{rental.fullDayPrice}</span>,
+                    reserve: <button onClick={()=>setShowModal(true)} className={`bg-red-500 px-2 py-1 rounded text-white uppercase font-semibold  text-xs md:text-base`}>Reserve</button>
+                }])
+            }
+
+        })
+    },[rentals])
+    useEffect(()=>{
+        setMobileData([])
+        setMobilePackageData([])
+        rentals.map((rental, idx)=>{
+            if(rental.category !== undefined){
+                setMobileData( (prev)=>[...prev, {
                     id: rental._id,
                     category: rental.category,
                     items: [
@@ -34,7 +68,7 @@ const Index = ({rentals}) => {
                     ]
                 }])
             }else{
-                setPackageData( (prev)=>[...prev, {
+                setMobilePackageData( (prev)=>[...prev, {
                     id: rental._id,
                     category: rental.category,
                     items: [
@@ -54,9 +88,10 @@ const Index = ({rentals}) => {
     },[rentals])
 
     console.log(data)
+
     return (
         <div className={`min-h-screen w-screen`}>
-            <ScheduleModal showModal={showModal} setShowModal={setShowModal} subject={'tehuur'} regarding={'duiken tank'}/>
+            <ScheduleModal showModal={showModal} setShowModal={setShowModal} subject={'Tehuur'} regarding={'Duiken Tank'}/>
 
             <div className={`flex flex-col gap-5 my-5 w-full px-5 md:px-10 items-center justify-center`}>
                 <ClientHeader title={'Te Huur'} lastPage={'/'}/>
@@ -81,7 +116,7 @@ const Index = ({rentals}) => {
                     </div>
                     <div >
                         <div className={`md:hidden flex flex-col gap-1 px-5`}>
-                            { packageData.map((item, idx)=>(
+                            { mobilePackageData.map((item, idx)=>(
                                 item.items.map((each, idx)=>(
 
                                     <span className={`text-sm  `} key={idx}>
@@ -113,7 +148,7 @@ const Index = ({rentals}) => {
                     </div>
                     <div >
                         <div className={`md:hidden flex flex-col gap-1 px-5`}>
-                            { data.map((item, idx)=>(
+                            { mobileData.map((item, idx)=>(
                                 item.items.map((each, idx)=>(
 
                                     <span className={`text-sm  `} key={idx}>
