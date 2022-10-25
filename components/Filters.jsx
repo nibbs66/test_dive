@@ -48,7 +48,7 @@ const Filters = ({checked, filterData, filterColumns, handleFilter, activeFilter
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                <div className={`relative bg-white`}>
+                <div className={`relative bg-white z-20`}>
 
                     <Disclosure.Panel className="absolute -top-2 border-t border-gray-200 drop-shadow-lg rounded">
                         <div className={` mx-auto grid max-w-7xl grid-cols-${filterColumns?.length} gap-x-4 p-4 text-sm sm:p-6 md:gap-x-6 lg:p-8  bg-white border border-slate-200 rounded-md`}>
