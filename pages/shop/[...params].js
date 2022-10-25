@@ -5,6 +5,7 @@ import {useRouter} from 'next/router'
 import ProductPage from "../../components/Client/ProductPages/ProductPage";
 
 import CategoryListing from "../../components/Shop/CategoryListing";
+import PageSelector from "../../components/Shop/PageSelector";
 const Product= ({product, category}) => {
 
     const router = useRouter()
@@ -21,7 +22,7 @@ const Product= ({product, category}) => {
 
     return (
         <>
-            {query.params.length === 2 && <CategoryListing cat={query.params[1]} handleClick={handleClick} category={category} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+            {query.params.length === 2 && <PageSelector cat={query.params[1]} page={query.params[0]} handleClick={handleClick} category={category} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
             {query.params.length === 3 && <ProductPage product={product}/>}
 
         </>

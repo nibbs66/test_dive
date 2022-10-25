@@ -5,8 +5,10 @@ import Link from "next/link";
 import TableRow from "./TableRow";
 import{NPageSize} from '../../tableData';
 
+import Filters from "../Filters";
 
-const Table = ({ setRows, title, columns, tableTitle, rows, PageSize, showButton, action, font, textSize, link}) => {
+const Table = ({ setRows, title, columns, tableTitle, filterColumns, activeFilter, setActiveFilter,
+                   handleReset, checked, handleFilter, rows, PageSize, showButton, showFilter, action, font, textSize, link, filterData}) => {
     const [currentPage, setCurrentPage] = useState(1);
 
 
@@ -33,7 +35,7 @@ const Table = ({ setRows, title, columns, tableTitle, rows, PageSize, showButton
             setRows(sorted);
         }
     };
-    console.log(currentTableData)
+
     return (
         <div className={'container '}>
             <div className=' relative bg-white flex justify-center  w-full mx-auto p-5 mt-5 rounded-xl  my-auto '>
@@ -41,7 +43,11 @@ const Table = ({ setRows, title, columns, tableTitle, rows, PageSize, showButton
                     className=' absolute  rounded-lg shadow-xl flex items-center bg-green-500/30 w-5/6 h-16 mx-20 rounded-lg -top-8'>
                     <h1 className={`uppercase ${font} p-10 text-xl ${textSize} font-thin tracking-widest`}>{title}s</h1>
                 </div>}
+
                 <div className='flex flex-col w-full justify-center p-4 mt-12 '>
+                    {showFilter && <Filters columns={columns} handleReset={handleReset} activeFilter={activeFilter}
+                                            setActiveFilter={setActiveFilter} data={rows} filterData={filterData}
+                                            filterColumns={filterColumns} checked={checked} handleFilter={handleFilter}/>}
                     <div className="w-full">
                         <table className=" w-full border-collapse">
                             <TableHeader columns={columns} action={action} handleSorting={handleSorting}/>

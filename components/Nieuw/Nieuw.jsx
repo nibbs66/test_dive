@@ -1,8 +1,17 @@
 import React from 'react';
 import ModalCard from "../Modal/ModalCard";
 
-import {UserIcon, BanknotesIcon, WrenchIcon, AcademicCapIcon, ClockIcon, RectangleGroupIcon} from '@heroicons/react/24/outline'
+import {
+    UserIcon,
+    BanknotesIcon,
+    WrenchIcon,
+    AcademicCapIcon,
+    ClockIcon,
+    RectangleGroupIcon,
+    BuildingStorefrontIcon
+} from '@heroicons/react/24/outline'
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 
 const Nieuw = ({showModal, setShowModal}) => {
@@ -28,6 +37,10 @@ const Nieuw = ({showModal, setShowModal}) => {
                        <RectangleGroupIcon  className={`h-5 w-5 `}/>
                        <span >New Product</span>
                    </li>
+                   <li className={'flex gap-2 cursor-pointer'}   onClick={()=>handleClick('vendors/new')}>
+                       <BuildingStorefrontIcon  className={`h-5 w-5`}/>
+                       <span>New Vendor</span>
+                   </li>
 
                    <li className={'flex gap-2 cursor-pointer'}>
                        <WrenchIcon className={`h-5 w-5 `}/>
@@ -42,6 +55,8 @@ const Nieuw = ({showModal, setShowModal}) => {
                        <AcademicCapIcon  className={`h-5 w-5 `}/>
                        <span >Book Lesson</span>
                    </li>
+
+
 
                </ul>
 

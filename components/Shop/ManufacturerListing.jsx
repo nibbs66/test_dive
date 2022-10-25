@@ -5,22 +5,23 @@ import NoPic from "../icons/NoPic";
 import Paginate from "../Paginate/Paginate";
 import Image from "next/image";
 import Filters from "../Filters";
+import TableActions from "../Table/TableActions";
 
-
-const CategoryListing = ({handleClick, cat, currentPage, setCurrentPage, category}) => {
+const ManufacturerListing = ({handleClick, cat, currentPage, setCurrentPage, category}) => {
     const [data, setData] = useState(category)
     const [activeFilter, setActiveFilter] = useState(false);
     const [checked, setChecked] = useState('')
     const [filterData, setFilterData] = useState([])
-    const [filterManufacturer, setFilterManufacturer] = useState([])
+
+    const [filterCategory, setFilterCategory] = useState([])
     console.log(cat)
     const filterColumns = [
-        { header: "Manufacturer", field: "manufacturer",  sortable: true},
+        { header: "Category", field: "categories",  sortable: true},
         { header: "Prijs", field: "price",},
     ]
     useEffect(()=>{
-        category.map(({manufacturer})=>{
-            setFilterManufacturer((prev)=>[...prev, manufacturer])
+        category.map((product)=>{
+            setFilterCategory((prev)=>[...prev, product.categories[0]])
         })
 
     },[category])
@@ -34,10 +35,10 @@ const CategoryListing = ({handleClick, cat, currentPage, setCurrentPage, categor
         setFilterData([])
         const priceFilter = ['Laag to Hoog', 'Hoog to Laag']
 
-        const filterManufacturerSet = [...new Set(filterManufacturer)]
-        filterManufacturerSet.map((item)=>{
+        const filterCategorySet = [...new Set(filterCategory)]
+        filterCategorySet.map((item)=>{
             setFilterData((prev)=>[...prev, {
-                'manufacturer': item
+                'categories': item
             }])
         })
 
@@ -47,24 +48,24 @@ const CategoryListing = ({handleClick, cat, currentPage, setCurrentPage, categor
                 'price': item
             }])
         })
-    },[filterManufacturer])
+    },[filterCategory])
     const handleFilter = (e, item, field) => {
         console.log(item)
         setChecked(e.target.value)
         setActiveFilter(true)
         let filteredProducts;
-        if(field === 'price') {
+        if (field === 'categories') {
+
             setData([])
-            if (item === 'Laag to Hoog') {
+            filteredProducts =  category.filter((product)=>product.categories[0] === item)
+        }else if(field === 'price') {
+            setData([])
+           if (item === 'Laag to Hoog') {
                 filteredProducts = category.sort((a, b) => (a.price < b.price ? -1 : 1))
             } else if (item === 'Hoog to Laag') {
 
                 filteredProducts = filteredProducts = category.sort((a, b) => (a.price > b.price ? -1 : 1))
             }
-        }else {
-
-            setData([])
-            filteredProducts =  category.filter((product)=>  product[field] === item)
         }
 
         filteredProducts.map((product, idx)=>{
@@ -131,4 +132,4 @@ const CategoryListing = ({handleClick, cat, currentPage, setCurrentPage, categor
     );
 };
 
-export default CategoryListing;
+export default ManufacturerListing;

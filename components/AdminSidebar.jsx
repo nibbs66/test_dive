@@ -8,7 +8,7 @@ import Danger from "./icons/Danger";
 import Timer from "./icons/Timer";
 import Calendar from "./icons/Calendar";
 import TrendingUp from "./icons/TrendingUp";
-import { WrenchIcon, AcademicCapIcon, ClockIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
+import { WrenchIcon, AcademicCapIcon, ClockIcon, CalendarDaysIcon, BuildingStorefrontIcon} from '@heroicons/react/24/outline'
 import AccordionLayout from "./Accordion/AccordionLayout";
 import Person from "./icons/Person";
 import Employee from "./icons/Employee";
@@ -42,7 +42,7 @@ const AdminSidebar = () => {
                     setActiveIndex={setActiveIndex}
 
                 >
-                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                    <ul className={'uppercase text-slate-500 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
                         <Link href="/admin" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <Dashboard/>
@@ -70,7 +70,7 @@ const AdminSidebar = () => {
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
                 >
-                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                    <ul className={'uppercase text-slate-500 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
                         <Link href="/admin/messages" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <CalendarDaysIcon className={`h-6 w-6 `}/>
@@ -110,7 +110,7 @@ const AdminSidebar = () => {
                     setActiveIndex={setActiveIndex}
 
                 >
-                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                    <ul className={'uppercase text-slate-500 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
                         <Link href="/admin/calendar/monthly/alles" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <Calendar/>
@@ -149,7 +149,7 @@ const AdminSidebar = () => {
                     setActiveIndex={setActiveIndex}
 
                 >
-                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                    <ul className={'uppercase text-slate-500 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
                         <Link href="/admin/store" >
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <TrendingUp/>
@@ -157,8 +157,8 @@ const AdminSidebar = () => {
                             </li>
                         </Link>
                         <li className={'flex gap-2 items-center cursor-pointer '}>
-                            <School/>
-                            Invoice
+                            <AcademicCapIcon  className={`h-6 w-6 `}/>
+                            Cursus
                         </li>
                         <Link href={`/admin/users/user/new`}>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
@@ -172,11 +172,12 @@ const AdminSidebar = () => {
                                 Product
                             </li>
                         </Link>
-
-                        <li className={'flex gap-2 items-center cursor-pointer '}>
-                            <Dashboard/>
-                            dashboard
-                        </li>
+                        <Link href="/admin/vendors/new" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <BuildingStorefrontIcon  className={`h-6 w-6`}/>
+                                Vendor
+                            </li>
+                        </Link>
                         <Link href="/admin/rental_equipment/new" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <Rental/>
@@ -197,7 +198,7 @@ const AdminSidebar = () => {
                     setActiveIndex={setActiveIndex}
 
                 >
-                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                    <ul className={'uppercase text-slate-500 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
                         <Link href="/admin/store" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <TrendingUp/>
@@ -248,7 +249,7 @@ const AdminSidebar = () => {
                     setActiveIndex={setActiveIndex}
 
                 >
-                    <ul className={'uppercase text-slate-400 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
+                    <ul className={'uppercase text-slate-500 text-xs  mx-2 pb-2 flex flex-col gap-3 '}>
                         <Link href="/admin/site" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <Web/>
