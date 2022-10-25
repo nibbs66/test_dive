@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import axios from "axios";
 import Client from "../../components/layout/Client";
 import NewCard from "../../components/Card/NewCard";
@@ -6,53 +6,55 @@ import Image from "next/image";
 import {useRouter} from "next/router";
 import ClientHeader from "../../components/ClientHeader";
 import introImg from "../../public/img/padi-shop.jpeg";
-const Index = ({categories}) => {
+import MainReturn from "../../components/Shop/MainReturn";
+const Index = ({categories, products, vendors}) => {
+    const [manufacturerList, setManufacturerList] = useState([])
+    const [searchList, setSearchList] = useState([])
+    const [main, setMain] = useState('categories')
     const router = useRouter()
     //<Link href={`/shop/category/${category.name}`} passHref >
-    const handleClick = (data) => {
-        router.push(`/shop/category/`+data)
-    }
+    useEffect(()=>{
+        products?.map((manufacturer)=>{
+            setManufacturerList((prev)=>[...prev, manufacturer.manufacturer])
+        },[products, categories])
 
+
+    },[products])
+
+    useEffect(()=>{
+
+        const list = new Set(manufacturerList)
+        setSearchList([...new Set(manufacturerList)])
+    },[manufacturerList])
+    const handleClick = (data, value) => {
+        console.log(data)
+        router.push(`/shop/${value}/${data}`)
+    }
+    console.log(vendors)
     return (
         <div className='flex min-h-fit w-screen pt-1  pb-10'>
-           <div className="flex flex-col w-full  items-center">
-               <div className={'relative flex  h-auto md:h-1/6 overflow-hidden'}>
-                   <Image className=' flex' src={introImg} alt='' layout='intrinsic' objectFit={'cover'}/>
-                   <div className={'flex absolute  left-16 top-16 sm:top-64 text-white sm:font-thin  text-xl font-bold sm:text-5xl uppercase'}>
-                       webshop
-                   </div>
-               </div>
-               <ClientHeader title={'Choose a Category:'}/>
-               <div className="grid  lg:grid-cols-3 gap-4 px-5 mt-5 overflow-y-auto h-3/4 w-full pb-10">
-                   {categories.map((category)=>(
-                       <div  key={category._id}  onClick={()=>handleClick(category.name)}>
-                              <NewCard >
-                                  <div className=' md:flex justify-center'>
-                                      <Image  src={category.img}   alt="" width={300} height={350} objectFit="contain"/>
-                                  </div>
-                                 <div className='px-5 flex flex-col items-center text-center sm:items-end sm:text-end gap-5'>
+            <div className="flex flex-col w-full  items-center">
+                <div className={'relative flex  h-auto md:h-1/6 overflow-hidden'}>
+                    <Image className=' flex' src={introImg} alt='' layout='intrinsic' objectFit={'cover'}/>
+                    <div className={'flex absolute  left-16 top-16 sm:top-64 text-white sm:font-thin  text-xl font-bold sm:text-5xl uppercase'}>
+                        webshop
+                    </div>
+                </div>
+                <ClientHeader title={'Shop By:'}/>
+                <div className={`flex items-center gap-x-10 pt-10 text-slate-500 font-thin`}>
+                    <button onClick={()=>setMain('categories')} className={`rounded py-3 px-4 text-white leading-none drop-shadow-lg bg-blue-500 uppercase`}>Category</button>
+                    <span >-OR-</span>
+                    <button onClick={()=>setMain('vendor')} className={`rounded py-3 px-4 text-white leading-none drop-shadow-lg bg-blue-500 uppercase`}>Manufacturer</button>
+                </div>
+                <MainReturn vendors={vendors} categories={categories} main={main} handleClick={handleClick}/>
 
-                                         <span className='uppercase text-slate-500 font-bold sm:text-slate-400 sm:text-lg'>{category.name}</span>
-
-
-                                         <span className='hidden sm:flex sm:text-base sm:uppercase sm:font-bold sm:text-slate-500'>{category.desc}</span>
-
-                                 </div>
-                              </NewCard>
-                          </div>
-
-                   ))}
-
-               </div>
-
-           </div>
+            </div>
 
 
 
         </div>
     );
 };
-
 export default Index;
 Index.getLayout = function getLayout(page){
     return(
@@ -64,10 +66,13 @@ Index.getLayout = function getLayout(page){
 export async function getServerSideProps(ctx) {
     const host = ctx.req.headers.host;
     const res = await axios.get(`https://`+host+`/api/catMenu`);
+    const prod = await axios.get(`https://`+host+`/api/products`);
+    const vend = await axios.get(`https://`+host+`/api/vendors`)
     return {
         props: {
             categories: res.data,
-
+            products: prod.data,
+            vendors: vend.data
 
         },
     }
