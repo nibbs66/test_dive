@@ -10,7 +10,8 @@ import axios from "axios";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import app from "../../lib/firebase";
 import toast, {Toaster} from 'react-hot-toast'
-
+import SingleSelect from "../SingleSelect";
+import ComboboxDisplay from "../ComboboxDisplay";
 
 const NewProductPage = ({category, productColors, productSizes}) => {
     const [inputs, setInputs] = useState({})
@@ -156,17 +157,19 @@ const NewProductPage = ({category, productColors, productSizes}) => {
                                     />
                                 </div>
                                 {!upload &&  <div className={`flex items-center justify-center cursor-pointer `}>
-                                    <label className={`flex items-center gap-2 text-slate-400 cursor-pointer`} htmlFor="file">
-                                        Choose File: <ArrowUpTrayIcon className={`h-5 w-5`}/>
-                                    </label>
+
                                     <input
+                                        className={`file:bg-[#3b81f6] file:text-white file:mr-4 file:py-2 text-sm text-slate-400
+                                    file:uppercase file:text-sm file:px-4 file:rounded-full file:border-0
+                                    file:cursor-pointer
+                                    `}
                                         type="file"
                                         id="file"
                                         onChange={(e)=> {
                                             setFile(e.target.files[0])
                                             setUpload(true)
                                         }}
-                                        style={{display: "none"}}
+
                                     />
                                 </div>}
 

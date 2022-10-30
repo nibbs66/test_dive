@@ -46,7 +46,7 @@ const Index = () => {
                         total: '€'+ option.total.toFixed(2),
                         carrier: option.shippingMethod.method,
                         status: option.status,
-                        action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} id={option._id}/>
+                        action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
 
 
                     }])
@@ -119,7 +119,7 @@ const Index = () => {
                 total: '€'+ option.total.toFixed(2),
                 carrier: option.shippingMethod.method,
                 status: option.status,
-                action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} id={option._id}/>
+                action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
 
 
             }])
@@ -129,9 +129,9 @@ const Index = () => {
 
 
     }
-    const handleDelete = async(id) => {
+    const handleDelete = async(order) => {
         try{
-            const res = await axios.delete(`/api/orders/${id}`)
+            const res = await axios.delete(`/api/orders/${order._id}`)
             res.status === 200 && toast.success('Order successfully deleted.')
             mutateOrder()
         }catch(err){
@@ -139,9 +139,7 @@ const Index = () => {
         }
         console.log(id)
     }
-    if(validateOrder){
-        return  <Loader/>
-    }
+
     const handleReset = () =>{
         setData([])
         setChecked('')
@@ -156,14 +154,16 @@ const Index = () => {
                     total: '€' + option.total.toFixed(2),
                     carrier: option.shippingMethod.method,
                     status: option.status,
-                    action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} id={option._id}/>
+                    action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
 
 
                 }])
             }
         })
     }
-
+    if(validateOrder){
+        return  <Loader/>
+    }
     return (
         <div className={`p-10`}>
             <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>

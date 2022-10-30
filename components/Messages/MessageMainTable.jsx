@@ -17,7 +17,7 @@ const MessageMainTable = ({messages}) => {
                 email: option.email,
                 subject: option.subject,
 
-                action: <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} id={option._id}/>
+                action: <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} item={option}/>
 
             }])
 
@@ -25,7 +25,6 @@ const MessageMainTable = ({messages}) => {
 
 
     },[messages])
-
 
     return (
         <div className={' flex p-10 '}>

@@ -52,7 +52,7 @@ const Index = ({rentals}) => {
         setMobileData([])
         setMobilePackageData([])
         rentals.map((rental, idx)=>{
-            if(rental.category !== undefined){
+            if(rental.category !== 'Packages'){
                 setMobileData( (prev)=>[...prev, {
                     id: rental._id,
                     category: rental.category,

@@ -36,6 +36,7 @@ const EditProductPage = ({product}) => {
             return {...prev, [e.target.name]: e.target.value}
         })
     };
+    console.log(file)
     const upDates=(data, update) => {
         let newData;
         if(update === 'barcode'){
@@ -131,6 +132,7 @@ const EditProductPage = ({product}) => {
                         if(downloadURL){
                             const newImg = product.img;
                             newImg.push(downloadURL)
+                            setFile([])
                             try{
 
                                 const res = await axios.put("/api/products/"+product._id, {img: newImg})
@@ -152,11 +154,11 @@ const EditProductPage = ({product}) => {
     const handleEdit = async() => {
 
         try{
-              const res = await axios.put("/api/products/"+product._id, {...inputs,  stock: product.stock + Number(newStock.stock), color: colors, barcode: barCode, size: sizes,})
-             res.status === 201 && toast.success(`${product.name} successfully updated`)
-          }catch(err){
-              console.log(err)
-          }
+            const res = await axios.put("/api/products/"+product._id, {...inputs,  stock: product.stock + Number(newStock.stock), color: colors, barcode: barCode, size: sizes,})
+            res.status === 201 && toast.success(`${product.name} successfully updated`)
+        }catch(err){
+            console.log(err)
+        }
     }
     //console.log(product.img)
     return (
@@ -183,13 +185,18 @@ const EditProductPage = ({product}) => {
                                     {notificationMethods.map((notificationMethod) => (
                                         <div key={notificationMethod.id} className="flex items-center">
                                             <input
-                                                onChange={()=>setChecked(notificationMethod.id)}
+                                                onChange={()=> {
+                                                    setChecked(notificationMethod.id),
+                                                        setFile([]),
+                                                        setUpload(false)
+                                                }}
                                                 id={notificationMethod.id}
                                                 name="notification-method"
                                                 type="radio"
 
                                                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                             />
+
                                             <label htmlFor={notificationMethod.id} className="ml-3 block text-sm font-medium text-gray-700">
                                                 {notificationMethod.title}
                                             </label>
@@ -205,13 +212,13 @@ const EditProductPage = ({product}) => {
                     }
                     {checked === 'delete' && <div className="flex flex-col items-center justify-center w-full placeholder:text-slate-300 gap-5">
 
-                        <div className={`flex gap-2 items-center uppercase text-sm text-slate-400 font-bold`}>
+                        {/*<div className={`flex gap-2 items-center uppercase text-sm text-slate-400 font-bold`}>
 
-                            <label htmlFor="">
-                                Upload Image:
-                            </label>
-                            <Upload fill={`#94a2b8`}/>
-                        </div>
+                        <label htmlFor="">
+                            Upload Image:
+                        </label>
+                        <Upload fill={`#94a2b8`}/>
+                    </div>*/}
                         <Image className={`object-cover rounded-full items-center`} src={file.length !== 0
                             ? file
 

@@ -4,7 +4,7 @@ import axios from "axios";
 import {RentalTableColumns} from "../../../tableData";
 import TableActions from "../../../components/Table/TableActions";
 import TableDisplay from "../../../components/Table/TableDisplay";
-
+import toast, {Toaster} from 'react-hot-toast'
 const Index = ({rentals}) => {
     const [data, setData] = useState([]);
     const [filterCategory, setFilterCategory] = useState([])
@@ -46,7 +46,7 @@ const Index = ({rentals}) => {
                     fullDayPrice:  product.fullDayPrice,
                     stock: product.stock,
 
-                    action: <TableActions key={idx} link={`/admin/rentals/product/`} editLink={`/admin/rentals/edit/`}  id={product._id}/>
+                    action: <TableActions key={idx} link={`/admin/rentals/product/`} editLink={`/admin/rentals/edit/`}  item={product}/>
 
                 }])
 
@@ -119,7 +119,7 @@ const Index = ({rentals}) => {
                 fullDayPrice:  product.fullDayPrice,
                 stock: product.stock,
 
-                action: <TableActions key={idx} link={`/admin/rentals/product/`} editLink={`/admin/rentals/edit/`}  id={product._id}/>
+                action: <TableActions key={idx} link={`/admin/rentals/product/`} editLink={`/admin/rentals/edit/`}  item={product}/>
 
             }])
 
@@ -140,7 +140,7 @@ const Index = ({rentals}) => {
                 fullDayPrice:  product.fullDayPrice,
                 stock: product.stock,
 
-                action: <TableActions key={idx} link={`/admin/rentals/product/`} editLink={`/admin/rentals/edit/`}  id={product._id}/>
+                action: <TableActions key={idx} link={`/admin/rentals/product/`} editLink={`/admin/rentals/edit/`}  item={product}/>
 
             }])
 
@@ -148,18 +148,19 @@ const Index = ({rentals}) => {
         })
     }
 
-    const handleDelete = async(id) => {
+    const handleDelete = async(product) => {
         try{
-            const res = await axios.delete(`/api/rentals/${id}`)
-            console.log(res.data)
+            const res = await axios.delete(`/api/rentals/${product._id}`)
+            res.status === 200 && toast.success('Order successfully deleted.')
         }catch(err){
             console.log(err)
         }
-        console.log(id)
+
     }
 
     return (
         <div className={`p-10`}>
+            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
             <TableDisplay   columns={RentalTableColumns} tableTitle={true} font={'text-slate-800'} textSize={'text-3xl'}
                             rows={data} setRows={setData}  title={'Te Huur Item'}  PageSize={10} showFilter={true}
                             filterColumns={filterColumns} filterData={filterData} handleReset={handleReset} handleFilter={handleFilter}

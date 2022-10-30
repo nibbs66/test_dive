@@ -5,6 +5,7 @@ import TableActions from "../Table/TableActions";
 
 const MessageGroupTable = ({messages, title}) => {
     const [data, setData] = useState([]);
+
     useEffect(()=>{
         setData([])
         messages.map((option, idx)=>{
@@ -17,7 +18,7 @@ const MessageGroupTable = ({messages, title}) => {
                 email: option.email,
                 regarding: option.regarding,
 
-                action: <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} id={option._id}/>
+                action: <TableActions key={idx} link={`/admin/messages/${option.subject}/`} editLink={`/admin/users/edit/`} item={option}/>
 
             }])
 

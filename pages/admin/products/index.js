@@ -4,8 +4,13 @@ import axios from "axios";
 import {ProductsColumns} from "../../../tableData";
 import TableActions from "../../../components/Table/TableActions";
 import TableDisplay from "../../../components/Table/TableDisplay";
+import useAdmin from '../../api/hooks/useAdmin'
+import Loader from "../../../components/icons/Loader";
+import toast, {Toaster} from 'react-hot-toast'
+import app from "../../../lib/firebase";
+import {getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject} from "firebase/storage";
 
-const Index = ({products, categories}) => {
+const Index = () => {
     const [rows, setRows] = useState([]);
     const [filterManufacturer, setFilterManufacturer] = useState([])
     const [filterCategory, setFilterCategory] = useState([])
@@ -13,8 +18,12 @@ const Index = ({products, categories}) => {
     const [filterStock, setFilterStock] = useState([])
     const [activeFilter, setActiveFilter] = useState(false);
     const [filterData, setFilterData] = useState([])
-
     const [checked, setChecked] = useState('')
+    const {
+        products,
+        validateProduct,
+        mutateProduct
+    } = useAdmin()
     const filterColumns = [
         { header: "Manufacturer", field: "manufacturer",   },
         { header: "Category", field: "category",  sortable: true},
@@ -29,45 +38,18 @@ const Index = ({products, categories}) => {
         setFilterIsNew([])
         setFilterStock([])
 
-        products.map((product, idx)=>{
-
-            let isNew;
-            let stockText;
-            let newText;
-            let prodName;
-            let newStock;
-            if(product.new){
-                isNew = 'Ja'
-                newText = 'text-blue-700'
-            }
-            if(!product.new){
-                isNew = 'Nee'
-                newText = 'text-red-700'
-            }
-            if(product.stock > 5){
-
-                stockText = 'text-green-700'
-                newStock = <span  key={idx} className={`text-green-700 uppercase font-bold`}>{product.stock}</span>
-            }
-            if(product.stock < 5){
-                newStock = <span  key={idx} className={`text-red-700 uppercase font-bold`}>{product.stock}</span>
-                stockText = 'text-red-700'
-            }
-            if(product.name){
-                prodName = product.name.slice(0, 10)+'...'
-            }
-
+        products?.map((product, idx)=>{
 
             setRows( (prev)=>[...prev, {
                 id: product._id,
                 manufacturer: product.manufacturer,
-                name: product.name.slice(0, 10)+'...',
-                category: product.categories[0],
-                cost: product.cost,
-                price: product.price.toFixed(2),
-                stock: product.stock,
-                isNew: product.new,
-                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  id={product._id}/>
+                name: product?.name?.slice(0, 10)+'...',
+                category: product?.categories[0],
+                cost: product?.cost,
+                price: product?.price?.toFixed(2),
+                stock: product?.stock,
+                isNew: product?.new,
+                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  item={product}/>
 
             }])
             setFilterManufacturer((prev)=>[...prev, product.manufacturer])
@@ -110,14 +92,34 @@ const Index = ({products, categories}) => {
 
 
     },[filterManufacturer])
-    const handleDelete = async(id) => {
-        try{
-            const res = await axios.delete(`/api/products/${id}`)
-            console.log(res.data)
-        }catch(err){
-            console.log(err)
-        }
-        console.log(id)
+
+    const handleDelete = async(product) => {
+        let success;
+        await product.img.map((file)=>{
+            const storage = getStorage(app);
+            const fileRef = ref(storage, file);
+            deleteObject(fileRef)
+                .then(async() =>{
+                    toast.success('Product Successfully Deleted')
+                }).catch((error) => {
+                success= 'oops'
+                console.log(error)
+                toast.error('Uh-oh, an error occurred!')
+                // Uh-oh, an error occurred!
+            });
+        }).then(async()=>{
+            try{
+                const res = await axios.delete(`/api/products/${product._id}`)
+                res.status === 200 && toast.success('Product successfully deleted.')
+                mutateProduct()
+            }catch(err){
+                console.log(err)
+            }
+        })
+
+
+
+
     }
     const handleFilter = (e, item, field) => {
 
@@ -169,7 +171,7 @@ const Index = ({products, categories}) => {
                 price: product.price.toFixed(2),
                 stock: product.stock,
                 isNew: product.new,
-                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  id={product._id}/>
+                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  item={product}/>
 
             }])
 
@@ -199,15 +201,19 @@ const Index = ({products, categories}) => {
                 price: product.price.toFixed(2),
                 stock: product.stock,
                 isNew: product.new,
-                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  id={product._id}/>
+                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  product={product}/>
 
             }])
 
         })
     }
+    if(validateProduct){
+        return  <Loader/>
+    }
 
     return (
         <div className={`p-10`}>
+            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
             <TableDisplay   columns={ProductsColumns} showFilter={true} tableTitle={true} font={'text-slate-800'} textSize={'text-3xl'}
                             rows={rows} setRows={setRows}  title={'Product'}  activeFilter={activeFilter} handleReset={handleReset}
                             PageSize={10} handleFilter={handleFilter} filterColumns={filterColumns} filterData={filterData} checked={checked}
@@ -225,17 +231,3 @@ Index.getLayout = function getLayout(page){
         </Admin>
     )
 }
-export const getServerSideProps = async(ctx) => {
-    const host = ctx.req.headers.host;
-    const res = await axios.get(`https://`+host+`/api/products`);
-    const cat = await axios.get(`https://`+host+`/api/catMenu`);
-
-    return{
-        props: {
-            products: res.data,
-            categories: cat.data
-        }
-    }
-
-
-};

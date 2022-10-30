@@ -34,7 +34,7 @@ const Customers = ({customers}) => {
                 name: option.firstName+' '+option.lastName,
                 email: option.personal.email,
                 phone: option.personal.phone,
-                action: <TableActions key={idx} link={`/admin/users/${user}/`} editLink={`/admin/users/edit/`} id={option._id}/>
+                action: <TableActions key={idx} link={`/admin/users/${user}/`} editLink={`/admin/users/edit/`} item={option}/>
 
             }])
 
