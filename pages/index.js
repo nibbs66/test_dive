@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-export default function Home({images}) {
+export default function Home({images, logos}) {
 
   return (
 
@@ -20,7 +20,7 @@ export default function Home({images}) {
 
         {/*<Announcement/>*/}
         <Slider images={images} as={'image'}/>
-        <VendorLogos images={images} as={'logo'}/>
+        <VendorLogos images={images} logos={logos} as={'logo'}/>
 
 
     </div>
@@ -31,11 +31,13 @@ export async function getServerSideProps ({req, res}){
     const {host} = req.headers;
     console.log(host)
     const pic = await axios.get(`https://`+host+`/api/images`);
+    const vend = await axios.get(`https://`+host+`/api/vendors`);
     setCookie('visitor', `guest${uuidv4()}`, { req, res, maxAge: 60 * 6 * 24 });
 
     return{
         props:{
             images: pic.data,
+            logos: vend.data
 
 
         }
