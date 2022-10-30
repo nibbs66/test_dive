@@ -27,10 +27,10 @@ const Index = ({categories, products, vendors}) => {
         setSearchList([...new Set(manufacturerList)])
     },[manufacturerList])
     const handleClick = (data, value) => {
-        console.log(data)
+
         router.push(`/shop/${value}/${data}`)
     }
-    console.log(vendors)
+
     return (
         <div className='flex min-h-fit w-screen pt-1  pb-10'>
             <div className="flex flex-col w-full  items-center">

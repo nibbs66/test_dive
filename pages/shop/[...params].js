@@ -13,7 +13,7 @@ const Product= ({product, category}) => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-
+console.log(query.params.length)
 
     const handleClick = (data) => {
         const category = query.params[1].toLowerCase()

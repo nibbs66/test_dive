@@ -97,9 +97,6 @@ const CategoryListing = ({handleClick, cat, currentPage, setCurrentPage, categor
                                         <Image src={`${item.img[0]}`} alt="" width={100} height={100} objectFit="contain"/>  :
                                         <NoPic height={`h-24`} width={`h-24`}/>  }
                                 </div>
-
-
-
                                 <div className='flex pt-5 pr-2 justify-center lg:justify-end'>
                                     <span className='uppercase font-bold text-slate-400'>{item.manufacturer}</span>
                                 </div>
@@ -109,9 +106,6 @@ const CategoryListing = ({handleClick, cat, currentPage, setCurrentPage, categor
                                 <div className='flex lg:pt-5 pt-1 pb-5 pr-2 justify-center lg:justify-end text-center'>
                                     <span className='uppercase font-bold text-slate-400 text-xs md:text-sm'>€{item?.price?.toFixed(2)}</span>
                                 </div>
-
-
-
                             </NewCard>
                         </div>
                     ))}
