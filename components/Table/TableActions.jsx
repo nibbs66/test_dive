@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-const TableActions = ({link, editLink, handleDelete, id}) => {
+const TableActions = ({link, editLink, handleDelete, item}) => {
     return (
         <nav className="flex  items-center h-4 pr-1 justify-center">
             <Link href={link+item._id} style={{textDecoration: "none"}} >
