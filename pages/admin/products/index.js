@@ -201,7 +201,7 @@ const Index = () => {
                 price: product.price.toFixed(2),
                 stock: product.stock,
                 isNew: product.new,
-                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  product={product}/>
+                action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  item={product}/>
 
             }])
 
