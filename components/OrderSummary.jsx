@@ -41,7 +41,7 @@ const OrderSummary = ({showModal, setShowModal, product, quantity, color, size, 
                                </div>
                                <div className={`flex flex-col sm:text-sm text-xs text-slate-500 whitespace-nowrap font-semibold gap-2`}>
                                    <span>{product.name}</span>
-                                   <span>€{product.price.toFixed(2)}:</span>
+                                   <span>€{product.price.toFixed(2)}</span>
                                    {color && <span>{color}</span>}
                                    {size && <span>{size}</span>}
                                    <span>{quantity}</span>
