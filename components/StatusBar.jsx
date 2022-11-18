@@ -52,14 +52,16 @@ const StatusBar = ({status, method}) => {
 
     }
     return (
-        <div className={`hidden sm:flex w-10/12 rounded-full bg-[rgba(224,224,222,0.6)] h-5 mt-10  `}>
-            <div className={`flex items-center h-full ${statusWidth} ${isChecked !== 'Order Cancelled' ? 'bg-blue-500' : 'bg-red-500'}  rounded-full justify-end `}>
+        <div className={`relative hidden sm:flex w-10/12 rounded-full bg-[rgba(224,224,222,0.6)] h-4 mt-10  `}>
+            <div className={`flex items-center h-full ${statusWidth} ${isChecked !== 'Order Cancelled' ? 'bg-blue-300' : 'bg-red-500'}  rounded-full justify-end `}>
 
-                     <span className={`md:text-sm text-xs uppercase text-white whitespace-nowrap  font-bold px-2 py-5`}>
+                     <span className={`md:text-sm text-xs uppercase text-slate-500 whitespace-nowrap  font-bold px-2 py-5`}>
                     {isChecked}
                 </span>
-                <div className={`hidden md:flex pr-5 overflow-visible`}>
-                    <Image  src={diver} alt='' height={60} width={80} objectFit='cover'/>
+
+                <div >
+                    <Image className={`absolute inset-0  hidden md:flex pr-5 overflow-visible `}  src={diver} alt='' height={60} width={80} objectFit='cover'/>
+
                 </div>
 
 

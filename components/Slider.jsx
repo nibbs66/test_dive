@@ -13,7 +13,7 @@ const NewSlider = ({images, as}) => {
 
     useEffect(() =>{
 
-        images.map((img)=>{
+        images.map((img, idx)=>{
 
             if(img.pic.category === 'webPic'){
                 setCarousel(prev=>[...prev, img])
@@ -23,22 +23,22 @@ const NewSlider = ({images, as}) => {
     const buttonLinks = [
         <Link  href="/shop" passHref>
             <button className='flex justify-center whitespace-nowrap  ml-16 -mt-16 uppercase  bg-green-500 hover:bg-green-500/90 p-5 lg:p-10  lg:text-4xl text-xl rounded-xl text-white font-light hover:font-normal'>
-                Shop Now
+                Winkel
             </button>
         </Link>,
         <Link  href="/learn" passHref>
             <button className='flex justify-center whitespace-nowrap ml-16 -mt-16 uppercase  bg-green-500 hover:bg-green-500/90 p-5 lg:p-10  lg:text-4xl text-xl rounded-xl text-white font-light hover:font-normal'>
-                Learn to Dive
+                Leren Duiken
             </button>
         </Link>,
         <Link  href="/rental" passHref>
             <button className='flex justify-center whitespace-nowrap ml-16 -mt-16  uppercase  bg-green-500 hover:bg-green-500/90 p-5 lg:p-10  lg:text-4xl text-xl rounded-xl text-white font-light hover:font-normal'>
-                Rentals
+                Te Huur
             </button>
         </Link>,
         <Link  href="/service" passHref>
             <button className='flex justify-center whitespace-nowrap ml-16 -mt-16 uppercase  bg-green-500 hover:bg-green-500/90 p-5 lg:p-10  lg:text-4xl text-xl rounded-xl text-white font-light hover:font-normal'>
-                Service
+                Onderhoud
             </button>
         </Link>,
     ]
@@ -85,7 +85,7 @@ const NewSlider = ({images, as}) => {
                     <div className={` absolute  top-56 -left-16.5  lg:top-50 lg:left-16 z-10`}>{buttonLinks[bIndex]}</div>
                     <div >
                         <Image  src={carousel[index]?.pic.img} priority={true} as={as} alt=""
-                                layout="fill" objectFit="cover"/>
+                                layout={`fill`} objectFit="cover"/>
                     </div>
                 </div>
 
