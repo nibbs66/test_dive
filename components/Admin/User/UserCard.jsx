@@ -17,13 +17,13 @@ const Card = ({data, title, bg, box, orderCat}) => {
     const today = dayjs().$d
 
 
-console.log(data)
+
     useEffect(()=>{
         let MTDOrders;
         if(orderCat === 'Web-shop'){
-             MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && (sale.purchaseType === orderCat || sale.purchaseType === 'Winkel'))
+            MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && (sale.purchaseType === orderCat || sale.purchaseType === 'Winkel'))
         }else{
-             MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && sale.purchaseType === orderCat)
+            MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && sale.purchaseType === orderCat)
         }
 
         const lastMonthOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')) && sale.purchaseType === orderCat)

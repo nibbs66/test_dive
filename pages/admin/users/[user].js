@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
 
+
 import axios from "axios";
 import {useRouter} from "next/router";
 import {userColumns} from "../../../tableData";
+
 
 
 import TableDisplay from "../../../components/Table/TableDisplay"
@@ -27,7 +29,7 @@ const Customers = ({customers}) => {
             setData( (prev)=>[...prev, {
                 id: option._id,
 
-                avatar: option.firstName[0].toUpperCase()+option.lastName[0].toUpperCase(),
+                avatar: <div className={`flex w-full justify-center`}><span className={`flex   items-center justify-center h-8 w-8 bg-blue-500/40 drop-shadow-lg text-slate-600 font-bold rounded-full `}>{option.firstName[0].toUpperCase() + option.lastName[0].toUpperCase()}</span></div>,
                 name: option.firstName+' '+option.lastName,
                 email: option.personal.email,
                 phone: option.personal.phone,
