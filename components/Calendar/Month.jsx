@@ -22,7 +22,7 @@ import {
 } from '@heroicons/react/20/solid'
 import {meetings} from "../../dummyMeetings";
 import { Menu, Transition } from '@headlessui/react'
-import CustomerSearch from "../Pos/CustomerSearch";
+import CustomerSearch from "../Admin/Pos/CustomerSearch";
 import {startDay, today, colStartClasses, } from "../../Time";
 import Link from "next/link";
 

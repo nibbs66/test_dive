@@ -14,9 +14,6 @@ import ComboboxDisplay from "../../ComboboxDisplay";
 import useUploadImg from "../../../hooks/useUploadImg";
 import useProduct from "../../../pages/api/hooks/useProduct";
 import SubTypes from './SubTypes'
-import ErrorAlert from "../../Alerts/ErrorAlert";
-import SuccessAlert from "../../Alerts/SuccessAlert";
-import Popover from "../../Tools/Popover";
 
 
 const NewProductPage = () => {
@@ -107,7 +104,7 @@ const NewProductPage = () => {
 
     return (
         <div>
-            <ErrorAlert showMessage={showMessage} setShowMessage={setShowMessage} color={messageColor} message={message}/>
+
             <form action="" onSubmit={handleSubmit}>
                 <ProductPageDisplay product={inputs} handleSubmit={handleSubmit} submitButton={true} disabled={disabled} message={`Add Product Subtype before submitting!!`}>
 

@@ -24,7 +24,7 @@ import { add,
     endOfWeek,
 } from "date-fns";
 import dayjs from "dayjs";
-import CustomerSearch from "../Pos/CustomerSearch";
+import CustomerSearch from "../Admin/Pos/CustomerSearch";
 const weekday = require("dayjs/plugin/weekday");
 const weekOfYear = require("dayjs/plugin/weekOfYear");
 

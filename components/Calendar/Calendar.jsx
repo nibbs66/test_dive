@@ -33,7 +33,7 @@ import { add,
     endOfWeek,
 } from "date-fns";
 import dayjs from "dayjs";
-import CustomerSearch from "../Pos/CustomerSearch";
+import CustomerSearch from "../Admin/Pos/CustomerSearch";
 import Month from "./Month";
 import Week from "./Week"
 import Day from './Day'

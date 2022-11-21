@@ -18,7 +18,7 @@ import {
 } from "date-fns";
 
 import {startDay, today, colStartClasses, hours, currentMinute} from "../../Time";
-import CustomerSearch from "../Pos/CustomerSearch";
+import CustomerSearch from "../Admin/Pos/CustomerSearch";
 import Link from "next/link";
 
 function classNames(...classes) {
