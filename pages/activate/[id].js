@@ -1,6 +1,5 @@
 import React from 'react';
-import Admin from "../../components/layout/Admin";
-import ActivateSuccess from "../../components/credentials/ActivateSuccess";
+import ActivateSuccess from "../../components/Client/credentials/ActivateSuccess";
 import Client from "../../components/layout/Client";
 
 const Activate = () => {

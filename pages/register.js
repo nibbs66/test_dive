@@ -1,6 +1,6 @@
 import React from 'react';
 import Client from "../components/layout/Client";
-import RegisterForm from "../components/credentials/RegisterForm";
+import RegisterForm from "../components/Client/credentials/RegisterForm";
 
 
 const Register = () => {
