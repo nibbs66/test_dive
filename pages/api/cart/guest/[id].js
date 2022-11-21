@@ -32,17 +32,17 @@ export default async function handler(req, res) {
     }
 
     if(method === 'PUT'){
-       const {
-           firstName,
-           lastName,
-           phone,
-           email,
-           address,
-           city,
-           postalCode,
-           country
-       }=req.body
-       try{
+        const {
+            firstName,
+            lastName,
+            phone,
+            email,
+            address,
+            city,
+            postalCode,
+            country
+        }=req.body
+        try{
             const guestInfo = await Cart.findOneAndUpdate(
                 {_id: id},
                 {$set: {guestInformation:

@@ -38,31 +38,31 @@ export default async function handler(req,res){
     }
 
 
-        try{
-            const calculateOrderAmount = (items) => {
-                // Replace this constant with a calculation of the order's amount
-                // Calculate the order total on the server to prevent
-                // people from directly manipulating the amount on the Client
-                return 1400;
-            };
+    try{
+        const calculateOrderAmount = (items) => {
+            // Replace this constant with a calculation of the order's amount
+            // Calculate the order total on the server to prevent
+            // people from directly manipulating the amount on the Client
+            return 1400;
+        };
 
-            const payment_intent = await stripe.paymentIntents.create({
-                amount: amount,
-                currency: 'eur',
-                description: 'Payment description',
-                /*automatic_payment_methods: {
-                    enabled: true,
-                },*/
-                payment_method_types: ['ideal', 'card'],
-            });
-            //Return the payment_intent object
-            res.status(200).json(payment_intent);
+        const payment_intent = await stripe.paymentIntents.create({
+            amount: amount,
+            currency: 'eur',
+            description: 'Payment description',
+            /*automatic_payment_methods: {
+                enabled: true,
+            },*/
+            payment_method_types: ['ideal', 'card'],
+        });
+        //Return the payment_intent object
+        res.status(200).json(payment_intent);
 
-        }catch(err){
-            const errorMessage =
-                err instanceof Error ? err.message : 'Internal server error';
-            res.status(500).json({  statusCode: 500, lastmessage: errorMessage });
-        }
+    }catch(err){
+        const errorMessage =
+            err instanceof Error ? err.message : 'Internal server error';
+        res.status(500).json({  statusCode: 500, lastmessage: errorMessage });
+    }
 
 
 }

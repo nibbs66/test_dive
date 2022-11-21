@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NewProductPage from "../../../../components/Products/NewProductPage";
+import NewProductPage from "../../../../components/Admin/Products/NewProductPage";
 import Admin from "../../../../components/layout/Admin";
 import axios from "axios";
 

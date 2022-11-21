@@ -1,6 +1,6 @@
 import React from 'react';
 import Admin from "../../../../components/layout/Admin";
-import NewUser from "../../../../components/User/NewUser";
+import NewUser from "../../../../components/Admin/User/NewUser";
 import axios from "axios";
 
 const New = ({agency}) => {

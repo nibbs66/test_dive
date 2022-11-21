@@ -10,7 +10,7 @@ import toast, {Toaster} from 'react-hot-toast'
 import app from "../../../lib/firebase";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject} from "firebase/storage";
 
-const Index = () => {
+const Index = ({products}) => {
     const [rows, setRows] = useState([]);
     const [filterManufacturer, setFilterManufacturer] = useState([])
     const [filterCategory, setFilterCategory] = useState([])
@@ -19,13 +19,14 @@ const Index = () => {
     const [activeFilter, setActiveFilter] = useState(false);
     const [filterData, setFilterData] = useState([])
     const [checked, setChecked] = useState('')
+    const [deleteProduct, setDeleteProduct] = useState(false)
     const {
-        products,
+
         validateProduct,
         mutateProduct
     } = useAdmin()
     const filterColumns = [
-        { header: "Manufacturer", field: "manufacturer",   },
+        { header: "Vendor", field: "vendor",   },
         { header: "Category", field: "category",  sortable: true},
         { header: "New", field: "isNew",   },
         { header: "Stock", field: "stock",   },
@@ -37,14 +38,14 @@ const Index = () => {
         setFilterCategory([])
         setFilterIsNew([])
         setFilterStock([])
-
+        //category: product?.categories[0],
         products?.map((product, idx)=>{
 
             setRows( (prev)=>[...prev, {
                 id: product._id,
-                manufacturer: product.manufacturer,
+                vendor: product.vendor,
                 name: product?.name?.slice(0, 10)+'...',
-                category: product?.categories[0],
+                category: product?.category,
                 cost: product?.cost,
                 price: product?.price?.toFixed(2),
                 stock: product?.stock,
@@ -52,8 +53,8 @@ const Index = () => {
                 action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  item={product}/>
 
             }])
-            setFilterManufacturer((prev)=>[...prev, product.manufacturer])
-            setFilterCategory((prev)=>[...prev, product.categories[0]])
+            setFilterManufacturer((prev)=>[...prev, product.vendor])
+            setFilterCategory((prev)=>[...prev, product.category])
             setFilterIsNew((prev)=>[...prev, product.new])
             setFilterStock((prev)=>[...prev, product.stock])
         })
@@ -65,7 +66,7 @@ const Index = () => {
         const filterManufacturerSet = [...new Set(filterManufacturer)]
         filterManufacturerSet.map((item)=>{
             setFilterData((prev)=>[...prev, {
-                'manufacturer': item
+                'vendor': item
             }])
         })
         const filterCategorySet = [...new Set(filterCategory)]
@@ -94,20 +95,25 @@ const Index = () => {
     },[filterManufacturer])
 
     const handleDelete = async(product) => {
-        let success;
-        await product.img.map((file)=>{
+
+        let emptyPhotoArray=product.img.length
+        await product.img.map((file, idx)=>{
+
             const storage = getStorage(app);
             const fileRef = ref(storage, file);
-            deleteObject(fileRef)
-                .then(async() =>{
-                    toast.success('Product Successfully Deleted')
-                }).catch((error) => {
-                success= 'oops'
+            deleteObject(fileRef).then(async() =>{
+                toast.success('Image Successfully Deleted')
+            }).catch((error) => {
+
                 console.log(error)
                 toast.error('Uh-oh, an error occurred!')
+
                 // Uh-oh, an error occurred!
             });
-        }).then(async()=>{
+            emptyPhotoArray = emptyPhotoArray - 1
+        })
+
+        if(emptyPhotoArray === 0){
             try{
                 const res = await axios.delete(`/api/products/${product._id}`)
                 res.status === 200 && toast.success('Product successfully deleted.')
@@ -115,10 +121,7 @@ const Index = () => {
             }catch(err){
                 console.log(err)
             }
-        })
-
-
-
+        }
 
     }
     const handleFilter = (e, item, field) => {
@@ -164,9 +167,9 @@ const Index = () => {
         filteredProducts.map((product, idx)=>{
             setRows( (prev)=>[...prev, {
                 id: product._id,
-                manufacturer: product.manufacturer,
+                vendor: product.vendor,
                 name: product.name.slice(0, 10)+'...',
-                category: product.categories[0],
+                category: product.category,
                 cost: product.cost,
                 price: product.price.toFixed(2),
                 stock: product.stock,
@@ -194,9 +197,9 @@ const Index = () => {
         products?.map((product, idx)=> {
             setRows( (prev)=>[...prev, {
                 id: product._id,
-                manufacturer: product.manufacturer,
+                vendor: product.vendor,
                 name: product.name.slice(0, 10)+'...',
-                category: product.categories[0],
+                category: product.vendor,
                 cost: product.cost,
                 price: product.price.toFixed(2),
                 stock: product.stock,
@@ -230,4 +233,14 @@ Index.getLayout = function getLayout(page){
             {page}
         </Admin>
     )
+}
+export async function getServerSideProps(ctx){
+    const host = ctx.req.headers.host;
+    const res = await axios.get(`https://`+host+`/api/products`)
+    return{
+        props: {
+            products: res.data
+        }
+    }
+
 }

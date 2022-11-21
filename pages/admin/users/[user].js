@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 
 
-import Link from "next/link";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {userColumns} from "../../../tableData";
-import Eye from "../../../components/icons/Eye";
-import TrashCan from "../../../components/icons/TrashCan";
 
 
 import TableDisplay from "../../../components/Table/TableDisplay"

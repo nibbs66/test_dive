@@ -30,11 +30,22 @@ export default async function handler(req, res) {
             res.status(500).json(err);
         }
     }
+    if(method==="POST"){
+        console.log(req.body)
+
+        /*try{
+            const course = await Messages.create(req.body);
+             await sendEmail({toUser: user.firstName, toEmail: user.personal.email, id: user._id, userRequest: 'register'})
+            res.status(201).json(message)
+        }catch(err){
+            res.status(500).json(err);
+        }*/
+    }
     if(method==="DELETE"){
 
         try{
             await Messages.findByIdAndDelete(id);
-            res.status(200).json("Cursus Deleted")
+            res.status(200).json("Message Deleted")
         }catch(err){
             res.status(500).json(err);
         }

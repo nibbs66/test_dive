@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     if(method==="POST"){
 
 
-      try{
+        try{
             const service = await Service.create(req.body);
 
             res.status(201).json(service)

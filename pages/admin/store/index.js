@@ -1,5 +1,5 @@
 import React from 'react';
-import Pos from "../../../components/Pos/Pos";
+import Pos from "../../../components/Admin/Pos/Pos";
 import axios from "axios";
 import Admin from "../../../components/layout/Admin";
 

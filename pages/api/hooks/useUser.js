@@ -14,7 +14,7 @@ export default function useUser () {
     const id = session?.id
     useEffect(()=>{
         const guestCookie =  getCookie('visitor')
-                setGuestId(guestCookie)
+        setGuestId(guestCookie)
 
 
     },[])

@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {useRouter} from "next/router";
 import dayjs from "dayjs";
 import axios from "axios";
-import ShowUser from "../../../components/User/ShowUser"
-import EditUser from "../../../components/User/EditUser";
+import ShowUser from "../../../components/Admin/User/ShowUser"
+import EditUser from "../../../components/Admin/User/EditUser";
 import Admin from "../../../components/layout/Admin";
 
 
-const  Person = ({user, orders}) => {
+const  Person = ({user, orders, agency, sales}) => {
     const router = useRouter()
     const {params} = router.query
     const [data, setData] = useState([])
@@ -18,7 +18,7 @@ const  Person = ({user, orders}) => {
     const [editInput, setEditInput] = useState('')
 
 
-console.log(params[0])
+
 
 
     useEffect(()=>{
@@ -73,8 +73,8 @@ console.log(params[0])
 
     return (
         < >
-            {(params[0] === 'edit') ?  <EditUser  user={user}/>:
-                <ShowUser user={user} orders={orders}/>}
+            {(params[0] === 'edit') ?  <EditUser agency={agency}  user={user}/>:
+                <ShowUser user={user} orders={orders} sales={sales}/>}
         </>
     );
 };
@@ -94,10 +94,14 @@ export const getServerSideProps = async (ctx) =>{
 
     const res = await axios.get(`https://`+host+`/api/users/${id}`);
     const order = await axios.get(`https://`+host+`/api/orders?id=${id}`)
+    const sales = await axios.get(`https://`+host+`/api/sales?id=${id}`)
+    const agency = await axios.get(`https://`+host+`/api/agency`);
     return{
         props:{
             user: res.data,
-            orders: order.data
+            orders: order.data,
+            sales: sales.data,
+            agency: agency.data
 
         }
     }

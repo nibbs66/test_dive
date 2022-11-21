@@ -1,6 +1,6 @@
 import dbConnect from "../../../lib/mongo";
 import CursusDescription from "../../../models/CursusDescription";
-import Order from "../../../models/Order";
+
 
 export default async function handler(req, res) {
     const {
@@ -36,13 +36,13 @@ export default async function handler(req, res) {
 
         try {
             const course = await CursusDescription.create({
-                   cursus: inputs.cursus,
-                   minStudent: inputs.minStudents,
-                   maxStudents: inputs.maxStudents,
-                   cutOff: inputs.cutOff,
-                   desc: inputs.desc,
-                   img: img
-                });
+                cursus: inputs.cursus,
+                minStudent: inputs.minStudents,
+                maxStudents: inputs.maxStudents,
+                cutOff: inputs.cutOff,
+                desc: inputs.desc,
+                img: img
+            });
             res.status(201).json(course)
         } catch (err) {
             res.status(500).json(err);

@@ -7,6 +7,7 @@ import TableDisplay from "../../../components/Table/TableDisplay";
 import toast, {Toaster} from 'react-hot-toast'
 import useAdmin from '../../api/hooks/useAdmin'
 import Loader from "../../../components/icons/Loader";
+import useSet from "../../../hooks/useSet";
 const Index = () => {
     const {
         orders,
@@ -17,10 +18,11 @@ const Index = () => {
     const [data, setData] = useState([]);
     const [filterData, setFilterData] = useState([])
     const [searchList, setSearchList] = useState([])
-    const [type, setType] = useState([])
-    const [carrier, setCarrier] = useState([])
-    const [status, setStatus] = useState([])
+    const [type] = useSet([orders, 'purchaseType', 'type'])
+    const [carrier] = useSet([orders, 'shippingMethod', 'method', 'carrier'])
+    const [status] = useSet([orders, 'status'])
     const [checked, setChecked] = useState('')
+
     const filterColumns = [
         { header: "Type", field: "type",  sortable: true },
         { header: "Carrier", field: "carrier",  sortable: true},
@@ -30,12 +32,10 @@ const Index = () => {
     useEffect(()=>{
 
         setData([])
-        setCarrier([])
-        setType([])
-        setStatus([])
 
 
         const getOrders = async()=>{
+
             await orders?.map((option, idx)=>{
                 if(!option.amountPaid || (option.total - option.amountPaid === 0)){
                     setData( (prev)=>[...prev, {
@@ -44,7 +44,7 @@ const Index = () => {
                         orderId: '...'+option._id.slice(-5),
                         type: option.purchaseType,
                         total: '€'+ option.total.toFixed(2),
-                        carrier: option.shippingMethod.method,
+                        carrier: option.shippingMethod?.method,
                         status: option.status,
                         action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
 
@@ -59,9 +59,6 @@ const Index = () => {
 
                 }])
 
-                setType((prev)=>[...prev, option.purchaseType])
-                setCarrier((prev)=>[...prev, option.shippingMethod.method])
-                setStatus((prev)=>[...prev, option.status])
             })
 
         }
@@ -70,27 +67,28 @@ const Index = () => {
     },[orders])
     useEffect(()=>{
         setFilterData([])
-        const carrierSet = [...new Set(carrier)]
-        carrierSet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'carrier': item
-            }])
+
+        carrier.map((item)=>{
+
+            setFilterData((prev)=>[...prev,
+                item
+            ])
         })
-        const typeSet = [...new Set(type)]
-        typeSet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'type': item
-            }])
+
+        type.map((item)=>{
+            setFilterData((prev)=>[...prev,
+                item
+            ])
         })
-        const statusSet = [...new Set(status)]
-        statusSet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'status': item
-            }])
+
+        status.map((item)=>{
+            setFilterData((prev)=>[...prev,
+                item
+            ])
         })
 
 
-    },[searchList])
+    },[carrier, type, status])
     const handleFilter = (e, item, field) => {
 
         setChecked(e.target.value)
@@ -137,7 +135,7 @@ const Index = () => {
         }catch(err){
             console.log(err)
         }
-        console.log(id)
+
     }
 
     const handleReset = () =>{
@@ -161,9 +159,11 @@ const Index = () => {
             }
         })
     }
+
     if(validateOrder){
         return  <Loader/>
     }
+
     return (
         <div className={`p-10`}>
             <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>

@@ -46,18 +46,18 @@ const handler = async(req,res) => {
         }
     }
     if (method === "POST") {
-           const {response} = req.body
-            const {
-                _id,
-                fullName,
-                regarding,
-                subject,
-                email,
-            } = req.body.messages
-       try {
+        const {response} = req.body
+        const {
+            _id,
+            fullName,
+            regarding,
+            subject,
+            email,
+        } = req.body.messages
+        try {
             const message = await Conversations.create({
-            userId: _id,
-            response
+                userId: _id,
+                response
             })
             await sendEmail({toUser: fullName, toEmail:  email, regarding: subject, replyBody: response, messageResponse: 'inquiry'})
             res.status(201).json(message)

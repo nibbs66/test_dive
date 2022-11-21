@@ -13,13 +13,13 @@ export default async function handler(req, res) {
     await dbConnect()
 
     if(method==="GET"){
-0
+
         try {
             let carts;
             if (cart) {
 
                 carts = await Cart.findOne(
-                {userId: cart}
+                    {userId: cart}
                 );
             }else {
                 carts = await Cart.find();
@@ -35,11 +35,11 @@ export default async function handler(req, res) {
         const userId = req.body.userId
         try{
             const cart = await Cart.create(req.body);
-           if(!userId.includes('guest')){
-               await User.findByIdAndUpdate(userId,
-                   {cart: cart._id})
-           }
-           res.status(201).json(cart)
+            if(!userId.includes('guest')){
+                await User.findByIdAndUpdate(userId,
+                    {cart: cart._id})
+            }
+            res.status(201).json(cart)
         }catch(err){
             res.status(500).json(err);
         }
@@ -52,8 +52,12 @@ export default async function handler(req, res) {
             const amendedCart =  await Cart.findOneAndUpdate(
                 {userId: cart},
                 {
-                    $push: {items: {productId: items.productId, quantity: items.quantity, color: items.color,
-                            size: items.size, name: items.name, modelId: items.modelId, img: items.img, price: items.price}},
+                    $push: {items: {
+                            productId: items.productId, quantity: items.quantity, color: items.color,
+                            size: items.size, name: items.name, modelId: items.modelId,
+                            img: items.img, price: items.price, vendor: items.vendor,
+                            subTypeId: items.subTypeId,
+                        }},
                     $inc: {total: addToTotal},
                     new: true
                 }

@@ -6,9 +6,12 @@ const OrderSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        name: {
+            type: String,
+        },
         customer: {
-            firstName: {type: String, required: true},
-            lastName: {type: String, required: true},
+            firstName: {type: String},
+            lastName: {type: String},
 
 
         },
@@ -16,7 +19,7 @@ const OrderSchema = new mongoose.Schema(
             type: String
         },
         phone: {
-          type: String
+            type: String
         },
         address: {
 
@@ -25,6 +28,9 @@ const OrderSchema = new mongoose.Schema(
         total: {
             type: Number,
             required: true,
+        },
+        amountPaid: {
+            type: Number,
         },
 
         status: {

@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     }
     if (method === "POST") {
 
-    try {
+        try {
             const rental = await Rental.create(req.body);
             res.status(201).json(rental)
         } catch (err) {

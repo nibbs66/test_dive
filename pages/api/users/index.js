@@ -17,11 +17,11 @@ export default async function handler(req, res) {
         try {
             let actives;
             if (group) {
-           actives = await User.find({
-               userType: {
-                   $in: [group],
-               }
-           });
+                actives = await User.find({
+                    userType: {
+                        $in: [group],
+                    }
+                });
             } else {
                 actives = await User.find();
             }
@@ -35,47 +35,47 @@ export default async function handler(req, res) {
 
 
         const{
-             firstName,
-             lastName,
-             personal,
-             password,
-             experience,
-             address,
-             emergencyContact,
-             employeeInfo,
-             isEmployee,
-             userType
-         } =req.body;
+            firstName,
+            lastName,
+            personal,
+            password,
+            experience,
+            address,
+            emergencyContact,
+            employeeInfo,
+            isEmployee,
+            userType
+        } =req.body;
 
 
 
 
-         const newUser = new PendingUser({
-             firstName,
-             lastName,
-             personal,
-             password: await argon2.hash(password),
-             experience,
-             address,
-             emergencyContact,
-             employeeInfo,
-             isEmployee,
-             userType
+        const newUser = new PendingUser({
+            firstName,
+            lastName,
+            personal,
+            password: await argon2.hash(password),
+            experience,
+            address,
+            emergencyContact,
+            employeeInfo,
+            isEmployee,
+            userType
 
 
-         })
-     try{
+        })
+        try{
 
-             const rUser = await User.findOne({'personal.username': personal.username.toLowerCase()})
-             const pUser = await PendingUser.findOne({'personal.username': personal.username.toLowerCase()})
+            const rUser = await User.findOne({'personal.username': personal.username.toLowerCase()})
+            const pUser = await PendingUser.findOne({'personal.username': personal.username.toLowerCase()})
 
-             if (pUser  || rUser ) { return res.status(422).send('Username is already taken. Username must be unique.  Please try again.');}
-             const user = await PendingUser.create(newUser);
-             await sendConfirmationEmail({toUser: user.firstName, toEmail: user.personal.email, id: user._id, userRequest: 'register'})
-             res.status(201).json('Please check your email to activate account.')
-         }catch(err){
-             res.status(500).json(err);
-         }
+            if (pUser  || rUser ) { return res.status(422).send('Username is already taken. Username must be unique.  Please try again.');}
+            const user = await PendingUser.create(newUser);
+            await sendConfirmationEmail({toUser: user.firstName, toEmail: user.personal.email, id: user._id, userRequest: 'register'})
+            res.status(201).json('Please check your email to activate account.')
+        }catch(err){
+            res.status(500).json(err);
+        }
     }
 
 }

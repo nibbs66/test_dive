@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
         try {
 
-               const  user = await User.findById(id);
+            const  user = await User.findById(id);
 
 
             const {password, ...others} = user._doc
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         if(password) {
             const newPassword = await argon2.hash(password)
             try {
-                 await User.findByIdAndUpdate(
+                await User.findByIdAndUpdate(
                     id,
                     {
                         'password': newPassword,

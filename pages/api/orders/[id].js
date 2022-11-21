@@ -7,7 +7,7 @@ const handler = async(req,res) => {
 
     if(method==="GET"){
         try{
-        const order = await Order.findById(id)
+            const order = await Order.findById(id)
             res.status(200).json(order)
         }catch(err){
             res.status(500).json(err)
@@ -26,7 +26,7 @@ const handler = async(req,res) => {
     }
     if(method==="DELETE"){
         try{
-          await Order.findByIdAndDelete(id)
+            await Order.findByIdAndDelete(id)
             res.status(200).json("Order Deleted")
         }catch(err){
             res.status(500).json(err)

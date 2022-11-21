@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     }
     if(method==="POST"){
 
-console.log(req.body)
+        console.log(req.body)
         try{
             const reservation = await Time.create(req.body);
 

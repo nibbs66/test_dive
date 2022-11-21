@@ -7,6 +7,10 @@ const MessageSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        userId: {
+            type: String,
+
+        },
 
         email: {
             type: String,
@@ -19,7 +23,7 @@ const MessageSchema = new mongoose.Schema(
             required: true },
 
         regarding: {
-          type: String
+            type: String
         },
         subject: {
             type: String,
@@ -27,9 +31,7 @@ const MessageSchema = new mongoose.Schema(
         },
         message: {
             type: String
-        }
-
-
+        },
     },
     {timestamps: true }
 )

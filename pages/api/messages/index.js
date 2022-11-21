@@ -59,7 +59,7 @@ const handler = async(req,res) => {
         const items = req.body
 
         try {
-            items.products.map(item=> {
+            items.messages.map(item=> {
                 const newUpdate = Messages.findByIdAndUpdate({_id: item.productID}, {$inc: {stock: -item.quantity}, new: true})
                 res.status(201).json(newUpdate)
             })

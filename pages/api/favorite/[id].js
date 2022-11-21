@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     if(method === 'PUT') {
         const {save, remove} = req.body
 
-      if (save) {
+        if (save) {
             try {
                 const updatedFavorite = await Favorite.findOneAndUpdate(
                     id,

@@ -1,14 +1,14 @@
 
 import Admin from "../../../components/layout/Admin";
 import axios from "axios";
-import MessageMainTable from "../../../components/Messages/MessageMainTable";
+import MessageMainTable from "../../../components/Admin/Messages/MessageMainTable";
 
 const Index = ({messages}) => {
 
     return (
-       <div>
-           <MessageMainTable messages={messages}/>
-       </div>
+        <div>
+            <MessageMainTable messages={messages}/>
+        </div>
     );
 };
 

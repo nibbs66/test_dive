@@ -1,12 +1,13 @@
 import React from 'react';
 import Admin from "../../../../components/layout/Admin";
-import NewProductPage from "../../../../components/Admin/Rentals/NewProductPage";
 import axios from "axios";
+import NewRentalProduct from "../../../../components/Admin/RentalProduct/NewRentalProduct";
 
 const Index = ({category}) => {
     return (
         <div>
-            <NewProductPage category={category}/>
+
+            <NewRentalProduct category={category}/>
         </div>
     );
 };

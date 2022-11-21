@@ -1,43 +1,29 @@
-import {useState, useEffect} from 'react';
+import React from 'react';
 import Admin from "../../../components/layout/Admin";
-import ProductPage from "../../../components/Products/ProductPage";
+import ProductPage from "../../../components/Admin/Products/ProductPage";
 import {useRouter} from "next/router";
-import ProductPageDisplay from "../../../components/Products/ProductPageDisplay";
+
 import axios from "axios";
-import EditProductPage from "../../../components/Products/EditProductPage";
-import NewProductPage from "../../../components/Products/NewProductPage";
+import EditProductPage from "../../../components/Admin/Products/EditProductPage";
+
 
 const Product = ({product, orders}) => {
     const router = useRouter()
     const {query} = router
-    const [productSales, setProductSales] = useState([])
-
-    useEffect(()=>{
-        const salesTracking = []
-        orders.map((order)=>{
-            order.items.map((array)=>{
-                array.productId === product._id && salesTracking.push(order)
-                setProductSales(salesTracking)
-
-            })
-        })
 
 
-
-
-    },[orders])
 
     return (
         <>
-            { query.params[0] === 'product' ? <ProductPage product={product} productSales={productSales}/> :
-                 <EditProductPage product={product}/>
+            { query.params[0] === 'product' ? <ProductPage product={product}  orders={orders}/> :
+                <EditProductPage product={product}/>
 
             }
         </>
     );
 };
 
-    export default Product;
+export default Product;
     Product.getLayout = function getLayout(page){
         return(
             <Admin>

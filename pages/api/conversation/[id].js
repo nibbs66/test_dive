@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     }
     if(method==="DELETE"){
 
-      try{
+        try{
             await Messages.findByIdAndDelete(id);
             res.status(200).json("Message Deleted")
         }catch(err){

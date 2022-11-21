@@ -50,14 +50,14 @@ export default async function handler(req, res) {
         const {save, remove} = req.body
         if (save) {
             try{
-            const updatedFavorite = await Favorite.findOneAndUpdate(
-                {userId: favorite},
-                {$push: {items: {...save}}}
-            )
-            res.status(200).json(updatedFavorite)
-        }catch(err){
-            res.status(500).json(err);
-        }
+                const updatedFavorite = await Favorite.findOneAndUpdate(
+                    {userId: favorite},
+                    {$push: {items: {...save}}}
+                )
+                res.status(200).json(updatedFavorite)
+            }catch(err){
+                res.status(500).json(err);
+            }
         }
         if (remove) {
             try {

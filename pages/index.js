@@ -2,9 +2,9 @@ import Head from 'next/head'
 
 import Client from "../components/layout/Client";
 import axios from "axios";
-import Slider from "../components/Slider";
-import VendorLogos from "../components/VendorLogos";
-import Announcement from "../components/Announcement";
+import Slider from "../components/Client/Slider";
+import VendorLogos from "../components/Client/VendorLogos";
+import Announcement from "../components/Client/Announcement";
 import { setCookie} from 'cookies-next';
 import { v4 as uuidv4 } from 'uuid';
 

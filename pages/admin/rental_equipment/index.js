@@ -4,10 +4,13 @@ import axios from "axios";
 import {RentalTableColumns} from "../../../tableData";
 import TableActions from "../../../components/Table/TableActions";
 import TableDisplay from "../../../components/Table/TableDisplay";
-import toast, {Toaster} from 'react-hot-toast'
+import useSet from '../../../hooks/useSet'
+
 const Index = ({rentals}) => {
     const [data, setData] = useState([]);
-    const [filterCategory, setFilterCategory] = useState([])
+
+    const [rentalCategory] = useSet([rentals, 'category'])
+
     const [activeFilter, setActiveFilter] = useState(false);
     const [filterData, setFilterData] = useState([])
     const [checked, setChecked] = useState('')
@@ -15,10 +18,10 @@ const Index = ({rentals}) => {
         { header: "Category", field: "category",  sortable: true},
         { header: "Stock", field: "stock",},
     ]
-
+    console.log(rentalCategory)
     useEffect(()=>{
         setData([])
-        setFilterCategory([])
+
         const createRental = async() => {
             await rentals.map((product, idx)=>{
 
@@ -50,7 +53,7 @@ const Index = ({rentals}) => {
 
                 }])
 
-                setFilterCategory((prev)=>[...prev, product.category])
+
             })
         }
         createRental()
@@ -61,20 +64,20 @@ const Index = ({rentals}) => {
         setFilterData([])
         const stockFilter = ['< 10', '11-20', '21-30', '31-40', '41-50', '> 50']
 
-        const filterCategorySet = [...new Set(filterCategory)]
-        filterCategorySet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'category': item
-            }])
+        rentalCategory.map((item)=>{
+            setFilterData((prev)=>[...prev,
+                item
+            ])
         })
 
-        const stockFilterSet = [...new Set(stockFilter)]
-        stockFilterSet.map((item)=>{
+
+        stockFilter.map((item)=>{
             setFilterData((prev)=>[...prev, {
                 'stock': item
             }])
         })
-    },[filterCategory])
+
+    },[rentalCategory])
     const handleFilter = (e, item, field) => {
 
         setChecked(e.target.value)
@@ -151,18 +154,17 @@ const Index = ({rentals}) => {
     const handleDelete = async(product) => {
         try{
             const res = await axios.delete(`/api/rentals/${product._id}`)
-            res.status === 200 && toast.success('Order successfully deleted.')
+            console.log(res.data)
         }catch(err){
             console.log(err)
         }
-
+        console.log(id)
     }
-
+    console.log(filterData)
     return (
         <div className={`p-10`}>
-            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
             <TableDisplay   columns={RentalTableColumns} tableTitle={true} font={'text-slate-800'} textSize={'text-3xl'}
-                            rows={data} setRows={setData}  title={'Te Huur Item'}  PageSize={10} showFilter={true}
+                            rows={data} setRows={setData}  title={'Te Huur Item'}  PageSize={10} showFilter={true} activeFilter={activeFilter}
                             filterColumns={filterColumns} filterData={filterData} handleReset={handleReset} handleFilter={handleFilter}
             />
 

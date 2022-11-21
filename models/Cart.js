@@ -8,18 +8,26 @@ const CartSchema = new mongoose.Schema({
 
         items: {
             type: [
-                {productId: {type: String, required: true},
-                quantity: {type: Number, required: true},
-                color: {type: String},
-                size: {type: String},
-                name: {type: String},
-                price: {type: Number},
-                img: {type: String},
-                modelId: {type: String},
+                {
+                    productId: {type: String, required: true},
+                    subTypeId: {type: String, required: true},
+                    vendor: {type: String, required: true},
+                    quantity: {type: Number, required: true},
+                    color: {type: String},
+                    size: {type: String},
+                    name: {type: String},
+                    price: {type: Number},
+                    img: {type: String},
+                    modelId: {type: String},
+                    barcode: {type: String},
                 }
             ]
         },
+
         total: {
+            type: Number,
+        },
+        amountPaid: {
             type: Number,
         },
         shipping: {

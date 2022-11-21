@@ -6,8 +6,11 @@ const CursusScheduleSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        schedule: {
-            type: [String]
+        startDate: {
+            type: Date
+        },
+        endDate: {
+            type: Date
         },
 
 

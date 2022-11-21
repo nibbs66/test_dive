@@ -22,15 +22,15 @@ export default async function handler(req, res) {
         }
     }
     if(method==="PUT"){
-            const {quantity} = req.body
+        const {quantity} = req.body
 
 
-          try{
-              const product = await Product.findByIdAndUpdate(id,{$inc: {stock: -quantity}, new: true});
-              res.status(201).json(product)
-          }catch(err){
-              res.status(500).json(err);
-          }
+        try{
+            const product = await Product.findByIdAndUpdate(id,{$inc: {stock: -quantity}, new: true});
+            res.status(201).json(product)
+        }catch(err){
+            res.status(500).json(err);
+        }
 
     }
     if(method==="DELETE"){

@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import axios from "axios";
 import Client from "../../components/layout/Client";
-import Reset from "../../components/Reset/Reset";
+import Reset from "../../components/Client/Reset/Reset";
 import {useRouter} from "next/router";
-import Set from "../../components/Reset/Set";
+import Set from "../../components/Client/Reset/Set";
 
 const Lost = () => {
     const router = useRouter()

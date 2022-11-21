@@ -2,32 +2,33 @@ import React from 'react';
 import Admin from "../../../components/layout/Admin";
 import axios from "axios";
 import {useRouter} from "next/router";
-import MessageGroupTable from "../../../components/Messages/MessageGroupTable";
-import Message from "../../../components/Messages/Message";
+import MessageGroupTable from "../../../components/Admin/Messages/MessageGroupTable";
+import Message from "../../../components/Admin/Messages/Message";
 
 const MessageGroup = ({messages}) => {
+
     const router = useRouter()
     const {query}  = router
-    console.log(query)
-    return (
-    <div>
-        {query.params.length < 2 ?
-            <MessageGroupTable messages={messages} title={query.params[0]}/>
-        :
-            <Message messages={messages}/>
-        }
-    </div>
-    );
-    };
 
-    export default MessageGroup;
-    MessageGroup.getLayout = function getLayout(page){
-        return(
-            <Admin>
-                {page}
-            </Admin>
-        )
-    }
+    return (
+        <div>
+            {query.params.length < 2 ?
+                <MessageGroupTable messages={messages} title={query.params[0]}/>
+                :
+                <Message messages={messages}/>
+            }
+        </div>
+    );
+};
+
+export default MessageGroup;
+MessageGroup.getLayout = function getLayout(page){
+    return(
+        <Admin>
+            {page}
+        </Admin>
+    )
+}
 export const getServerSideProps = async(ctx) => {
     const host = ctx.req.headers.host;
     if(ctx.params.params.length >= 2){

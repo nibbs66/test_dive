@@ -23,8 +23,8 @@ export default async function handler(req, res) {
 
     }
     if(method === 'PUT'){
-        const{newQuant, productId, addToTotal, selected, shippingCost}=req.body
-
+        const{newQuant, productId, addToTotal, selected, shippingCost, amountPaid}=req.body
+        console.log(amountPaid)
         if(!selected){
             try{
                 await Cart.findOneAndUpdate(
@@ -44,23 +44,24 @@ export default async function handler(req, res) {
             }
         }else{
             try{
-        const shippingUpdate = await Cart.findOneAndUpdate(
-             {_id: id},
-            {$set: {shipping:
-                       {
-                           method: selected,
-                           price: shippingCost
-                       },
-                    new: true
-            }
-            },
-          )
+                const shippingUpdate = await Cart.findOneAndUpdate(
+                    {_id: id},
+                    {$set: {shipping:
+                                {
+                                    method: selected,
+                                    price: shippingCost
+                                },
+                            amountPaid: amountPaid,
+                            new: true
+                        }
+                    },
+                )
                 res.status(200).json(shippingUpdate)
             }catch(err){
                 res.status(500).json(err);
-                        }
-}
+            }
+        }
 
 
-}
+    }
 }

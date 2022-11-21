@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
         try {
 
-              const  images = await WebImage.find();
+            const  images = await WebImage.find();
 
             res.status(200).json(images);
         }catch(err){

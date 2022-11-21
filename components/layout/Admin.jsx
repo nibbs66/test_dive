@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminSidebar from "../AdminSidebar"
-import AdminNavbar from "../AdminNavbar";
+import AdminSidebar from "../Admin/AdminSidebar"
+import AdminNavbar from "../Admin/AdminNavbar";
 
 
 const Admin = ({children}) => {
