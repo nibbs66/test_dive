@@ -1,6 +1,6 @@
 import React from 'react';
-import AccordionLayout from "./Accordion/AccordionLayout";
-import OveronsCard from "./OveronsCard";
+import AccordionLayout from "../../Accordion/AccordionLayout";
+
 
 const Faq = ({activeIndex, setActiveIndex}) => {
     return (

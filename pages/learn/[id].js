@@ -13,7 +13,7 @@ import Table from "../../components/Table/Table";
 import TableDisplay from "../../components/Table/TableDisplay";
 import {Cursus} from "../../tableData";
 import axios from "axios";
-import ScheduleModal from "../../components/ScheduleModal";
+import ScheduleModal from "../../components/Client/ScheduleModal";
 
 
 const Course = ({cursus}) => {
@@ -26,7 +26,7 @@ const Course = ({cursus}) => {
     const courseSchedule2 = [
 
         {
-            items: [   <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 sep 2022</span> ,
+            items: [<span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Date:{' '}</span>1 sep 2022</span> ,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Cursus:{' '}</span>Open Water Diver</span>,
                 <span className={`text-slate-500 text-sm`}><span className={`md:hidden uppercase`}>Prijs:{' '}</span>€299.00</span>,
                 <button onClick={()=>setShowModal(true)} className={'bg-blue-500 font-bold uppercase text-white rounded py-1 px-2 text-xs'}>Book Now</button>],
@@ -94,45 +94,36 @@ const Course = ({cursus}) => {
     }
     console.log(cursus)
     return (
-        <div className='flex flex-col w-screen min-h-fit m-auto mb-2 md:mb-auto  pt-1'>
+        <div >
             <ScheduleModal setShowModal={setShowModal} showModal={showModal} subject={'cursus'} regarding={cursus.cursus}/>
-            <div>
-                <ClientHeader  title={cursus.cursus} lastPage={'/learn'}/>
+            <ClientHeader  title={cursus.cursus} lastPage={'/learn'}/>
+            <div className={`flex justify-center gap-x-8 py-10 `}>
+                <div className={`flex flex-col items-center`}>
+                    <Image  src={cursus.img[index]} alt='' width={700} height={350} objectFit={'contain'}
+                            className=" h-3/4 w-3/4 object-contain rounded-md cursor-pointer" />
+                    <div className={'flex gap-5'}>
+                        {cursus.img.map((img, idx)=>(
+                            <Image  key={idx} value={idx} src={img} alt="" height={100} width={100} objectFit="contain" className='cursor-pointer'
+                                    onClick={()=>handlePhoto(idx)}/>
+                        ))}
+                        <Image src={vid} alt="" height={100} width={100} objectFit="contain" className='cursor-pointer'
+                        />
+                    </div>
+                </div>
+                <div  className={'flex md:w-1/3  '}>
+                    <p className={' md:text-lg text-base text-slate-400 '}>
+                        {cursus.desc}
+                    </p>
+                </div>
             </div>
-            <div className={'flex flex-col justify-center items-center md:items-start   md:gap-5 px-10 pt-5 '}>
-                <div className={'flex flex-col sm:flex-row mt-5 gap-10 lg:gap-0'}>
-                    <div className={'flex items-center md:w-3/4 flex-col gap-10 '}>
-                        <Image  src={cursus.img[index]} alt='' width={700} height={350} objectFit={'contain'}
-                                className=" h-3/4 w-3/4 object-contain rounded-md cursor-pointer" />
-
-                        <div className={'flex gap-5'}>
-                            {cursus.img.map((img, idx)=>(
-                                <Image  key={idx} value={idx} src={img} alt="" height={100} width={100} objectFit="contain" className='cursor-pointer'
-                                        onClick={()=>handlePhoto(idx)}/>
-                            ))}
-                            <Image src={vid} alt="" height={100} width={100} objectFit="contain" className='cursor-pointer'
-                            />
-                        </div>
-                    </div>
-                    <div className={'flex md:w-1/3 md:pr-5 '}>
-                        <p className={' md:text-lg text-base text-slate-400 '}>
-                            {cursus.desc}
-
-                        </p>
-                    </div>
-
-                </div>
-                <div className={`mt-10 text-center text-slate-400 font-bold text-lg md:hidden`}>
-                    <span className={`uppercase`}>Call</span><span> RnG Diving</span><span  className={`uppercase`}> today to start your undersea adventure!!</span>
-                </div>
-
+            <div className={`flex items-center  px-16 mb-10`}>
                 <AccordionLayout
                     title={`Wanneer start er een ${cursus.cursus}`}
                     bg={'bg-blue-500'}
                     text={'text-white'}
                     titleSize={`text-xs  md:text-base`}
                     mx={'mx-10'}
-                    width={`w-full`}
+                    width={`w-screen`}
                     bodyMargin={'mx-10'}
                     index={0}
                     activeIndex={activeIndex}
@@ -165,11 +156,7 @@ const Course = ({cursus}) => {
                     </div>
                 </AccordionLayout>
 
-
             </div>
-
-
-
         </div>
     );
 };

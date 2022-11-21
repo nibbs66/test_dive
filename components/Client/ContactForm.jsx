@@ -12,7 +12,7 @@ import 'react-phone-number-input/style.css'
 import 'react-phone-input-2/lib/style.css'
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
 import {useSession} from "next-auth/react";
-import useUser from '../pages/api/hooks/useUser'
+import useUser from '../../pages/api/hooks/useUser'
 const ContactForm = ({subject, regarding}) => {
     const {user} = useUser()
     const {data: session, status} = useSession()

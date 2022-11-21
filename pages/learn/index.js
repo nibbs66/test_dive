@@ -3,9 +3,6 @@ import Client from "../../components/layout/Client";
 import Image from "next/image";
 import Link from "next/link";
 import introImg from '../../public/img/Education_Home_hero.jpeg'
-import OpenImg from '../../public/img/Open Water/images/OW-Gallery-hero-1-TlujvLJ-.jpeg'
-import AdvancedImg from '../../public/img/Advanced Open Water/images/AOW-Gallery-hero-1-6CErZaDD.jpeg'
-import Card from "../../components/Admin/Card/Card";
 import NewCard from "../../components/Admin/Card/NewCard";
 import axios from "axios";
 
@@ -26,7 +23,7 @@ const Index = ({cursus}) => {
                         Interested in learning to scuba dive? You’ve come to the right place.
                         Millions of underwater explorers started right here.</p>
 
-                     <p  className={'my-5 sm:mx-20 mx-5 text-lg text-slate-400'}>  Scuba lessons unlock the door to new adventures and amazing animal encounters. By the end of your
+                    <p  className={'my-5 sm:mx-20 mx-5 text-lg text-slate-400'}>  Scuba lessons unlock the door to new adventures and amazing animal encounters. By the end of your
                         scuba certification course, you’ll see our ocean planet through new eyes.
                     </p>
                 </div>

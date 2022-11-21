@@ -1,6 +1,6 @@
 import React from 'react';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
-import {people} from "../tableData";
+import {people} from "../../../tableData";
 import Image from "next/image";
 
 const Staff = () => {
@@ -25,8 +25,8 @@ const Staff = () => {
                             <li key={person.name}>
                                 <div className="space-y-6">
 
-                                    <Image  className={`mx-auto h-40 w-40 rounded-full xl:h-56 xl:w-56`}
-                                            src={person.imageUrl} layout={`intrinsic`} alt={``} objectFit={`contain`}/>
+                                        <Image  className={`mx-auto h-40 w-40 rounded-full xl:h-56 xl:w-56`}
+                                                src={person.imageUrl} layout={`intrinsic`} alt={``} objectFit={`contain`}/>
 
 
                                     {/*<img className="mx-auto h-40 w-40 rounded-full xl:h-56 xl:w-56"

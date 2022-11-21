@@ -1,6 +1,6 @@
 
 import {useEffect, useState} from 'react';
-import diver from '../public/img/scuba.png'
+import diver from '../../public/img/scuba.png'
 
 import Image from "next/image";
 
@@ -59,10 +59,10 @@ const StatusBar = ({status, method}) => {
                     {isChecked}
                 </span>
 
-                <div >
-                    <Image className={`absolute inset-0  hidden md:flex pr-5 overflow-visible `}  src={diver} alt='' height={60} width={80} objectFit='cover'/>
+                        <div >
+                            <Image className={`absolute inset-0  hidden md:flex pr-5 overflow-visible `}  src={diver} alt='' height={60} width={80} objectFit='cover'/>
 
-                </div>
+                    </div>
 
 
 

@@ -4,7 +4,7 @@ import AccordionLayout from "../../components/Accordion/AccordionLayout";
 import {ScubaPackage, ScubaItem, DashboardUsers} from "../../tableData";
 import TableDisplay from "../../components/Table/TableDisplay";
 import ClientHeader from "../../components/Client/ClientHeader";
-import ScheduleModal from "../../components/ScheduleModal";
+import ScheduleModal from "../../components/Client/ScheduleModal";
 import axios from "axios";
 import TableActions from "../../components/Table/TableActions";
 
@@ -20,7 +20,7 @@ const Index = ({rentals}) => {
         setData([])
         setPackageData([])
         rentals.map((rental, idx)=>{
-            if(rental.category !== undefined){
+            if(rental.category !== 'Packages'){
                 setData( (prev)=>[...prev, {
                     id: rental._id,
                     category: rental.category,
@@ -52,7 +52,7 @@ const Index = ({rentals}) => {
         setMobileData([])
         setMobilePackageData([])
         rentals.map((rental, idx)=>{
-            if(rental.category !== 'Packages'){
+            if(rental.category !== undefined){
                 setMobileData( (prev)=>[...prev, {
                     id: rental._id,
                     category: rental.category,
