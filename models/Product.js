@@ -7,38 +7,41 @@ const ProductSchema = new mongoose.Schema(
             required: true,
             maxlength: 60
         },
-        manufacturer:{
+        vendor: {
             type: String,
             required: true,
             maxlength: 60
         },
-        modelId: {
-            type: String,
-            required: true,
-        },
+
         gender: {
             type: String,
+        },
+        productSubType: {
+            type: [
+                {barcode: {type: String, required: true},
+                    stock: {type: Number, default: 0},
+                    color: {type: String},
+                    size: {type: String},
+                    img: {type: String},
+                    modelId: {type: String},
+                }
+            ]
         },
 
         desc: {
             type: String,
 
         },
-        specifications: {
-            type: [String]
-        },
+
 
         img: {
             type: [String]
         },
         video: {
-          type: String
+            type: String
         },
-        barcode:{
-            type: [Number],
 
-        },
-        category:{
+        category: {
             type: String,
         },
         subCategories: {
@@ -46,19 +49,6 @@ const ProductSchema = new mongoose.Schema(
 
         },
 
-        categories: {
-            type: [String],
-
-        },
-
-        size: {
-            type: [String],
-
-        },
-        color: {
-            type: [String],
-
-        },
         price: {
             type: Number,
             required: true,
@@ -68,10 +58,7 @@ const ProductSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        stock: {
-            type: Number,
 
-        },
         new:{
             type: Boolean,
 
@@ -80,10 +67,7 @@ const ProductSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         },
-        saleType: {
-            type: String,
-            default: 'Product'
-        },
+
 
         inStock: {type: Boolean, default: true},
 
@@ -92,6 +76,7 @@ const ProductSchema = new mongoose.Schema(
 
     {timestamps: true }
 )
+
 
 export default mongoose.models.Product ||
 mongoose.model("Product", ProductSchema);
