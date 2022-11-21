@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../public/img/headerlogo.svg'
+import logo from '../public/img/headerlogo.svg'
 import Image from 'next/image'
 const Invoice = () => {
     return (

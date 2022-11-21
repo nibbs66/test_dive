@@ -8,7 +8,7 @@ import Image from "next/image";
 import {ShoppingCartIcon, HeartIcon} from '@heroicons/react/24/outline'
 
 import useUser from "../../pages/api/hooks/useUser";
-import SearchBar from "../SearchBar";
+import SearchBar from "../Tools/SearchBar";
 
 
 
