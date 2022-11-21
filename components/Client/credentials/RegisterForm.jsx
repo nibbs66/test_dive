@@ -62,14 +62,14 @@ const RegisterForm = () => {
     const { register, handleSubmit, setFocus, formState: {errors}, reset } = useForm({
         resolver: yupResolver(schema),
     });
-    useEffect(()=>{
-        setFocus('firstName', {shouldSelect: true})
-    },[setFocus])
+   useEffect(()=>{
+       setFocus('firstName', {shouldSelect: true})
+   },[setFocus])
     const onSubmit = async(data) => {
-        if(userNameError){
-            setUserNameError(false)
-        }
-        const telephone = (Number((countryCode + data.phone).split(' ').join('')))
+       if(userNameError){
+           setUserNameError(false)
+       }
+           const telephone = (Number((countryCode + data.phone).split(' ').join('')))
         try{
             const res = await axios.post(`/api/users`,
                 {
@@ -102,14 +102,14 @@ const RegisterForm = () => {
             }
         }catch(err){
             console.log(err)
-            //toast.error(err.response.data)
+             //toast.error(err.response.data)
             setUserNameError(true)
 
         }
     };
-    const handleClick = () => {
-        router.push('/login')
-    }
+const handleClick = () => {
+    router.push('/login')
+}
 
 
     return (
@@ -181,7 +181,7 @@ const RegisterForm = () => {
                                      {...register("country")}
                                      onChange={(e) => {
                                          setCountry(e.target.value)
-                                         setCountryCode(getCountryCallingCode(e.target.value))
+                                            setCountryCode(getCountryCallingCode(e.target.value))
                                          setCode(postalCodes[e.target.value])
                                      }}
                             >
@@ -199,11 +199,11 @@ const RegisterForm = () => {
                             </label>
 
                             <Input   className={` border rounded border-slate-600 text-sm text-slate-500 focus:outline-0 ${errors.phone && 'border-2 border-red-500'}`}
-                                     {...register("phone")}
+                                        {...register("phone")}
 
-                                     defaultCountry={country}
-                                     value={value}
-                                     onChange={setValue}/>
+                                        defaultCountry={country}
+                                        value={value}
+                                        onChange={setValue}/>
 
 
                         </div>

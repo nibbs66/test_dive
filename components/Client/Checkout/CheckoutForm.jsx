@@ -4,7 +4,7 @@ import {
     useStripe,
     useElements,
 } from '@stripe/react-stripe-js';
-import Loader from "../icons/Loader";
+import Loader from "../../icons/Loader";
 
 
 

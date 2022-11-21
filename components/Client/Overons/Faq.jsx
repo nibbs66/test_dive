@@ -4,7 +4,7 @@ import AccordionLayout from "../../Accordion/AccordionLayout";
 
 const Faq = ({activeIndex, setActiveIndex}) => {
     return (
-        <>
+        <div className={`flex flex-col w-full space-y-5 items-center`}>
             <AccordionLayout
                 title={'Wat komt erbij kijken on te leren duiken?'}
                 bg={`${activeIndex === 1 ? 'bg-blue-600' : 'bg-blue-500'}`}
@@ -18,67 +18,67 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-              <div className={`mx-4 text-xs md:text-sm lg:text-base text-slate-500`}>
-                  <p>
-                      Leren duiken met RnG DIVING en PADI is een ongelooflijk avontuur! Met PADI als uw
-                      trainingsorganisatie, wordt uw pad naar ademhalen onder water bereikt in drie spannende
-                      fasen:
-                  </p>
-                  <span>
+                <div className={`mx-4 text-xs md:text-sm lg:text-base text-slate-500`}>
+                    <p>
+                        Leren duiken met RnG DIVING en PADI is een ongelooflijk avontuur! Met PADI als uw
+                        trainingsorganisatie, wordt uw pad naar ademhalen onder water bereikt in drie spannende
+                        fasen:
+                    </p>
+                    <span>
                           1. <b> Kennisontwikkeling - Leer het jargon</b>
                     </span>
 
-                  <p>
-                      Tijdens de eerste fase van je PADI Open Water Diver-duikbrevet, ontwikkel je een goed begrip
-                      van de basisprincipes van het duiken. Je leert dingen zoals hoe druk je lichaam beïnvloedt,
-                      hoe je de beste duikuitrusting kiest en waar je rekening mee moet houden bij het plannen van
-                      duiken. Je bespreekt kort wat je hebt bestudeerd in de vijf kennisafdelingen met je
-                      instructeur en maakt een korte quiz om er zeker van te zijn dat je het krijgt.
+                    <p>
+                        Tijdens de eerste fase van je PADI Open Water Diver-duikbrevet, ontwikkel je een goed begrip
+                        van de basisprincipes van het duiken. Je leert dingen zoals hoe druk je lichaam beïnvloedt,
+                        hoe je de beste duikuitrusting kiest en waar je rekening mee moet houden bij het plannen van
+                        duiken. Je bespreekt kort wat je hebt bestudeerd in de vijf kennisafdelingen met je
+                        instructeur en maakt een korte quiz om er zeker van te zijn dat je het krijgt.
 
-                      Aan het einde van de cursus, doe je een langere quiz die ervoor zorgt dat je alle
-                      belangrijke concepten en ideeën laag houdt. Jij en je RnG DUIK Instructeur zullen alles
-                      bekijken wat je niet helemaal begrijpt tot het duidelijk is.<br/>
+                        Aan het einde van de cursus, doe je een langere quiz die ervoor zorgt dat je alle
+                        belangrijke concepten en ideeën laag houdt. Jij en je RnG DUIK Instructeur zullen alles
+                        bekijken wat je niet helemaal begrijpt tot het duidelijk is.<br/>
 
-                      Selecteer de kennisontwikkelingsoptie die u verkiest:
-                  </p>
-                  <ul>
-                      <li>
-                          Begin nu en leer online duiken met RnG DIVING via PADI eLearning in je eigen tempo - altijd
-                          en overal (ideaal voor drukke schema&apos;s)
-                      </li>
-                      <li>
-                          Woon een geplande duikcursus bij RnG DIVING bij (ideaal voor het ontmoeten van nieuwe
-                          vrienden en duikmaatjes)
-                      </li>
-                      <li>
-                          Maak gebruik van thuis studie met behulp van PADI-multimediamateriaal (handleiding, video,
-                          cd-rom) gekocht via RnG DIVING.
-                      </li>
-                  </ul>
+                        Selecteer de kennisontwikkelingsoptie die u verkiest:
+                    </p>
+                    <ul>
+                        <li>
+                            Begin nu en leer online duiken met RnG DIVING via PADI eLearning in je eigen tempo - altijd
+                            en overal (ideaal voor drukke schema&apos;s)
+                        </li>
+                        <li>
+                            Woon een geplande duikcursus bij RnG DIVING bij (ideaal voor het ontmoeten van nieuwe
+                            vrienden en duikmaatjes)
+                        </li>
+                        <li>
+                            Maak gebruik van thuis studie met behulp van PADI-multimediamateriaal (handleiding, video,
+                            cd-rom) gekocht via RnG DIVING.
+                        </li>
+                    </ul>
 
-                  <span>
+                    <span>
                          2. <b>Confined Water Dives (zwembadlessen) - Duikvaardigheden Training.</b>
                     </span>
-                  <p>
-                      Daar gaat het allemaal om - duiken. Je ontwikkelt basisduikvaardigheden door te duiken in
-                      een zwembad of watermassa met zwembadachtige omstandigheden. Hier leert u alles, van het
-                      opzetten van uw duikuitrusting tot het eenvoudig weggooien van water uit uw duikmasker
-                      zonder te duiken. Je zult ook een aantal noodvaardigheden oefenen, zoals lucht delen of je
-                      duikmasker vervangen. Bovendien kun je een aantal games spelen, nieuwe vrienden maken en een
-                      geweldige tijd hebben. Er zijn vijf duiken met beperkt water, met elk gebouw op de vorige.
-                      In de loop van deze vijf duiken, bereik je de vaardigheden die je nodig hebt om in open
-                      water te duiken.
-                  </p>
-                  <span>
+                    <p>
+                        Daar gaat het allemaal om - duiken. Je ontwikkelt basisduikvaardigheden door te duiken in
+                        een zwembad of watermassa met zwembadachtige omstandigheden. Hier leert u alles, van het
+                        opzetten van uw duikuitrusting tot het eenvoudig weggooien van water uit uw duikmasker
+                        zonder te duiken. Je zult ook een aantal noodvaardigheden oefenen, zoals lucht delen of je
+                        duikmasker vervangen. Bovendien kun je een aantal games spelen, nieuwe vrienden maken en een
+                        geweldige tijd hebben. Er zijn vijf duiken met beperkt water, met elk gebouw op de vorige.
+                        In de loop van deze vijf duiken, bereik je de vaardigheden die je nodig hebt om in open
+                        water te duiken.
+                    </p>
+                    <span>
                          3. <b>Open waterduiken - lokaal of op vakantie.</b>
                     </span>
-                  <p>
-                      Na je besloten duiken duiken jij en de nieuwe vrienden die je hebt gemaakt door tijdens vier
-                      open water duiken met je RNG DIVING PADI-instructeur op een duikstek. Hier beleef je het
-                      onderwateravontuur volledig - op het beginnersniveau natuurlijk. Je mag deze duiken maken
-                      rond Adelaide of op een meer exotische bestemming tijdens een RNG DIVING groepsreis.
-                  </p>
-              </div>
+                    <p>
+                        Na je besloten duiken duiken jij en de nieuwe vrienden die je hebt gemaakt door tijdens vier
+                        open water duiken met je RNG DIVING PADI-instructeur op een duikstek. Hier beleef je het
+                        onderwateravontuur volledig - op het beginnersniveau natuurlijk. Je mag deze duiken maken
+                        rond Adelaide of op een meer exotische bestemming tijdens een RNG DIVING groepsreis.
+                    </p>
+                </div>
             </AccordionLayout>
             <AccordionLayout
                 title={'Hoe lang duurt het om gecertificeerd te worden?'}
@@ -122,40 +122,40 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-               <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                   <p>
-                       Vergeleken met andere populaire avontuurlijke sporten en buitenactiviteiten, is het leren van duiken niet duur.
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Vergeleken met andere populaire avontuurlijke sporten en buitenactiviteiten, is het leren van duiken niet duur.
 
-                       U kunt bijvoorbeeld verwachten ongeveer hetzelfde te betalen als voor:
-                   </p>
-                   <ul className={`flex flex-col  gap-1 font-bold my-1`}>
-                       <li>
-                           -een hele dag surflessen
-                       </li>
-                       <li>
-                           -een weekend rotsklimlessen
-                       </li>
-                       <li>
-                           -een weekend met kajaklessen
-                       </li>
-                       <li>
-                           -een weekend vol vliegvissen
-                       </li>
-                       <li>
-                           -ongeveer drie uur privé golflessen
-                       </li>
-                       <li>
-                           -ongeveer drie uur privéles voor waterskiën
-                       </li>
-                       <li>
-                           -een geweldige avond uit in de pub!
-                       </li>
-                   </ul>
-                   <p>
-                       Leren duiken is een grote waarde als je bedenkt dat je leert duiken onder begeleiding en aandacht van een goed opgeleide, ervaren professional - je RnG DIVING PADI duikinstructeur. Vanaf de eerste dag begint het duiken met het transformeren van je leven met nieuwe ervaringen die je deelt met vrienden. En je kunt het bijna overal doen waar water is. Begin met online leren met RnG DIVING en bereid je voor op je eerste adem onder water!
+                        U kunt bijvoorbeeld verwachten ongeveer hetzelfde te betalen als voor:
+                    </p>
+                    <ul className={`flex flex-col  gap-1 font-bold my-1`}>
+                        <li>
+                            -een hele dag surflessen
+                        </li>
+                        <li>
+                            -een weekend rotsklimlessen
+                        </li>
+                        <li>
+                            -een weekend met kajaklessen
+                        </li>
+                        <li>
+                            -een weekend vol vliegvissen
+                        </li>
+                        <li>
+                            -ongeveer drie uur privé golflessen
+                        </li>
+                        <li>
+                            -ongeveer drie uur privéles voor waterskiën
+                        </li>
+                        <li>
+                            -een geweldige avond uit in de pub!
+                        </li>
+                    </ul>
+                    <p>
+                        Leren duiken is een grote waarde als je bedenkt dat je leert duiken onder begeleiding en aandacht van een goed opgeleide, ervaren professional - je RnG DIVING PADI duikinstructeur. Vanaf de eerste dag begint het duiken met het transformeren van je leven met nieuwe ervaringen die je deelt met vrienden. En je kunt het bijna overal doen waar water is. Begin met online leren met RnG DIVING en bereid je voor op je eerste adem onder water!
 
-                       RnG DIVING is er trots op om de PADI Open Water Course vanaf € 439,00 per persoon te kunnen aanbieden.
-                   </p>
+                        RnG DIVING is er trots op om de PADI Open Water Course vanaf € 439,00 per persoon te kunnen aanbieden.
+                    </p>
                 </div>
             </AccordionLayout>
             <AccordionLayout
@@ -171,53 +171,53 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Het kiezen en gebruiken van je duikuitrusting is onderdeel van het plezier van duiken.
-                         RnG DIVING helpt je de juiste versnelling te vinden. Elk stuk duikuitrusting heeft een
-                         andere functie, zodat het zich collectief aanpast aan de onderwaterwereld.
-                         Als je begint te leren duiken, moet je het tenminste willen:
-                     </p>
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Het kiezen en gebruiken van je duikuitrusting is onderdeel van het plezier van duiken.
+                        RnG DIVING helpt je de juiste versnelling te vinden. Elk stuk duikuitrusting heeft een
+                        andere functie, zodat het zich collectief aanpast aan de onderwaterwereld.
+                        Als je begint te leren duiken, moet je het tenminste willen:
+                    </p>
 
 
-                     <ul className={`flex flex-col  gap-1 font-bold my-1`}>
-                         <li>duikmasker</li>
-                         <li>snorkel</li>
-                         <li>laarzen</li>
-                         <li>duikvinnen</li>
-                     </ul>
-                     <p>
-                         Deze hebben een persoonlijke pasvorm en RnG DIVING helpt u bij het kiezen van degene
-                         die de pasvorm en functies hebben die het best bij u passen. Inbegrepen in de kosten
-                         van uw PADI Open Water Diver-cursus, biedt RnG DIVING een:
-                     </p>
-                     <ul className={`flex flex-col  gap-1 font-bold my-1`}>
-                         <li>duikregelaar</li>
-                         <li>duiken BC</li>
-                         <li>duikcomputer</li>
-                         <li>duikfles</li>
-                         <li>duikpak</li>
-                         <li>gewichtsysteem en gewichten</li>
-                     </ul>
-                     <p>
-                         Controleer met RnG DIVING om de maatverdeling voor uw cursuspakket te bevestigen.
-                         Het wordt aanbevolen dat u in uw eigen duikuitrusting investeert wanneer u aan uw
-                         cursus begint, omdat:
-                     </p>
-                     <ul className={`flex flex-col  gap-1 font-bold my-1`}>
-                         <li>je bent meer comfortabel met het gebruik van duikuitrusting die voor jou is uitgerust</li>
-                         <li>je bent meer comfortabel om te leren duiken met behulp van de uitrusting die je hebt gekozen</li>
-                         <li>duikers die hun eigen duikuitrusting bezitten, vinden het handiger om te gaan duiken</li>
-                         <li>het hebben van je eigen duikuitrusting maakt deel uit van het plezier van duiken</li>
-                     </ul>
-                     <p>
-                         Het soort uitrusting dat je nodig hebt, hangt af van de omstandigheden waarin je duikt. Je wilt misschien:
-                     </p>
-                     <ul className={`flex flex-col  gap-1 font-bold my-1`}>
-                         <li>tropische duikuitrusting</li>
-                         <li>gematigde duikuitrusting</li>
-                         <li>koud water duikuitrusting</li>
-                     </ul>
+                    <ul className={`flex flex-col  gap-1 font-bold my-1`}>
+                        <li>duikmasker</li>
+                        <li>snorkel</li>
+                        <li>laarzen</li>
+                        <li>duikvinnen</li>
+                    </ul>
+                    <p>
+                        Deze hebben een persoonlijke pasvorm en RnG DIVING helpt u bij het kiezen van degene
+                        die de pasvorm en functies hebben die het best bij u passen. Inbegrepen in de kosten
+                        van uw PADI Open Water Diver-cursus, biedt RnG DIVING een:
+                    </p>
+                    <ul className={`flex flex-col  gap-1 font-bold my-1`}>
+                        <li>duikregelaar</li>
+                        <li>duiken BC</li>
+                        <li>duikcomputer</li>
+                        <li>duikfles</li>
+                        <li>duikpak</li>
+                        <li>gewichtsysteem en gewichten</li>
+                    </ul>
+                    <p>
+                        Controleer met RnG DIVING om de maatverdeling voor uw cursuspakket te bevestigen.
+                        Het wordt aanbevolen dat u in uw eigen duikuitrusting investeert wanneer u aan uw
+                        cursus begint, omdat:
+                    </p>
+                    <ul className={`flex flex-col  gap-1 font-bold my-1`}>
+                        <li>je bent meer comfortabel met het gebruik van duikuitrusting die voor jou is uitgerust</li>
+                        <li>je bent meer comfortabel om te leren duiken met behulp van de uitrusting die je hebt gekozen</li>
+                        <li>duikers die hun eigen duikuitrusting bezitten, vinden het handiger om te gaan duiken</li>
+                        <li>het hebben van je eigen duikuitrusting maakt deel uit van het plezier van duiken</li>
+                    </ul>
+                    <p>
+                        Het soort uitrusting dat je nodig hebt, hangt af van de omstandigheden waarin je duikt. Je wilt misschien:
+                    </p>
+                    <ul className={`flex flex-col  gap-1 font-bold my-1`}>
+                        <li>tropische duikuitrusting</li>
+                        <li>gematigde duikuitrusting</li>
+                        <li>koud water duikuitrusting</li>
+                    </ul>
 
                 </div>
             </AccordionLayout>
@@ -328,36 +328,36 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Je kunt praktisch overal duiken, van water - van een zwembad naar de oceaan en alle punten
-                         daartussenin, inclusief steengroeven, meren, rivieren en bronnen. Waar u kunt duiken, wordt
-                         bepaald door uw:
-                     </p>
-                     <ul className={`flex flex-col  gap-1 font-bold my-1`}>
-                         <li>ervaring</li>
-                         <li>niveau site</li>
-                         <li>toegankelijkheid</li>
-                         <li>voorwaarden belangen</li>
-                     </ul>
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Je kunt praktisch overal duiken, van water - van een zwembad naar de oceaan en alle punten
+                        daartussenin, inclusief steengroeven, meren, rivieren en bronnen. Waar u kunt duiken, wordt
+                        bepaald door uw:
+                    </p>
+                    <ul className={`flex flex-col  gap-1 font-bold my-1`}>
+                        <li>ervaring</li>
+                        <li>niveau site</li>
+                        <li>toegankelijkheid</li>
+                        <li>voorwaarden belangen</li>
+                    </ul>
 
-                     <p>
-                         Als je bijvoorbeeld net je PADI Open Water Diver-cursus hebt afgerond, duik je waarschijnlijk
-                         niet onder het Antarctische ijs tijdens je volgende duik. Maar beperk je denken niet tot het
-                         warme, heldere water dat je ziet in reismagazines. Sommige van de beste duiken zijn dichterbij
-                         dan je denkt.
+                    <p>
+                        Als je bijvoorbeeld net je PADI Open Water Diver-cursus hebt afgerond, duik je waarschijnlijk
+                        niet onder het Antarctische ijs tijdens je volgende duik. Maar beperk je denken niet tot het
+                        warme, heldere water dat je ziet in reismagazines. Sommige van de beste duiken zijn dichterbij
+                        dan je denkt.
 
-                         Je lokale duiklocatie kan van alles zijn, van een speciaal zwembad dat speciaal is gebouwd voor
-                         duikers zoals een zwembad in Brussel, of meer typisch natuurlijke sites zoals het Great Blue Hole
-                         in Belize, het Great Barrier Reef in Australië of het Yonaguni-monument in Japan. Het kan een
-                         door de mens gemaakt reservoir zijn of een rivier vol met fossielen. Het gaat niet altijd om
-                         grote zichtbaarheid, want wat je ziet is belangrijker dan hoe ver je ziet.
+                        Je lokale duiklocatie kan van alles zijn, van een speciaal zwembad dat speciaal is gebouwd voor
+                        duikers zoals een zwembad in Brussel, of meer typisch natuurlijke sites zoals het Great Blue Hole
+                        in Belize, het Great Barrier Reef in Australië of het Yonaguni-monument in Japan. Het kan een
+                        door de mens gemaakt reservoir zijn of een rivier vol met fossielen. Het gaat niet altijd om
+                        grote zichtbaarheid, want wat je ziet is belangrijker dan hoe ver je ziet.
 
-                         Het enige echte belangrijke ding over waar je duikt is dat je de duikopleiding en -ervaring
-                         hebt die geschikt is om daar te duiken, en dat je een duikbuddy bij je hebt. RnG DIVING kan
-                         u helpen bij het organiseren van geweldige lokale duiken of een duikvakantie. Bezoek vandaag om
-                         aan de slag te gaan.
-                     </p>
+                        Het enige echte belangrijke ding over waar je duikt is dat je de duikopleiding en -ervaring
+                        hebt die geschikt is om daar te duiken, en dat je een duikbuddy bij je hebt. RnG DIVING kan
+                        u helpen bij het organiseren van geweldige lokale duiken of een duikvakantie. Bezoek vandaag om
+                        aan de slag te gaan.
+                    </p>
                 </div>
             </AccordionLayout>
             <AccordionLayout
@@ -373,14 +373,14 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Nee, ervan uitgaande dat je geen onregelmatigheden in je oren en sinussen hebt. Het ongemak is
-                         het normale effect van waterdruk op je oren. Gelukkig zijn onze lichamen ontworpen om zich aan
-                         te passen aan drukveranderingen in onze oren - je hoeft alleen maar te leren hoe. Als je tijdens
-                         het vliegen geen problemen hebt om je aan de luchtdruk aan te passen, zul je waarschijnlijk geen
-                         problemen ondervinden tijdens het duiken om aan de waterdruk aan te passen.
-                     </p>
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Nee, ervan uitgaande dat je geen onregelmatigheden in je oren en sinussen hebt. Het ongemak is
+                        het normale effect van waterdruk op je oren. Gelukkig zijn onze lichamen ontworpen om zich aan
+                        te passen aan drukveranderingen in onze oren - je hoeft alleen maar te leren hoe. Als je tijdens
+                        het vliegen geen problemen hebt om je aan de luchtdruk aan te passen, zul je waarschijnlijk geen
+                        problemen ondervinden tijdens het duiken om aan de waterdruk aan te passen.
+                    </p>
                 </div>
             </AccordionLayout>
             <AccordionLayout
@@ -396,15 +396,15 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Niet noodzakelijk. Elke aandoening die de oren, sinussen, ademhalingsfunctie of hartfunctie
-                         beïnvloedt of het bewustzijn kan veranderen, is een zorg, maar alleen een arts kan het individuele
-                         risico van een persoon beoordelen. Artsen kunnen zo nodig het Divers Alert Network (DAN) raadplegen
-                         bij het beoordelen van een scuba-kandidaat.
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Niet noodzakelijk. Elke aandoening die de oren, sinussen, ademhalingsfunctie of hartfunctie
+                        beïnvloedt of het bewustzijn kan veranderen, is een zorg, maar alleen een arts kan het individuele
+                        risico van een persoon beoordelen. Artsen kunnen zo nodig het Divers Alert Network (DAN) raadplegen
+                        bij het beoordelen van een scuba-kandidaat.
 
-                         DAN heeft online informatie beschikbaar als u wat onderzoek wilt doen.
-                     </p>
+                        DAN heeft online informatie beschikbaar als u wat onderzoek wilt doen.
+                    </p>
                 </div>
             </AccordionLayout>
             <AccordionLayout
@@ -420,15 +420,15 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Zonnebrand en zeeziekte, die beide voorkomen kunnen worden met vrij verkrijgbare middelen.
-                         De meest voorkomende verwondingen veroorzaakt door het leven in zee zijn schrammen en steken,
-                         waarvan de meeste kunnen worden vermeden door het dragen van handschoenen en een belichtingspak,
-                         blijven van de bodem en kijken waar u uw handen en voeten zet.
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Zonnebrand en zeeziekte, die beide voorkomen kunnen worden met vrij verkrijgbare middelen.
+                        De meest voorkomende verwondingen veroorzaakt door het leven in zee zijn schrammen en steken,
+                        waarvan de meeste kunnen worden vermeden door het dragen van handschoenen en een belichtingspak,
+                        blijven van de bodem en kijken waar u uw handen en voeten zet.
 
-                         Neem contact op met RnG DIVING voor informatie over de bescherming van de blootstelling die nodig is voor al uw duiken.
-                     </p>
+                        Neem contact op met RnG DIVING voor informatie over de bescherming van de blootstelling die nodig is voor al uw duiken.
+                    </p>
                 </div>
             </AccordionLayout>
             <AccordionLayout
@@ -444,18 +444,18 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Als je geluk hebt, krijg je een haai te zien. Vraag om de diverse trip waar je haaien kunt tegenkomen!
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Als je geluk hebt, krijg je een haai te zien. Vraag om de diverse trip waar je haaien kunt tegenkomen!
 
-                         Hoewel incidenten met haaien voorkomen, zijn ze zeer, zeer zeldzaam. De meest voorkomende ontmoetingen
-                         met haaien hebben voornamelijk betrekking op speervissen of voederen van haaien, die beide leiden tot
-                         erotisch voedingsgedrag. Haaien belangrijkste voedselbron is vis en als ze een gratis feed krijgen kunnen ze.
+                        Hoewel incidenten met haaien voorkomen, zijn ze zeer, zeer zeldzaam. De meest voorkomende ontmoetingen
+                        met haaien hebben voornamelijk betrekking op speervissen of voederen van haaien, die beide leiden tot
+                        erotisch voedingsgedrag. Haaien belangrijkste voedselbron is vis en als ze een gratis feed krijgen kunnen ze.
 
-                         Meestal, als je een haai ziet, passeert het en is het een relatief zeldzaam schouwspel om van te genieten.
+                        Meestal, als je een haai ziet, passeert het en is het een relatief zeldzaam schouwspel om van te genieten.
 
-                         Sommige mythen, over haaien, die je hebt gehoord, kunnen worden weggenomen door Australian Geographic te controleren.
-                     </p>
+                        Sommige mythen, over haaien, die je hebt gehoord, kunnen worden weggenomen door Australian Geographic te controleren.
+                    </p>
                 </div>
             </AccordionLayout><AccordionLayout
             title={'Hebben vrouwen speciale zorgen bij of tijdens het duiken?'}
@@ -478,53 +478,53 @@ const Faq = ({activeIndex, setActiveIndex}) => {
 
 
                 </p>
-                </div>
+            </div>
         </AccordionLayout>
             <AccordionLayout
-            title={'Hoe diep ga je?'}
-            bg={`${activeIndex === 0 ? 'bg-blue-600' : 'bg-blue-500'}`}
-            text={'text-white'}
-            titleSize={`text-xs md:text-base`}
-            mx={'mx-10'}
-            width={`w-full`}
-            bodyMargin={'mx-10'}
-            index={13}
-            body={`justify-center`}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-        >
-             <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                 <p>
-                     Met de nodige training en ervaring is de limiet voor recreatief duiken 40 meter. Beginnende duikers
-                     blijven ondieper dan ongeveer 18 meter, tenzij je een Junior Scuba Diver bent, dan is het 12 meter.
-                     Hoewel dit de limieten zijn, is een aantal van de meest populaire duiken niet dieper dan
-                     12 meter / 40 voet waar het water warmer is en de kleuren helderder.
-                 </p>
+                title={'Hoe diep ga je?'}
+                bg={`${activeIndex === 0 ? 'bg-blue-600' : 'bg-blue-500'}`}
+                text={'text-white'}
+                titleSize={`text-xs md:text-base`}
+                mx={'mx-10'}
+                width={`w-full`}
+                bodyMargin={'mx-10'}
+                index={13}
+                body={`justify-center`}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+            >
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Met de nodige training en ervaring is de limiet voor recreatief duiken 40 meter. Beginnende duikers
+                        blijven ondieper dan ongeveer 18 meter, tenzij je een Junior Scuba Diver bent, dan is het 12 meter.
+                        Hoewel dit de limieten zijn, is een aantal van de meest populaire duiken niet dieper dan
+                        12 meter / 40 voet waar het water warmer is en de kleuren helderder.
+                    </p>
                 </div>
-        </AccordionLayout>
+            </AccordionLayout>
             <AccordionLayout
-            title={'Wat gebeurt er als ik al mijn lucht opgebruik?'}
-            bg={`${activeIndex === 0 ? 'bg-blue-600' : 'bg-blue-500'}`}
-            text={'text-white'}
-            titleSize={`text-xs md:text-base`}
-            mx={'mx-10'}
-            width={`w-full`}
-            bodyMargin={'mx-10'}
-            index={14}
-            body={`justify-center`}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-        >
-             <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                 <p>
-                     Dat is niet waarschijnlijk, omdat je een meter hebt die je vertelt hoeveel lucht je te allen
-                     tijde hebt. Op deze manier kunt u terugkeren naar de oppervlakte met nog een veiligheidsreserve
-                     over. Maar om de vraag te beantwoorden, als uw lucht opraakt, heeft uw buddy een reserve mondstuk
-                     waarmee u een enkele luchttoevoer kunt delen tijdens het zwemmen naar de oppervlakte. Er zijn ook
-                     andere opties die je leert in je PADI Open Water-cursus bij RnG DIVING.
-                 </p>
+                title={'Wat gebeurt er als ik al mijn lucht opgebruik?'}
+                bg={`${activeIndex === 0 ? 'bg-blue-600' : 'bg-blue-500'}`}
+                text={'text-white'}
+                titleSize={`text-xs md:text-base`}
+                mx={'mx-10'}
+                width={`w-full`}
+                bodyMargin={'mx-10'}
+                index={14}
+                body={`justify-center`}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+            >
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Dat is niet waarschijnlijk, omdat je een meter hebt die je vertelt hoeveel lucht je te allen
+                        tijde hebt. Op deze manier kunt u terugkeren naar de oppervlakte met nog een veiligheidsreserve
+                        over. Maar om de vraag te beantwoorden, als uw lucht opraakt, heeft uw buddy een reserve mondstuk
+                        waarmee u een enkele luchttoevoer kunt delen tijdens het zwemmen naar de oppervlakte. Er zijn ook
+                        andere opties die je leert in je PADI Open Water-cursus bij RnG DIVING.
+                    </p>
                 </div>
-        </AccordionLayout>
+            </AccordionLayout>
             <AccordionLayout
                 title={'Wat als ik me claustrofobisch voel?'}
                 bg={`${activeIndex === 0 ? 'bg-blue-600' : 'bg-blue-500'}`}
@@ -538,28 +538,28 @@ const Faq = ({activeIndex, setActiveIndex}) => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             >
-                 <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
-                     <p>
-                         Mensen vinden de &quot;gewichtloosheid&quot; van het duiken behoorlijk vrij. Moderne duikmaskers zijn
-                         verkrijgbaar in doorschijnende modellen, die je misschien liever hebt als een masker je een afgesloten
-                         gevoel geeft. Tijdens je duikopleiding met RnG DIVING, geeft je instructeur je voldoende tijd en
-                         coaching om vertrouwd te raken met elke leerfase. Je duikinstructeur werkt in je eigen tempo met
-                         je mee om ervoor te zorgen dat je elke vaardigheid onder de knie hebt die nodig is om een capabele
-                         duiker te worden die regelmatig duikt.
-                     </p>
-                     <p>
-                         <b>
-                             RnG DIVING houdt klassen klein, zodat we u meer tijd kunnen geven om vertrouwd te raken met
-                             de verbazingwekkende duikwereld.
-                         </b>
-                     </p>
+                <div className={`mx-4 text-xs md:text-sm lg:text-base  text-slate-500`}>
+                    <p>
+                        Mensen vinden de &quot;gewichtloosheid&quot; van het duiken behoorlijk vrij. Moderne duikmaskers zijn
+                        verkrijgbaar in doorschijnende modellen, die je misschien liever hebt als een masker je een afgesloten
+                        gevoel geeft. Tijdens je duikopleiding met RnG DIVING, geeft je instructeur je voldoende tijd en
+                        coaching om vertrouwd te raken met elke leerfase. Je duikinstructeur werkt in je eigen tempo met
+                        je mee om ervoor te zorgen dat je elke vaardigheid onder de knie hebt die nodig is om een capabele
+                        duiker te worden die regelmatig duikt.
+                    </p>
+                    <p>
+                        <b>
+                            RnG DIVING houdt klassen klein, zodat we u meer tijd kunnen geven om vertrouwd te raken met
+                            de verbazingwekkende duikwereld.
+                        </b>
+                    </p>
                 </div>
             </AccordionLayout>
 
 
 
 
-        </>
+        </div>
     );
 };
 

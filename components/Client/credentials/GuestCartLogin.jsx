@@ -7,8 +7,8 @@ import countryList from 'react-select-country-list'
 import phone from 'phone'
 import postalCodes from 'zipcodes-regex'
 import axios from "axios";
-import useUser from "../../pages/api/hooks/useUser";
-
+import useUser from "../../../pages/api/hooks/useUser";
+import Input from '../../Input'
 
 const GuestCartLogin = ({setGuestCheck, setActiveIndex}) => {
 
@@ -70,17 +70,18 @@ const GuestCartLogin = ({setGuestCheck, setActiveIndex}) => {
 
     return (
         <form className='px-5 gap-3  flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("firstName")}
-                   type="text" placeholder='voornaam'/>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+                   type={`text`} placeholder='voornaam'/>
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("lastName")}
                    type="text" placeholder='achternaam'/>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("email")}
                    type="text" placeholder='email'/>
 
-            <select  className={`border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0 `}
+            <select  className={`border pl-2 py-1 text-xs  hover:bg-slate-50 rounded border-slate-500 placeholder:text-slate-300`}
                      {...register("country")}
                      onChange={(e) => {
                          setCountry(e.target.value)
@@ -94,20 +95,20 @@ const GuestCartLogin = ({setGuestCheck, setActiveIndex}) => {
                     <option key={idx} value={country.value}>{country.value}</option>
                 ))}
             </select>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("address")}
                    type="text" placeholder='straat'/>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("city")}
                    type="text" placeholder='stad'/>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("postalCode")}
                    type="text" placeholder='postal code'/>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("phone")}
                    type="text" placeholder='phone'/>
             <div className='flex justify-center py-3'>
-                <button type={`submit`} className={`  py-1 px-2 uppercase rounded bg-red-500 text-white w-1/2`}>Submit</button>
+                <button type={`submit`} className={`  py-1 px-2 uppercase rounded bg-blue-500 text-white w-1/2`}>Submit</button>
             </div>
 
         </form>

@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import useUser from "../../pages/api/hooks/useUser";
+import useUser from "../../../pages/api/hooks/useUser";
 
 
 
@@ -47,7 +47,7 @@ const CartLogin = () => {
                 const session = await getSession()
                 try{
                     originalCart.items.map(async (newItem)=>{
-                        const updateCart = await axios.put(`/api/cart?cart=${session?.id}`,
+                        await axios.put(`/api/cart?cart=${session?.id}`,
 
                             {  items: {
                                     productId: newItem._id,
@@ -61,8 +61,13 @@ const CartLogin = () => {
                                 },
                                 addToTotal: newItem.price * newItem.quantity,
                             });
-                        console.log(updateCart.data)
+
                     })
+                    try{
+                        const remove = await axios.delete(`/api/cart/delete/${originalCart?._id}`)
+                    }catch(err){
+                        console.log(err)
+                    }
                     toast.success(`Welcome Back!!`)
                     mutateCart()
                 }catch(err){
@@ -80,14 +85,14 @@ const CartLogin = () => {
     //console.log(originalCart)
     return (
         <form className='px-5 gap-3  flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("username")}
                    type="text" placeholder='username'/>
-            <input className='border-b border-slate-400  pl-1 bg-[ghostwhite] focus:outline-0'
+            <input className={`border pl-2 py-0.5 hover:bg-slate-50 text-sm rounded border-slate-500 placeholder:text-slate-300`}
                    {...register("password")}
                    type="password" placeholder='password'/>
             <div className='flex justify-center py-3'>
-                <button type={`submit`} className='  py-1 px-2 uppercase rounded bg-red-500 text-white w-1/2'>
+                <button type={`submit`} className='  py-1 px-2 uppercase rounded bg-blue-500 text-white w-1/2'>
                     Submit
                 </button>
             </div>
