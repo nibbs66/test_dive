@@ -39,14 +39,21 @@ export const OrdersColumns = [
     { header: "Status", field: "status",  sortable: true },
     { header: "Action", field: "action",  sortable: false },
 ]
+export const SalesColumns = [
+    { header: "Sales Number", field: "salesId",sortable: true },
+    { header: "Total", field: "total",  sortable: true },
+    { header: "Date", field: "salesDate",  sortable: true },
+    { header: "Source", field: "source",  sortable: true},
+    { header: "Action", field: "action",  sortable: false },
+]
 
 export const userOrderColumns = [
-    { header: "Product Id", field: "id",sortable: true },
+    { header: "Product Id", field: "productId",sortable: true },
     { header: "Name", field: "name",sortable: true },
     { header: "Quantity", field: "quantity",sortable: true },
     { header: "Available", field: "available",sortable: true },
     { header: "Price", field: "price",sortable: true },
-    { header: "View", field: "view",sortable: false },
+
 ]
 
 export const Cursus =[
@@ -84,8 +91,15 @@ export const ScubaItem = [
     { header: "Full Day", field: "fullDay" },
     { header: "Reserve", field: "reserve" },
 ]
+export const ProductSubType = [
+    { header: "Barcode", field: "barcode" },
+    { header: "Sub Id", field: "modelId" },
+    { header: "Color", field: "color" },
+    { header: "Size", field: "size" },
+    { header: "Stock", field: "stock" },
+]
 export const ProductsColumns = [
-    {field: "manufacturer", header: "Manufacturer", sortable: true},
+    {field: "vendor", header: "Vendor", sortable: true},
     {field: "name", header: "Name", sortable: true},
     {field: "category", header: "Category", sortable: true},
     {field: "cost", header: "Cost", sortable: true},

@@ -4,7 +4,7 @@ import RegisterForm from "../components/credentials/RegisterForm";
 
 
 const Register = () => {
-    //flex items-center justify-center
+
     return (
      <RegisterForm/>
     );

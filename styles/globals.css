@@ -6,7 +6,13 @@
 @tailwind utilities;
 
 body { font-family: "Nunito", sans-serif; }
-
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
 .select2-selection__input:focus {
     box-shadow: none;
 }
@@ -17,7 +23,7 @@ body { font-family: "Nunito", sans-serif; }
 .imgContainer img{
     @apply h-full w-screen absolute left-0 top-0 object-center whitespace-nowrap;
 }
- .imgContainer img.next{
+.imgContainer img.next{
     @apply opacity-0 z-10;
 }
 .imgContainer img.prev{
