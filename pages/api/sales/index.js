@@ -1,9 +1,7 @@
 import dbConnect from "../../../lib/mongo";
 import Sales from "../../../models/Sales";
 
-import TestProduct from "../../../models/TestProduct";
-import {sendConfirmationEmail} from "../../../lib/mailer";
-import User from "../../../models/User";
+
 const handler = async(req,res) => {
 
     const {
