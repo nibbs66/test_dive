@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowBack from "./icons/ArrowBack";
+import ArrowBack from "../icons/ArrowBack";
 import {useRouter} from "next/router";
 import {ChevronDoubleLeftIcon} from '@heroicons/react/24/outline'
 const ClientHeader = ({title, lastPage}) => {

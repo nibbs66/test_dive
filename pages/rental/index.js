@@ -3,7 +3,7 @@ import Client from "../../components/layout/Client";
 import AccordionLayout from "../../components/Accordion/AccordionLayout";
 import {ScubaPackage, ScubaItem, DashboardUsers} from "../../tableData";
 import TableDisplay from "../../components/Table/TableDisplay";
-import ClientHeader from "../../components/ClientHeader";
+import ClientHeader from "../../components/Client/ClientHeader";
 import ScheduleModal from "../../components/ScheduleModal";
 import axios from "axios";
 import TableActions from "../../components/Table/TableActions";

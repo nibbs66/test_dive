@@ -1,9 +1,9 @@
-import {useState, useMemo} from 'react';
+
 import Client from "../../components/layout/Client";
 import useUser from "../api/hooks/useUser";
 import {useRouter} from "next/router";
-import ClientHeader from "../../components/ClientHeader";
-import NewCard from "../../components/Card/NewCard";
+import ClientHeader from "../../components/Client/ClientHeader";
+import NewCard from "../../components/Admin/Card/NewCard";
 import Image from "next/image";
 
 
@@ -12,21 +12,21 @@ const Favorites = () => {
     const router = useRouter()
     const {fav} = router.query
 
+    console.log(favorites)
 
-
-const handleClick = (data) => {
-    router.push(`/shop/favorites/${data}`)
-}
+    const handleClick = (data) => {
+        router.push(`/shop/favorites/${data.category}/${data._id}`)
+    }
     return (
         <div className=' w-screen pb-10 min-h-screen'>
             <div className="flex flex-col w-full  ">
                 <ClientHeader lastPage={'shop'} title={fav}/>
                 <div className="grid  lg:grid-cols-4 gap-4 px-5 mt-5 overflow-y-auto h-3/4 w-full pb-10">
                     {favorites?.items?.map((item)=>(
-                        <div onClick={()=>handleClick(item._id)}  key={item._id}>
+                        <div onClick={()=>handleClick(item)}  key={item._id}>
                             <NewCard>
                                 <div className=' flex justify-center'>
-                                    <Image src={`/img/${item.img[0]}`} alt="" width={100} height={100} objectFit="contain"/>
+                                    <Image src={`${item.img[0]}`} alt="" width={100} height={100} objectFit="contain"/>
                                 </div>
 
                                 <div className='flex pt-5 pr-2 justify-center lg:justify-end'>
@@ -50,11 +50,11 @@ const handleClick = (data) => {
     );
 };
 
-    export default Favorites;
-    Favorites.getLayout = function getLayout(page){
-        return(
-            <Client>
-                {page}
-            </Client>
-        )
-    }
+export default Favorites;
+Favorites.getLayout = function getLayout(page){
+    return(
+        <Client>
+            {page}
+        </Client>
+    )
+}

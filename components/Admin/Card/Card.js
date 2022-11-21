@@ -1,5 +1,5 @@
-import ArrowDown from "../icons/ArrowDown";
-import Money from "../icons/Money"
+import ArrowDown from "../../icons/ArrowDown";
+import Money from "../../icons/Money"
 import {useEffect, useState} from 'react'
 import dayjs from "dayjs";
 

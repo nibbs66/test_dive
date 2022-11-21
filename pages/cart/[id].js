@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import Client from "../../components/layout/Client";
-import ClientHeader from "../../components/ClientHeader";
+import ClientHeader from "../../components/Client/ClientHeader";
 import Image from "next/image";
 import monkey from '../../public/img/494.jpg'
 import TrashCan from "../../components/icons/TrashCan";

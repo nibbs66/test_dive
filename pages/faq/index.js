@@ -2,7 +2,7 @@ import {useState} from 'react';
 import Client from "../../components/layout/Client";
 import AccordionLayout from "../../components/Accordion/AccordionLayout";
 import OveronsCard from "../../components/OveronsCard";
-import ClientHeader from "../../components/ClientHeader";
+import ClientHeader from "../../components/Client/ClientHeader";
 import Faq from "../../components/Faq";
 
 const Index = () => {

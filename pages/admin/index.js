@@ -3,7 +3,7 @@ import Admin from "../../components/layout/Admin";
 import dayjs from "dayjs";
 import axios from "axios";
 import Chart2 from "../../components/Charts/Chart2";
-import HeaderCards from "../../components/Card/DashboardCards/HeaderCards";
+import HeaderCards from "../../components/Admin/Card/DashboardCards/HeaderCards";
 import {getToken} from "next-auth/jwt";
 import {DashboardOrders, DashboardUsers} from "../../tableData";
 import Link from "next/link";

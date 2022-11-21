@@ -7,7 +7,7 @@ import OpenImg3 from "../../public/img/Open Water/images/OW-Gallery-hero-4-q16Od
 import OpenImg4 from "../../public/img/Open Water/images/OW-Gallery-hero-5-25LTSMTH.jpeg";
 import vid from "../../public/img/Open Water/mqdefault.jpeg"
 import Image from "next/image";
-import ClientHeader from "../../components/ClientHeader";
+import ClientHeader from "../../components/Client/ClientHeader";
 import AccordionLayout from "../../components/Accordion/AccordionLayout";
 import Table from "../../components/Table/Table";
 import TableDisplay from "../../components/Table/TableDisplay";

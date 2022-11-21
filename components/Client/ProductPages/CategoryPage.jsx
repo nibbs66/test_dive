@@ -1,7 +1,7 @@
 import {useState, useMemo} from 'react';
 import {useRouter} from 'next/router'
-import ClientHeader from "../../ClientHeader";
-import NewCard from "../../Card/NewCard";
+import ClientHeader from "../ClientHeader";
+import NewCard from "../../Admin/Card/NewCard";
 import Paginate from "../../Paginate/Paginate";
 import Image from "next/image";
 const CategoryPage = ({favorites, params, category, subCat}) => {

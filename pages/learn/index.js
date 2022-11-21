@@ -5,8 +5,8 @@ import Link from "next/link";
 import introImg from '../../public/img/Education_Home_hero.jpeg'
 import OpenImg from '../../public/img/Open Water/images/OW-Gallery-hero-1-TlujvLJ-.jpeg'
 import AdvancedImg from '../../public/img/Advanced Open Water/images/AOW-Gallery-hero-1-6CErZaDD.jpeg'
-import Card from "../../components/Card/Card";
-import NewCard from "../../components/Card/NewCard";
+import Card from "../../components/Admin/Card/Card";
+import NewCard from "../../components/Admin/Card/NewCard";
 import axios from "axios";
 
 const Index = ({cursus}) => {

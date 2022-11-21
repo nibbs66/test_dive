@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import CardDisplay from "../Card/CardDisplay";
+import CardDisplay from "../Admin/Card/CardDisplay";
 import SiteCard from "./SiteCard";
 import Pages from "./Pages"
 import {userColumns} from "../../tableData";

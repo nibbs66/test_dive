@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import CardDisplay from "../CardDisplay";
-import ArrowDown from "../../icons/ArrowDown";
-import ArrowUp from "../../icons/ArrowUp";
+import ArrowDown from "../../../icons/ArrowDown";
+import ArrowUp from "../../../icons/ArrowUp";
 import dayjs from "dayjs";
 const HeaderCards = ({data, title, bg, box}) => {
     const [total, setTotal] = useState(0)

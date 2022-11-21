@@ -1,5 +1,5 @@
 import React from 'react';
-import ClientHeader from "../../ClientHeader";
+import ClientHeader from "../ClientHeader";
 
 function CourseWrapper() {
     return null;

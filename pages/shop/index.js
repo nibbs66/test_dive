@@ -1,33 +1,18 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axios from "axios";
 import Client from "../../components/layout/Client";
-import NewCard from "../../components/Card/NewCard";
 import Image from "next/image";
 import {useRouter} from "next/router";
-import ClientHeader from "../../components/ClientHeader";
+import ClientHeader from "../../components/Client/ClientHeader";
 import introImg from "../../public/img/padi-shop.jpeg";
-import MainReturn from "../../components/Shop/MainReturn";
-const Index = ({categories, products, vendors}) => {
-    const [manufacturerList, setManufacturerList] = useState([])
-    const [searchList, setSearchList] = useState([])
+import MainReturn from "../../components/Client/Shop/MainReturn";
+const Index = ({categories, vendors}) => {
+
     const [main, setMain] = useState('categories')
     const router = useRouter()
-    //<Link href={`/shop/category/${category.name}`} passHref >
-    useEffect(()=>{
-        products?.map((manufacturer)=>{
-            setManufacturerList((prev)=>[...prev, manufacturer.manufacturer])
-        },[products, categories])
 
-
-    },[products])
-
-    useEffect(()=>{
-
-        const list = new Set(manufacturerList)
-        setSearchList([...new Set(manufacturerList)])
-    },[manufacturerList])
     const handleClick = (data, value) => {
-
+        console.log('data', data)
         router.push(`/shop/${value}/${data}`)
     }
 

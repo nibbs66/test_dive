@@ -2,7 +2,7 @@ import {useState} from 'react';
 import Client from "../../components/layout/Client";
 import axios from "axios";
 import AccordionLayout from "../../components/Accordion/AccordionLayout";
-import ClientHeader from "../../components/ClientHeader";
+import ClientHeader from "../../components/Client/ClientHeader";
 
 const Index = ({service}) => {
     const [activeIndex, setActiveIndex] = useState(1)

@@ -4,12 +4,19 @@ import { removeCookies } from 'cookies-next';
 import useUser from "../api/hooks/useUser";
 import axios from "axios";
 import {useRouter} from "next/router";
-import Loader from "../../components/icons/Loader";
+
+import Loader from '../../components/icons/Loader';
+
 
 const Index = () => {
+
     const router = useRouter()
     const [success, setSuccess] = useState(false)
     const {user, cart, mutateCart, validateCart} = useUser()
+    useEffect(()=>{
+
+
+    },[])
     useEffect(() =>{
         const finalizeOrder = async() => {
 
@@ -25,13 +32,17 @@ const Index = () => {
                         email:  user? user.personal.email : cart?.guestInformation?.email,
                         phone: user? user.personal.phone : cart?.guestInformation?.phone,
                         total: cart?.total,
+                        amountPaid: cart?.amountPaid,
                         items: cart?.items,
                         purchaseType: cart.purchaseType,
                         shippingMethod: cart?.shipping
                     });
-                cart.items.map(async(item)=>{
-                    const inventory = await axios.put(`/api/products/inventory/${item.productId}`,
-                        {quantity: item.quantity})
+                cart.items.map(async(product)=>{
+                    const inv = await axios.put(`/api/products/${product.productId}`,
+                        {inventory: true, update: product.subTypeId, quantity: product.quantity})
+
+
+
 
                 })
                 if(res.status===201){
@@ -56,12 +67,12 @@ const Index = () => {
         <div className={`h-screen w-screen`}>
             {!success &&
                 <div className={`flex flex-col gap-2 h-3/4 items-center text-sm sm:text-base justify-center uppercase font-bold text-slate-400`}>
-                <Loader/>
+                    <Loader/>
                 </div>
-                    }
+            }
             {success &&   <div className={`flex flex-col gap-2 h-3/4 items-center text-sm sm:text-base justify-center uppercase font-bold text-slate-400`}>
-                <span>Thank You For Your Order!!</span>
-                <span>You Will Receive a Confirmation Email Shortly.</span>
+                <span>BEDANKT VOOR JE BESTELLING!!</span>
+                <span>U ONTVANGT BINNENKORT EEN BEVESTIGINGS-E-MAIL.</span>
 
             </div>}
 

@@ -2,7 +2,7 @@ import ArrowDown from "../icons/ArrowDown";
 import Money from "../icons/Money"
 import {useEffect, useState} from 'react'
 import dayjs from "dayjs";
-import CardDisplay from "../Card/CardDisplay";
+import CardDisplay from "../Admin/Card/CardDisplay";
 
 
 const Card = ({data, title, bg, box}) => {

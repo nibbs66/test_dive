@@ -5,7 +5,7 @@ import Link from "next/link";
 import TableRow from "./TableRow";
 import{NPageSize} from '../../tableData';
 
-import Filters from "../Filters";
+import Filters from "../Admin/Filters";
 
 const Table = ({ setRows, title, columns, tableTitle, filterColumns, activeFilter, setActiveFilter,
                    handleReset, checked, handleFilter, rows, PageSize, showButton, showFilter, action, font, textSize, link, filterData}) => {
