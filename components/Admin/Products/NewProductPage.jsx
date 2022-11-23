@@ -14,10 +14,14 @@ import ComboboxDisplay from "../../ComboboxDisplay";
 import useUploadImg from "../../../hooks/useUploadImg";
 import useProduct from "../../../pages/api/hooks/useProduct";
 import SubTypes from './SubTypes'
+import ErrorAlert from "../../Alerts/ErrorAlert";
+import SuccessAlert from "../../Alerts/SuccessAlert";
+import Popover from "../../Tools/Popover";
+import SingleSelectWithSearch from "../../Tools/SingleSelectWithSearch";
 
 
 const NewProductPage = () => {
-    const {colorData, sizeData,  categoryData} = useProduct()
+    const {colorData, mutateColor, sizeData, mutateSize, vendors,  categoryData} = useProduct()
     const [inputs, setInputs] = useState({})
     const [sub, setSub] = useState({})
     const [activeIndex, setActiveIndex] = useState(1)
@@ -25,7 +29,12 @@ const NewProductPage = () => {
     const [barCode, setBarCode] = useState([])
     const[showMessage, setShowMessage] = useState(false)
     const [disabled, setDisabled] = useState(true)
-    const [selected, setSelected] = useState('')
+    const [selectColor, setSelectColor] = useState('')
+    const [selectVendor, setSelectVendor] = useState('')
+    const [selectNew, setSelectNew] = useState('')
+    const [selectGender, setSelectGender] = useState('')
+    const [selectCategory, setSelectCategory] = useState('')
+    const [selectSize, setSelectSize] = useState('')
     const [enabled, setEnabled] = useState(false)
     const [colors, setColors] = useState(false)
     const [sizes, setSizes] = useState(false)
@@ -33,9 +42,12 @@ const NewProductPage = () => {
     const [img, setImg] = useState([])
     const [upload, setUpload] = useState(false)
     const [messageColor, setMessageColor] = useState('green')
+    const [messageData, setMessageData] =useState({})
     const [message, setMessage] = useState('Upload Yeah')
     const [inputNumber, setInputNumber] = useState(1)
     const newProduct =[{new: 'Nee'}, {new: 'Ja'}]
+    const [addColorItem, setAddColorItem] = useState(false)
+    const [addSizeItem, setAddSizeItem] = useState(false)
     const productGender =[{gender: 'Male'}, {gender: 'Female'}, {gender: 'Unisex'}]
 
     /*  <div className={`relative flex w-1/2`}>
@@ -55,7 +67,31 @@ const NewProductPage = () => {
         toast.success('Picture Added!!')
     }
 
+    const handleNewItems = async() => {
+        setShowMessage(false)
+        try{
+            if(messageData.type === 'color'){
+                const newColor = messageData.name.charAt(0).toUpperCase() + messageData.name.slice(1)
+                setSub(prev=>{
+                    return {...prev, [messageData.type]: newColor}
+                })
+                const res = await axios.post(`/api/${messageData.type}`, {'color': newColor})
+                res.status === 201 && mutateColor()
+                console.log(res.data)
+            }else if(messageData.type === 'size'){
+                const newSize = messageData.name.toUpperCase()
+                setSub(prev=>{
+                    return {...prev, [messageData.type]: newSize}
+                })
+                const res = await axios.post(`/api/${messageData.type}`, {'size': newSize})
+                console.log(res.data)
+                res.status === 201 && mutateSize()
+            }
 
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     const handleChange = (e) => {
 
@@ -85,7 +121,7 @@ const NewProductPage = () => {
         }
 
     };
-    console.log(productSubType)
+    console.log(sub)
     const handleSubmit = async() => {
         console.log('inputs', inputs)
         try{
@@ -101,10 +137,10 @@ const NewProductPage = () => {
         }
     }
 
-
+    console.log('selected', sub)
     return (
         <div>
-
+            <ErrorAlert showMessage={showMessage} setShowMessage={setShowMessage} color={messageColor} handleNewItems={handleNewItems} messageData={messageData}   message={message}/>
             <form action="" onSubmit={handleSubmit}>
                 <ProductPageDisplay product={inputs} handleSubmit={handleSubmit} submitButton={true} disabled={disabled} message={`Add Product Subtype before submitting!!`}>
 
@@ -120,7 +156,7 @@ const NewProductPage = () => {
                             activeIndex={activeIndex}
                             setActiveIndex={setActiveIndex}
                         >
-                            <form className={`flex flex-col w-full`} action="components/Admin/Products/NewTProductPage">
+                            <div className={`flex flex-col w-full`} action="components/Admin/Products/NewTProductPage">
                                 <div className="flex items-center  justify-center w-full  gap-10">
                                     <div>
                                         <Image
@@ -156,10 +192,14 @@ const NewProductPage = () => {
                                         <div className={`flex flex-col gap-1 text-sm`}>
                                             <label
                                                 className={`pt-1 uppercase text-slate-400 font-bold`}>Manufacturer</label>
-                                            <input
-                                                className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 `}
-                                                onChange={handleChange} name={`vendor`}
-                                                type="text"/>
+
+                                            <div className={`w-1/2`}>
+                                                <SingleSelect data={vendors} dataValue={'vendor'}
+                                                              category={`vendor`} selected={selectVendor}
+                                                              setInputs={setInputs} setSelected={setSelectVendor}
+                                                              handleChange={handleChange}/>
+                                            </div>
+
                                         </div>
                                         <div className={`flex flex-col gap-1`}>
                                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>Product
@@ -197,8 +237,8 @@ const NewProductPage = () => {
                                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>New</label>
                                             <div className={`w-1/2`}>
                                                 <SingleSelect data={newProduct} dataValue={'new'} category={`new`}
-                                                              selected={selected} setInputs={setInputs}
-                                                              setSelected={setSelected} handleChange={handleChange}/>
+                                                              selected={selectNew} setInputs={setInputs}
+                                                              setSelected={setSelectNew} handleChange={handleChange}/>
                                             </div>
 
                                         </div>
@@ -206,8 +246,8 @@ const NewProductPage = () => {
                                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>Gender</label>
                                             <div className={`w-1/2`}>
                                                 <SingleSelect data={productGender} dataValue={'gender'}
-                                                              category={`gender`} selected={selected}
-                                                              setInputs={setInputs} setSelected={setSelected}
+                                                              category={`gender`} selected={selectGender}
+                                                              setInputs={setInputs} setSelected={setSelectGender}
                                                               handleChange={handleChange}/>
                                             </div>
 
@@ -216,8 +256,8 @@ const NewProductPage = () => {
                                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>Category</label>
                                             <div className={`w-1/2`}>
                                                 <SingleSelect data={categoryData} dataValue={'name'}
-                                                              category={`category`} selected={selected}
-                                                              setInputs={setInputs} setSelected={setSelected}
+                                                              category={`category`} selected={selectCategory}
+                                                              setInputs={setInputs} setSelected={setSelectCategory}
                                                               handleChange={handleChange}/>
                                             </div>
                                         </div>
@@ -237,7 +277,7 @@ const NewProductPage = () => {
 
                                 </div>
 
-                            </form>
+                            </div>
                         </AccordionLayout>
                         <AccordionLayout
                             title={`Add Product Types`}
@@ -252,8 +292,8 @@ const NewProductPage = () => {
                             <SubTypes onChange={() => setColors(!colors)} onChange1={() => setSizes(!sizes)}
                                       onClick={() => setActiveIndex(1)} inputNumber={inputNumber} setInputNumber={setInputNumber} headerOptions={true}
                                       callbackfn={(el, idx) => (
-                                          <form className={`flex items-center justify-center space-x-2 text-sm w-full`}
-                                                key={idx}>
+                                          <div className={`flex items-center justify-center space-x-2 text-sm w-full`}
+                                               key={idx}>
                                               <div className={`flex flex-col gap-1`}>
                                                   <label className={`pt-1 uppercase text-slate-400 font-bold`}>Model
                                                       Id</label>
@@ -275,27 +315,32 @@ const NewProductPage = () => {
 
                                                   </div>
                                               </div>
-                                              {sizes && <div className={`flex flex-col `}>
-                                                  <label className={`pt-1 uppercase text-slate-400 font-bold text-sm`}>
-                                                      size
-                                                  </label>
-                                                  <div className={`w-44 `}>
-                                                      <SingleSelect data={sizeData} dataValue={'size'} category={`size`}
-                                                                    selected={selected} setInputs={setSub}
-                                                                    setSelected={setSelected}
-                                                                    handleChange={handleSubType}/>
-                                                  </div>
-                                              </div>}
                                               {colors && <div className={`flex flex-col  `}>
                                                   <label
                                                       className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
                                                   <div className={`w-44`}>
-                                                      <SingleSelect data={colorData} dataValue={'color'}
-                                                                    category={`color`}
-                                                                    selected={selected} setInputs={setSub}
-                                                                    setSelected={setSelected}/>
+                                                      <SingleSelectWithSearch  data={colorData} dataValue={'color'}
+                                                                               category={`color`} selected={selectColor} addItem={addColorItem} setAddItem={setAddColorItem}
+                                                                               setMessage={setMessage}  setMessageColor={setMessageColor} setMessageData={setMessageData}
+                                                                               setInputs={setSub} setSelected={setSelectColor} setShowMessage={setShowMessage}
+                                                                               handleChange={handleSubType}/>
                                                   </div>
+
                                               </div>}
+                                              {sizes && <div className={`flex flex-col `}>
+                                                  <label className={`pt-1 uppercase text-slate-400 font-bold text-sm`}>
+                                                      size
+                                                  </label>
+                                                  <div className={`w-44`}>
+                                                      <SingleSelectWithSearch  data={sizeData} dataValue={'size'}
+                                                                               category={`size`} selected={selectSize} addItem={addSizeItem} setAddItem={setAddSizeItem}
+                                                                               setMessage={setMessage} setMessageColor={setMessageColor} setMessageData={setMessageData}
+                                                                               setInputs={setSub} setSelected={setSelectSize} setShowMessage={setShowMessage}
+                                                                               handleChange={handleSubType}/>
+                                                  </div>
+
+                                              </div>}
+
                                               <div className={`flex flex-col gap-1`}>
                                                   <label
                                                       className={`pt-1 uppercase text-slate-400 font-bold`}>stock</label>
@@ -311,106 +356,10 @@ const NewProductPage = () => {
                                                       onClick={addSub}
                                                       className={`cursor-pointer absolute -inset-1 left-4 h-8 w-8 text-green-500 drop-shadow-lg`}/>
                                               </div>
-                                          </form>
+                                          </div>
                                       )}/>
 
-                            {/*<div className={`mx-10 flex flex-col items-center space-y-4 w-full `}>
-                            <div className={` flex space-x-4 w-full`} action="">
-                                <div className={`flex items-center  justify-center`}>
-                                    <div>
-                                        <Image
-                                            className={`object-cover rounded-full items-center`}
-                                            src={file.length !== 0
-                                                ? URL.createObjectURL(file)
 
-                                                : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"}
-                                            alt={''}
-                                            width={100} height={100} objectFit='cover'
-                                        />
-                                    </div>
-                                    {!upload && <div className={`flex items-center justify-center cursor-pointer `}>
-
-                                        <input
-                                            className={`file:bg-[#3b81f6] file:text-white file:mr-4 file:py-2 text-sm text-slate-400
-                                    file:uppercase file:text-sm file:px-4 file:rounded-full file:border-0
-                                    file:cursor-pointer
-                                    `}
-                                            type="file"
-                                            id="file"
-                                            onChange={(e) => {
-                                                setFile(e.target.files[0])
-                                                setUpload(true)
-                                            }}
-
-                                        />
-                                    </div>}
-
-                                    <div className={`flex  items-center gap-2`}>
-                                        {upload && <button
-                                            onClick={handleClick}
-                                            className={`bg-green-500 text-white uppercase py-1 px-2 rounded text-sm font-bold`}>Add
-                                            Img</button>}
-                                    </div>
-                                </div>
-                                <div className={`grid grid-cols-2 w-full my-4  `}>
-                                    <div className={`flex flex-col gap-1`}>
-                                        <label className={`pt-1 uppercase text-slate-400 font-bold`}>Model Id</label>
-                                        <input
-                                            className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2`}
-                                            onChange={handleSubType} name={`modelId`}
-                                            type="text"/>
-                                    </div>
-                                    <div className={`flex flex-col gap-1`}>
-                                        <label className={`pt-1 uppercase text-slate-400 font-bold`}>
-                                        size
-                                         <Toggle name={`size`} enabled={enabled} setEnabled={setEnabled}/>
-                                        </label>
-                                        <div className={`w-1/2`}>
-                                            <SingleSelect data={productSizes} dataValue={'size'} category={`size`}
-                                                          selected={selected} setInputs={setSub}
-                                                          setSelected={setSelected} handleChange={handleSubType}/>
-                                        </div>
-                                    </div>
-                                    <div className={`flex flex-col gap-1`}>
-                                        <label className={`pt-1 uppercase text-slate-400 font-bold`}>Barcode</label>
-                                        <div className={`flex items-center gap-2`}>
-                                            <input
-                                                className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 w-1/2`}
-                                                name={`barcode`}
-
-                                                onChange={handleSubType}
-                                                type="text"/>
-
-                                        </div>
-                                    </div>
-                                    <div className={`flex flex-col gap-1 `}>
-                                        <label className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
-                                        <div className={`w-1/2`}>
-                                            <SingleSelect data={productColors} dataValue={'color'} category={`color`}
-                                                          selected={selected} setInputs={setSub}
-                                                          setSelected={setSelected}/>
-                                        </div>
-                                    </div>
-
-                                    <div className={`flex flex-col gap-1`}>
-                                        <label className={`pt-1 uppercase text-slate-400 font-bold`}>stock</label>
-                                        <input
-                                            onChange={handleSubType}
-                                            name={`stock`}
-                                            className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2`}
-                                            type="number"/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div>
-                                <button onClick={addSub}
-                                        className={` uppercase whitespace-nowrap leading-none px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded`}>Add
-                                    Type
-                                </button>
-                            </div>
-                        </div>
-                        */}
                         </AccordionLayout>
                     </div>
                 </ProductPageDisplay>
