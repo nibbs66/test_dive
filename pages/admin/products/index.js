@@ -132,7 +132,7 @@ const Index = ({products}) => {
         if (field === 'category') {
 
             setRows([])
-            filteredProducts =  products.filter((product)=>product.categories[0] === item)
+            filteredProducts =  products.filter((product)=>product.category === item)
         }else if(field === 'isNew'){
             setRows([])
             filteredProducts =  products.filter((product)=>product.new === item )

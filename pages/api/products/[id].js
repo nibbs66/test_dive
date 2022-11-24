@@ -127,17 +127,13 @@ export default async function handler(req, res) {
         }
     }
     if(method==="DELETE"){
-        console.log(req.body.data)
-        /* {_id: id},
-         {
-             $pull: {
-                 items: { _id}
-             },*/
-        /*try{
+
+
+        try{
             await Product.findByIdAndDelete(id);
             res.status(200).json("ProductPage Deleted")
         }catch(err){
             res.status(500).json(err);
-        }*/
+        }
     }
 }

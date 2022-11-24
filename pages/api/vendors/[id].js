@@ -39,17 +39,11 @@ console.log(req.body)
         }
     }
     if(method==="DELETE"){
-        console.log(req.body.data)
-        /* {_id: id},
-         {
-             $pull: {
-                 items: { _id}
-             },*/
-        /*try{
+        try{
             await Vendor.findByIdAndDelete(id);
             res.status(200).json("VendorPage Deleted")
         }catch(err){
             res.status(500).json(err);
-        }*/
+        }
     }
 }

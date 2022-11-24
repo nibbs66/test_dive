@@ -96,12 +96,10 @@ const Index = ({vendors}) => {
     },[filterManufacturer])
 
     const handleDelete = async(vendor) => {
-
-        let emptyPhotoArray=vendor.img.length
-        await vendor.img.map((file, idx)=>{
-
+        console.log(vendor)
+        if(vendor.img){
             const storage = getStorage(app);
-            const fileRef = ref(storage, file);
+            const fileRef = ref(storage, vendor.img);
             deleteObject(fileRef).then(async() =>{
                 toast.success('Image Successfully Deleted')
             }).catch((error) => {
@@ -111,18 +109,15 @@ const Index = ({vendors}) => {
 
                 // Uh-oh, an error occurred!
             });
-            emptyPhotoArray = emptyPhotoArray - 1
-        })
-
-        if(emptyPhotoArray === 0){
-            try{
-                const res = await axios.delete(`/api/vendors/${vendor._id}`)
-                res.status === 200 && toast.success('Product successfully deleted.')
-                mutateProduct()
-            }catch(err){
-                console.log(err)
-            }
         }
+        try{
+            const res = await axios.delete(`/api/vendors/${vendor._id}`)
+            res.status === 200 && toast.success('Vendor successfully deleted.')
+            mutateProduct()
+        }catch(err){
+            console.log(err)
+        }
+
 
     }
     const handleFilter = (e, item, field) => {
