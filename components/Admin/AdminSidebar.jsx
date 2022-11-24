@@ -237,6 +237,12 @@ const AdminSidebar = () => {
                                 Orders
                             </li>
                         </Link>
+                        <Link href="/admin/vendors/" passHref>
+                            <li className={'flex gap-2 items-center cursor-pointer '}>
+                                <GlobeAltIcon  className={`h-6 w-6`}/>
+                                Vendors
+                            </li>
+                        </Link>
                         <Link href="/admin/rental_equipment" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <Rental/>
