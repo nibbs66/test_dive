@@ -108,6 +108,23 @@ export const ProductsColumns = [
     {field: "isNew", header: "New", sortable: true},
     { header: "Action", field: "action",  sortable: false },
 ];
+export const VendorColumns = [
+    {field: "vendor", header: "Vendor", sortable: true},
+    {field: "link", header: "Website", sortable: true},
+    {field: "address", header: "Address", sortable: true},
+    {field: "city", header: "City", sortable: true},
+    {field: "contact", header: "Contact", sortable: true},
+    {field: "phone", header: "Phone", sortable: false},
+    {field: "email", header: "Email", sortable: true},
+    { header: "Action", field: "action",  sortable: false },
+];
+export const VendorProductColumns = [
+    {field: "id", header: "Product Id", sortable: true},
+    {field: "product", header: "Name", sortable: true},
+    {field: "cost", header: "Cost", sortable: true},
+    {field: "price", header: "Price", sortable: true},
+
+];
 export const RentalTableColumns = [
 
     {field: "name", header: "Name", sortable: true},
