@@ -12,19 +12,18 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject} fro
 
 const Index = ({products}) => {
     const [rows, setRows] = useState([]);
-    const [filterManufacturer, setFilterManufacturer] = useState([])
-    const [filterCategory, setFilterCategory] = useState([])
-    const [filterIsNew, setFilterIsNew] = useState([])
-    const [filterStock, setFilterStock] = useState([])
+
     const [activeFilter, setActiveFilter] = useState(false);
     const [filterData, setFilterData] = useState([])
     const [checked, setChecked] = useState('')
     const [deleteProduct, setDeleteProduct] = useState(false)
+
     const {
 
         validateProduct,
         mutateProduct
     } = useAdmin()
+    const stockFilter = ['< 10', '11-20', '21-30', '31-40', '41-50', '> 50']
     const filterColumns = [
         { header: "Vendor", field: "vendor",   },
         { header: "Category", field: "category",  sortable: true},
@@ -34,11 +33,9 @@ const Index = ({products}) => {
 
     useEffect(()=>{
         setRows([])
-        setFilterManufacturer([])
-        setFilterCategory([])
-        setFilterIsNew([])
-        setFilterStock([])
-        //category: product?.categories[0],
+        const man = [];
+        const newItem = [];
+        const cat = [];
         products?.map((product, idx)=>{
 
             setRows( (prev)=>[...prev, {
@@ -52,47 +49,27 @@ const Index = ({products}) => {
                 action: <TableActions key={idx} link={`/admin/products/product/`} editLink={`/admin/products/edit/`} handleDelete={handleDelete}  item={product}/>
 
             }])
-            setFilterManufacturer((prev)=>[...prev, product.vendor])
-            setFilterCategory((prev)=>[...prev, product.category])
-            setFilterIsNew((prev)=>[...prev, product.new])
-            setFilterStock((prev)=>[...prev, product.stock])
-        })
+            man.push(product.vendor)
+            newItem.push(product.new)
+            cat.push(product.category)
 
+        })
+        Array.from(new Set(man)).map((item)=>{
+            setFilterData((prev)=>[...prev, {'vendor': item}])
+        })
+        Array.from(new Set(newItem)).map((item)=>{
+            setFilterData((prev)=>[...prev, {'isNew': item}])
+        })
+        Array.from(new Set(cat)).map((item)=>{
+            setFilterData((prev)=>[...prev, {'category': item}])
+        })
+        stockFilter.map((item)=>{
+            setFilterData((prev)=>[...prev, {'stock': item}])
+        })
     },[products])
-    useEffect(()=>{
-        setFilterData([])
-        const stockFilter = ['< 10', '11-20', '21-30', '31-40', '41-50', '> 50']
-        const filterManufacturerSet = [...new Set(filterManufacturer)]
-        filterManufacturerSet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'vendor': item
-            }])
-        })
-        const filterCategorySet = [...new Set(filterCategory)]
-        filterCategorySet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'category': item
-            }])
-        })
-        const filterIsNewSet = [...new Set(filterIsNew)]
-        filterIsNewSet.map((item)=>{
-            if(item !==undefined){
-                setFilterData((prev)=>[...prev, {
-                    'isNew': item
-                }])
-            }
-
-        })
-        const stockFilterSet = [...new Set(stockFilter)]
-        stockFilterSet.map((item)=>{
-            setFilterData((prev)=>[...prev, {
-                'stock': item
-            }])
-        })
 
 
-    },[filterManufacturer])
-
+    console.log(filterData)
     const handleDelete = async(product) => {
 
         let emptyPhotoArray=product.img.length
@@ -225,7 +202,7 @@ const Index = ({products}) => {
     );
 };
 
-export default Index;
+export default Index;;
 Index.getLayout = function getLayout(page){
     return(
         <Admin>
