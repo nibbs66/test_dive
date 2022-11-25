@@ -104,7 +104,6 @@ export const ProductsColumns = [
     {field: "category", header: "Category", sortable: true},
     {field: "cost", header: "Cost", sortable: true},
     {field: "price", header: "Price", sortable: true},
-    {field: "stock", header: "Stock", sortable: false},
     {field: "isNew", header: "New", sortable: true},
     { header: "Action", field: "action",  sortable: false },
 ];
