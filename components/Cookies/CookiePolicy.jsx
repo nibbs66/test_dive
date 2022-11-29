@@ -1,25 +1,39 @@
 import React from 'react';
 
 const CookiePolicy = () => {
+    //<a href="components/Cookies/CookiePolicy">Cookiebeleid Generator</a>.
     return (
         <div className={`flex flex-col h-screen w-screen  items-center justify-center text-center text-xs`}>
             <div className={`flex flex-col space-y-2 w-1/2`}>
-                <h1 className={`font-bold `}>Cookie Policy for RnG Diving</h1>
+                <h1 className={`font-bold `}>Cookiebeleid voor RnG-duiken</h1>
 
-                <p>This is the Cookie Policy for RnG Diving, accessible from www.rngdiving.nl</p>
+                <p>Dit is het Cookiebeleid voor RnG Diving, toegankelijk via www.rngdiving.nll</p>
 
-                <p><strong>What Are Cookies</strong></p>
+                <p><strong>Wat zijn cookies</strong></p>
 
-                <p>As is common practice with almost all professional websites this site uses cookies, which are tiny files that are downloaded to your computer, to improve your experience. This page describes what information they gather, how we use it and why we sometimes need to store these cookies. We will also share how you can prevent these cookies from being stored however this may downgrade or 'break' certain elements of the sites functionality.</p>
+                <p>Zoals gebruikelijk bij bijna alle professionele websites, gebruikt deze site cookies,
+                    dit zijn kleine bestanden die naar uw computer worden gedownload, om uw ervaring te
+                    verbeteren. Deze pagina beschrijft welke informatie zij verzamelen, hoe we deze gebruiken en waarom
+                    we deze cookies soms moeten opslaan. We zullen ook delen hoe u kunt voorkomen dat deze cookies
+                    worden opgeslagen, maar dit kan bepaalde elementen van de functionaliteit van de site downgraden
+                    of 'breken'.</p>
 
-                <p><strong>How We Use Cookies</strong></p>
+                <p><strong>Hoe we cookies gebruiken</strong></p>
 
-                <p>We use cookies for a variety of reasons detailed below. Unfortunately in most cases there are no industry standard options for disabling cookies without completely disabling the functionality and features they add to this site. It is recommended that you leave on all cookies if you are not sure whether you need them or not in case they are used to provide a service that you use.</p>
+                <p>We gebruiken cookies om verschillende redenen die hieronder worden beschreven. Helaas zijn er in de
+                    meeste gevallen geen industriestandaardopties voor het uitschakelen van cookies zonder de functionaliteit
+                    en functies die ze aan deze site toevoegen volledig uit te schakelen. Het wordt aanbevolen om alle
+                    cookies ingeschakeld te laten als u niet zeker weet of u ze nodig heeft of niet, in het geval dat ze
+                    worden gebruikt om een ​​dienst te leveren die u gebruikt.</p>
 
-                <p><strong>Disabling Cookies</strong></p>
+                <p><strong>Cookies uitschakelen</strong></p>
 
-                <p>You can prevent the setting of cookies by adjusting the settings on your browser (see your browser Help for how to do this). Be aware that disabling cookies will affect the functionality of this and many other websites that you visit. Disabling cookies will usually result in also disabling certain functionality and features of the this site. Therefore it is recommended that you do not disable cookies. This Cookies Policy was created with the help of the <a href="components/Cookies/CookiePolicy">Cookies Policy Generator</a>.</p>
-                <p><strong>The Cookies We Set</strong></p>
+                <p>U kunt het plaatsen van cookies voorkomen door de instellingen van uw browser aan te passen
+                    (zie de Help van uw browser hoe u dit kunt doen). Houd er rekening mee dat het uitschakelen van cookies
+                    invloed heeft op de functionaliteit van deze en vele andere websites die u bezoekt. Het uitschakelen van
+                    cookies zal meestal resulteren in het uitschakelen van bepaalde functionaliteit en kenmerken van deze site.
+                    Het is daarom aan te raden om cookies niet uit te schakelen. </p>
+                <p><strong>De cookies die we instellen</strong></p>
 
                 <ul>
 
@@ -27,8 +41,8 @@ const CookiePolicy = () => {
 
 
                     <li>
-                        <p>Orders processing related cookies</p>
-                        <p>This site offers e-commerce or payment facilities and some cookies are essential to ensure that your order is remembered between pages so that we can process it properly.</p>
+                        <p>Bestellingen verwerken gerelateerde cookies</p>
+                        <p>TDeze site biedt e-commerce- of betalingsfaciliteiten en sommige cookies zijn essentieel om ervoor te zorgen dat uw bestelling tussen pagina's wordt onthouden, zodat we deze correct kunnen verwerken.</p>
                     </li>
 
 
@@ -36,16 +50,17 @@ const CookiePolicy = () => {
 
                 </ul>
 
-                <p><strong>Third Party Cookies</strong></p>
+                <p><strong>Cookies van derden</strong></p>
 
-                <p>In some special cases we also use cookies provided by trusted third parties. The following section details which third party cookies you might encounter through this site.</p>
+                <p>In sommige speciale gevallen gebruiken we ook cookies van vertrouwde derde partijen. In het volgende
+                    gedeelte wordt beschreven welke cookies van derden u via deze site kunt tegenkomen.</p>
 
                 <ul>
 
 
 
                     <li>
-                        <p>From time to time we test new features and make subtle changes to the way that the site is delivered. When we are still testing new features these cookies may be used to ensure that you receive a consistent experience whilst on the site whilst ensuring we understand which optimisations our users appreciate the most.</p>
+                        <p>Van tijd tot tijd testen we nieuwe functies en brengen we subtiele wijzigingen aan in de manier waarop de site wordt weergegeven. Wanneer we nog steeds nieuwe functies testen, kunnen deze cookies worden gebruikt om ervoor te zorgen dat u een consistente ervaring krijgt terwijl u op de site bent, terwijl we er zeker van zijn dat we begrijpen welke optimalisaties onze gebruikers het meest waarderen.</p>
                     </li>
 
 
@@ -56,13 +71,13 @@ const CookiePolicy = () => {
 
                 </ul>
 
-                <p><strong>More Information</strong></p>
+                <p><strong>Meer informatie</strong></p>
 
-                <p>Hopefully that has clarified things for you and as was previously mentioned if there is something that you aren't sure whether you need or not it's usually safer to leave cookies enabled in case it does interact with one of the features you use on our site.</p>
+                <p>Hopelijk heeft dit de zaken voor u verduidelijkt en zoals eerder vermeld, als er iets is waarvan u niet zeker weet of u het nodig heeft of niet, is het meestal veiliger om cookies ingeschakeld te laten voor het geval het een interactie aangaat met een van de functies die u op onze site gebruikt.</p>
 
-                <p>For more general information on cookies, please read <a href="components/Cookies/CookiePolicy">the Cookies Policy article</a>.</p>
 
-                <p>However if you are still looking for more information then you can contact us through one of our preferred contact methods:</p>
+
+                <p>Als u echter nog steeds op zoek bent naar meer informatie, kunt u contact met ons opnemen via een van onze favoriete contactmethoden:</p>
 
                 <ul>
                     <li>Email: monkebyte9@gmail.com</li>
