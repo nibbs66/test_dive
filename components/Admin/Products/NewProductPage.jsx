@@ -111,13 +111,15 @@ const NewProductPage = () => {
 
     const addSub = (e) => {
         e.preventDefault()
-        setProductSubType(prev=>[...prev, sub])
-        if(sub.modelId!==undefined && inputs.vendor!==undefined){
-            //toast.success('Sub Type added')
 
-            //setInputNumber(inputNumber + 1)
-            setSub({})
-            disabled && setDisabled(false)
+        console.log(sub.modelId)
+        if(inputs.vendor!==undefined){
+            if(sub.modelId!==undefined){
+                setProductSubType(prev=>[...prev, sub])
+                disabled && setDisabled(false)
+                setSub({})
+            }
+
         }
 
     };
