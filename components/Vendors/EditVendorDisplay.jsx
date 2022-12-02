@@ -78,7 +78,7 @@ const EditVendorDisplay = ({vendor}) => {
     console.log(vendor[0]._id)
     return (
         <div className={`flex flex-col gap-5 pt-5 mt-5`}>
-            <Toaster toastOptions={{className: 'text-center uppercase', duration: 5000,}}/>
+
             <AccordionLayout
                 title={`Edit Vendor Logo`}
                 bg={`${activeIndex === 0 ? 'bg-slate-500' : 'bg-slate-400'}`}

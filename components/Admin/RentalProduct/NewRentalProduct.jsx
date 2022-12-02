@@ -117,7 +117,7 @@ const NewProductPage = ({category, productColors, productSizes}) => {
     return (
         <form action="components/Admin/RentalProduct/NewRentalProduct" onSubmit={handleSubmit} >
             <ProductPageDisplay product={inputs}  submitButton={true}>
-                <Toaster toastOptions={{className: 'text-center uppercase', duration: 5000,}}/>
+
                 <div className={`mt-10 `}>
                     <AccordionLayout
                         title={`Add Te Huur Product`}

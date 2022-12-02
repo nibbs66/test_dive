@@ -38,15 +38,16 @@ const EditProductPage = ({product}) => {
     const [checked, setChecked] = useState('')
     const [productSubType, setProductSubType] = useState([])
     const [inputNumber, setInputNumber] = useState(0)
+    const [headerOptions, setHeaderOptions] = useState(false)
     const newProduct =[{new: 'Nee'}, {new: 'Ja'}]
     const aanbiedingenProduct =[{new: 'Nee'}, {new: 'Ja'}]
 
     useEffect(()=>{
 
         const hasColor = product.productSubType.filter((item) => item.color)
-       if(hasColor.length >0){
-           setColors(true)
-       }
+        if(hasColor.length >0){
+            setColors(true)
+        }
         const hasSize = product.productSubType.filter((item) => item.size)
         if(hasSize.length >0){
             setSizes(true)
@@ -92,14 +93,14 @@ const EditProductPage = ({product}) => {
         const storage = getStorage(app);
         const fileRef = ref(storage, file);
         deleteObject(fileRef).then(async() => {
-         try{
-         const res =  await axios.put(`/api/products/${product._id}`, {removeImg: true, file})
-       res.status === 201 && toast.success('Pic successfully deleted')
-             setFile([])
-     }catch(err){
-         console.log(err)
-         toast.error('Uh-oh, an error occurred!')
-     }
+            try{
+                const res =  await axios.put(`/api/products/${product._id}`, {removeImg: true, file})
+                res.status === 201 && toast.success('Pic successfully deleted')
+                setFile([])
+            }catch(err){
+                console.log(err)
+                toast.error('Uh-oh, an error occurred!')
+            }
 
 
         }).catch((error) => {
@@ -112,14 +113,14 @@ const EditProductPage = ({product}) => {
     }
     const handleSubType = (e) => {
         e.preventDefault()
-            setSub(prev=>{
-                return {...prev, [e.target.name]: e.target.value}
-            })
+        setSub(prev=>{
+            return {...prev, [e.target.name]: e.target.value}
+        })
 
 
 
     }
-
+    console.log('selected', inputs)
     const addSub = (e) => {
         e.preventDefault()
         setProductSubType(prev=>[...prev, sub])
@@ -151,13 +152,13 @@ const EditProductPage = ({product}) => {
                     // Observe state change events such as progress, pause, and resume
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
+
                     switch (snapshot.state) {
                         case 'paused':
-                            console.log('Upload is paused');
+
                             break;
                         case 'running':
-                            console.log('Upload is running');
+
                             break;
                         default:
                     }
@@ -169,21 +170,21 @@ const EditProductPage = ({product}) => {
                     // Handle successful uploads on complete
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                    if(downloadURL){
-                        const newImg = product.img;
-                        newImg.push(downloadURL)
-                        setFile([])
-                        try{
-
-                            const res = await axios.put("/api/products/"+product._id, {img: newImg})
-                            toast.success('Image Saved!!')
-                            setUpload(false)
+                        if(downloadURL){
+                            const newImg = product.img;
+                            newImg.push(downloadURL)
                             setFile([])
-                            setUpload(false)
-                        }catch(err){
+                            try{
 
+                                const res = await axios.put("/api/products/"+product._id, {img: newImg})
+                                toast.success('Image Saved!!')
+                                setUpload(false)
+                                setFile([])
+                                setUpload(false)
+                            }catch(err){
+
+                            }
                         }
-                    }
 
                     });
                 }
@@ -192,14 +193,18 @@ const EditProductPage = ({product}) => {
 
     }
     const handleEdit = async(data) => {
-        console.log(sub)
+
         try{
             if(data === 'product'){
                 const res = await axios.put("/api/products/"+product._id, {...inputs})
                 res.status === 201 && toast.success(`${product.name}  successfully updated`)
                 setInputs({})
-            }else{
+            }else if(data === 'subType'){
                 const res = await axios.put(`/api/products/${product._id}`, {productEdit: true, sub})
+                res.status === 201 && toast.success(`${product.name} sub type successfully updated`)
+                setSub({})
+            }else if(data === 'newSubType'){
+                const res = await axios.put(`/api/products/${product._id}`, {newSub: true, sub})
                 res.status === 201 && toast.success(`${product.name} sub type successfully updated`)
                 setSub({})
             }
@@ -212,307 +217,307 @@ const EditProductPage = ({product}) => {
             console.log(err)
         }
     }
-const handleDelete = async(data) => {
-        console.log(data.type)
+    const handleDelete = async(data) => {
+
         try{
 
-                const res = await axios.put(`/api/products/${product._id}`,
-                    {deleteSub: true, data}
-                );
-                res.status === 201 && toast.success(`${product.name} sub type successfully deleted`)
+            const res = await axios.put(`/api/products/${product._id}`,
+                {deleteSub: true, data}
+            );
+            res.status === 201 && toast.success(`${product.name} sub type successfully deleted`)
         }catch(err){
             console.log(err)
         }
-}
-console.log(checked)
+    }
+
     return (
         <ProductPageDisplay  product={product} >
-            <Toaster toastOptions={{className: 'text-center uppercase', duration: 5000,}}/>
-        <div className={`flex flex-col gap-5 pt-5 mt-5`}>
-            <AccordionLayout
-                title={`Edit Product Img`}
-                bg={`${activeIndex === 0 ? 'bg-slate-500' : 'bg-slate-400'}`}
-                text={'text-white'}
-                mx={'mx-16'}
-                bodyMargin={'mx-10'}
-                index={0}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-            >
-                <div className={`flex items-center justify-evenly  mx-10 w-full `}>
-                    <div>
-                        {/*<label className="text-base font-medium text-gray-900">Edit Images</label>*/}
-                        <p className="text-sm leading-5 text-slate-500">Please select Delete or Add.</p>
-                        <fieldset className="mt-4">
-                            <legend className="sr-only">Notification method</legend>
-                            <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                                {notificationMethods.map((notificationMethod) => (
-                                    <div key={notificationMethod.id} className="flex items-center">
-                                        <input
-                                            onChange={()=> {
-                                                setChecked(notificationMethod.id),
-                                                    setFile([]),
-                                                    setUpload(false)
-                                            }}
-                                            id={notificationMethod.id}
-                                            name="notification-method"
-                                            type="radio"
 
-                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        />
+            <div className={`flex flex-col gap-5 pt-5 mt-5`}>
+                <AccordionLayout
+                    title={`Edit Product Img`}
+                    bg={`${activeIndex === 0 ? 'bg-slate-500' : 'bg-slate-400'}`}
+                    text={'text-white'}
+                    mx={'mx-16'}
+                    bodyMargin={'mx-10'}
+                    index={0}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                >
+                    <div className={`flex items-center justify-evenly  mx-10 w-full `}>
+                        <div>
+                            {/*<label className="text-base font-medium text-gray-900">Edit Images</label>*/}
+                            <p className="text-sm leading-5 text-slate-500">Please select Delete or Add.</p>
+                            <fieldset className="mt-4">
+                                <legend className="sr-only">Notification method</legend>
+                                <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                                    {notificationMethods.map((notificationMethod) => (
+                                        <div key={notificationMethod.id} className="flex items-center">
+                                            <input
+                                                onChange={()=> {
+                                                    setChecked(notificationMethod.id),
+                                                        setFile([]),
+                                                        setUpload(false)
+                                                }}
+                                                id={notificationMethod.id}
+                                                name="notification-method"
+                                                type="radio"
 
-                                        <label htmlFor={notificationMethod.id} className="ml-3 block text-sm font-medium text-gray-700">
-                                            {notificationMethod.title}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </fieldset>
+                                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                            />
+
+                                            <label htmlFor={notificationMethod.id} className="ml-3 block text-sm font-medium text-gray-700">
+                                                {notificationMethod.title}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </fieldset>
+                        </div>
+
                     </div>
+                    {checked === 'add' &&
+                        <UploadImg upload={upload} setUpload={setUpload} handleClick={handleClick} setFile={setFile} file={file}/>
+                    }
+                    {checked === 'delete' && <div className="flex flex-col items-center justify-center w-full placeholder:text-slate-300 gap-5">
 
-                </div>
-                {checked === 'add' &&
-                <UploadImg upload={upload} setUpload={setUpload} handleClick={handleClick} setFile={setFile} file={file}/>
-                }
-                {checked === 'delete' && <div className="flex flex-col items-center justify-center w-full placeholder:text-slate-300 gap-5">
-
-                    {/*<div className={`flex gap-2 items-center uppercase text-sm text-slate-400 font-bold`}>
+                        {/*<div className={`flex gap-2 items-center uppercase text-sm text-slate-400 font-bold`}>
 
                         <label htmlFor="">
                             Upload Image:
                         </label>
                         <Upload fill={`#94a2b8`}/>
                     </div>*/}
-                    <Image className={`object-cover rounded-full items-center`} src={file.length !== 0
-                        ? file
+                        <Image className={`object-cover rounded-full items-center`} src={file.length !== 0
+                            ? file
 
-                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} alt={''}
-                           width={100} height={100} objectFit='cover'/>
-                    {upload && <div className={`flex flex-col items-center gap-2`}>
-                         <button onClick={handleDeleteImg}
-                                 className={`bg-red-500 text-white uppercase py-1 px-2 rounded text-sm`}>Delete Img
-                        </button>
+                            : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} alt={''}
+                               width={100} height={100} objectFit='cover'/>
+                        {upload && <div className={`flex flex-col items-center gap-2`}>
+                            <button onClick={handleDeleteImg}
+                                    className={`bg-red-500 text-white uppercase py-1 px-2 rounded text-sm`}>Delete Img
+                            </button>
+                        </div>}
+
+                        <div className={`flex `}>
+                            {product.img.map((pic, idx) => (
+                                <div
+                                    onClick={() => {
+                                        setImgIndex(idx)
+                                        setFile(pic)
+                                        setUpload(true)
+                                    }}
+
+                                    key={idx}
+                                    className={`cursor-pointer`}>
+                                    <Image src={pic} alt={''} height={100} width={100} objectFit={'contain'}/>
+                                </div>
+
+                            ))}
+                        </div>
                     </div>}
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`Edit Product`}
+                    bg={`${activeIndex === 1 ? 'bg-slate-500' : 'bg-slate-400'}`}
+                    text={'text-white'}
+                    mx={'mx-16'}
+                    bodyMargin={'mx-10'}
+                    index={1}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                >
+                    <div className={`flex flex-col w-full`} action="" >
+                        <div className={`grid grid-cols-2 w-full my-4 mx-10 `}>
 
-                    <div className={`flex `}>
-                        {product.img.map((pic, idx) => (
+                            <div className={`flex flex-col gap-2 text-sm`}>
+                                <div className={`flex flex-col gap-1 text-sm`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Manufacturer</label>
+                                    <input
+                                        onChange={handleChange} name={`vendor`}
+                                        className={`border border-slate-400 focus:outline-none rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
+                                        placeholder={product.vendor} type="text"/>
+                                </div>
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Product Name</label>
+                                    <input
+                                        onChange={handleChange} name={`name`}
+                                        className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
+                                        placeholder={product.name} type="text"/>
+                                </div>
+
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>cost</label>
+                                    <input
+                                        onChange={handleChange} name={`cost`}
+                                        className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
+                                        placeholder={`€${product.cost.toFixed(2)}`} type="text"/>
+
+
+                                </div>
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>price</label>
+                                    <input
+                                        onChange={handleChange} name={`price`}
+                                        className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300  `}
+                                        placeholder={`€${product.price.toFixed(2)}`} type="text"/>
+
+
+                                </div>
+
+                            </div>
+                            <div className={`flex flex-col gap-2 text-sm`}>
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Aanbiedingen</label>
+                                    <div className={`w-1/2`}>
+                                        <SingleSelect data={aanbiedingenProduct} dataValue={'new'} category={`new`}
+                                                      selected={selected} setInputs={setInputs}
+                                                      setSelected={setSelected} handleChange={handleChange}/>
+                                    </div>
+
+                                </div>
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Nieuw</label>
+                                    <div className={`w-1/2`}>
+                                        <SingleSelect data={newProduct} dataValue={'new'} category={`new`}
+                                                      selected={selected} setInputs={setInputs}
+                                                      setSelected={setSelected} handleChange={handleChange}/>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Category</label>
+                                    <input
+                                        onChange={handleChange} name={`category`}
+                                        className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
+                                        placeholder={product.category} type="text"/>
+                                </div>
+
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Description</label>
+                                    <textarea
+                                        onChange={handleChange} name={`desc`}
+                                        className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-3/4  `}
+                                        placeholder={product.desc} type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`flex justify-center py-5`}>
+                            <button
+                                onClick={()=>handleEdit('product')}
+                                className={`bg-green-500 py-1 px-2 text-white rounded uppercase font-bold`} type={`submit`}>
+                                Confirm Changes
+                            </button>
+                        </div>
+                    </div>
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`Edit Product Types`}
+                    bg={`${activeIndex === 2 ? 'bg-slate-500' : 'bg-slate-400'}`}
+                    text={'text-white'}
+                    mx={'mx-16'}
+                    bodyMargin={'mx-10'}
+                    index={2}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                >
+                    <div className={`flex flex-col w-full items-center  space-y-5`}>
+
+                        {product.productSubType.map((sub, idx)=>(
                             <div
-                                onClick={() => {
-                                    setImgIndex(idx)
-                                    setFile(pic)
-                                    setUpload(true)
-                                }}
 
-                                key={idx}
-                                className={`cursor-pointer`}>
-                                <Image src={pic} alt={''} height={100} width={100} objectFit={'contain'}/>
+                                key={idx} className={`flex space-x-2 items-center`}>
+                                <div className={`relative flex  items-center`}>
+                                    <XCircleIcon
+                                        onClick={()=>handleDelete({id: sub._id, type: 'sub'})}
+                                        className={`cursor-pointer absolute inset-0 -left-10 h-8 w-8 text-red-500 drop-shadow-lg`}/>
+                                </div>
+
+                                <div className={`flex flex-col gap-1` }>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold`}>Model
+                                        Id</label>
+                                    <input
+                                        className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
+                                        onBlur={()=>setSub(prev=>{
+                                            return {...prev, 'subId': sub._id}
+                                        })}
+                                        onChange={handleSubType} name={`modelId`} placeholder={sub.modelId}
+                                        type="text"/>
+                                </div>
+                                <div className={`flex flex-col gap-1`}>
+                                    <label
+                                        className={`pt-1 uppercase text-slate-400 font-bold`}>Barcode</label>
+                                    <div className={`flex items-center gap-2`}>
+                                        <input
+                                            className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
+                                            name={`barcode`} placeholder={sub.barcode}
+                                            onBlur={()=>setSub(prev=>{
+                                                return {...prev, 'subId': sub._id}
+                                            })}
+                                            onChange={handleSubType}
+                                            type="text"/>
+
+                                    </div>
+                                </div>
+                                {sub.size && <div className={`flex flex-col gap-1 `}>
+                                    <label className={`pt-1 uppercase text-slate-400 font-bold `}>
+                                        size
+                                    </label>
+                                    <input
+                                        onBlur={()=>setSub(prev=>{
+                                            return {...prev, 'subId': sub._id}
+                                        })}
+                                        onChange={handleSubType}
+                                        className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
+                                        type="text" placeholder={sub.size}/>
+                                </div>}
+                                {sub.color && <div className={`flex flex-col gap-1 `}>
+                                    <label
+                                        className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
+
+                                    <input
+
+                                        onBlur={()=>setSub(prev=>{
+                                            return {...prev, 'subId': sub._id}
+                                        })}
+                                        onChange={handleSubType}
+                                        className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
+                                        type="text" placeholder={sub.color}/>
+
+                                </div>}
+                                <div className={`flex flex-col gap-1`}>
+                                    <label
+                                        className={`pt-1 uppercase text-slate-400 font-bold`}>stock</label>
+                                    <input
+
+                                        onBlur={()=>setSub(prev=>{
+                                            return {...prev, 'subId': sub._id}
+                                        })
+
+                                        }
+                                        onChange={(e)=>{
+                                            setSub(prev=>{
+                                                return {...prev, [e.target.name]: Number(e.target.value)+sub.stock}})
+
+                                        }}
+                                        name={`stock`} placeholder={sub.stock}
+                                        className={`outline-none border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
+                                        type="number"/>
+                                </div>
+                                <div className={`relative flex  items-center`}>
+                                    <CheckCircleIcon
+                                        onClick={()=>handleEdit('subType')}
+                                        className={`cursor-pointer absolute inset-0 left-4 h-8 w-8 text-green-500 drop-shadow-lg`}/>
+                                </div>
                             </div>
-
                         ))}
-                    </div>
-                </div>}
-            </AccordionLayout>
-            <AccordionLayout
-                title={`Edit Product`}
-                bg={`${activeIndex === 1 ? 'bg-slate-500' : 'bg-slate-400'}`}
-                text={'text-white'}
-                mx={'mx-16'}
-                bodyMargin={'mx-10'}
-                index={1}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-            >
-                <div className={`flex flex-col w-full`} action="" >
-                <div className={`grid grid-cols-2 w-full my-4 mx-10 `}>
-
-                    <div className={`flex flex-col gap-2 text-sm`}>
-                        <div className={`flex flex-col gap-1 text-sm`}>
-                            <label className={`pt-1 uppercase text-slate-400 font-bold`}>Manufacturer</label>
-                            <input
-                                onChange={handleChange} name={`vendor`}
-                                className={`border border-slate-400 focus:outline-none rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
-                                placeholder={product.vendor} type="text"/>
-                        </div>
-                        <div className={`flex flex-col gap-1`}>
-                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>Product Name</label>
-                            <input
-                                onChange={handleChange} name={`name`}
-                                className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
-                                placeholder={product.name} type="text"/>
-                        </div>
-
-                        <div className={`flex flex-col gap-1`}>
-                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>cost</label>
-                            <input
-                                onChange={handleChange} name={`cost`}
-                                className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
-                                placeholder={`€${product.cost.toFixed(2)}`} type="text"/>
-
-
-                        </div>
-                        <div className={`flex flex-col gap-1`}>
-                             <label className={`pt-1 uppercase text-slate-400 font-bold`}>price</label>
-                            <input
-                                onChange={handleChange} name={`price`}
-                                className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300  `}
-                                placeholder={`€${product.price.toFixed(2)}`} type="text"/>
-
-
-                        </div>
 
                     </div>
-                    <div className={`flex flex-col gap-2 text-sm`}>
-                        <div className={`flex flex-col gap-1`}>
-                            <label className={`pt-1 uppercase text-slate-400 font-bold`}>Aanbiedingen</label>
-                            <div className={`w-1/2`}>
-                                <SingleSelect data={aanbiedingenProduct} dataValue={'new'} category={`new`}
-                                              selected={selected} setInputs={setInputs}
-                                              setSelected={setSelected} handleChange={handleChange}/>
-                            </div>
 
-                        </div>
-                        <div className={`flex flex-col gap-1`}>
-                            <label className={`pt-1 uppercase text-slate-400 font-bold`}>Nieuw</label>
-                            <div className={`w-1/2`}>
-                                <SingleSelect data={newProduct} dataValue={'new'} category={`new`}
-                                              selected={selected} setInputs={setInputs}
-                                              setSelected={setSelected} handleChange={handleChange}/>
-                            </div>
-
-
-
-                        </div>
-
-                        <div className={`flex flex-col gap-1`}>
-                            <label className={`pt-1 uppercase text-slate-400 font-bold`}>Category</label>
-                            <input
-                                onChange={handleChange} name={`category`}
-                                className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-1/2 placeholder:text-slate-300 `}
-                                placeholder={product.category} type="text"/>
-                        </div>
-
-                        <div className={`flex flex-col gap-1`}>
-                            <label className={`pt-1 uppercase text-slate-400 font-bold`}>Description</label>
-                            <textarea
-                                onChange={handleChange} name={`desc`}
-                                className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 w-3/4  `}
-                                placeholder={product.desc} type="text"/>
-                        </div>
-                    </div>
-                </div>
-                <div className={`flex justify-center py-5`}>
-                    <button
-                        onClick={()=>handleEdit('product')}
-                        className={`bg-green-500 py-1 px-2 text-white rounded uppercase font-bold`} type={`submit`}>
-                        Confirm Changes
-                    </button>
-                </div>
-                </div>
-            </AccordionLayout>
-            <AccordionLayout
-                title={`Edit Product Types`}
-                bg={`${activeIndex === 2 ? 'bg-slate-500' : 'bg-slate-400'}`}
-                text={'text-white'}
-                mx={'mx-16'}
-                bodyMargin={'mx-10'}
-                index={2}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-            >
-               <div className={`flex flex-col w-full items-center  space-y-5`}>
-
-                   {product.productSubType.map((sub, idx)=>(
-                       <div
-
-                           key={idx} className={`flex space-x-2 items-center`}>
-                           <div className={`relative flex  items-center`}>
-                               <XCircleIcon
-                                   onClick={()=>handleDelete({id: sub._id, type: 'sub'})}
-                                   className={`cursor-pointer absolute inset-0 -left-10 h-8 w-8 text-red-500 drop-shadow-lg`}/>
-                           </div>
-
-                           <div className={`flex flex-col gap-1` }>
-                               <label className={`pt-1 uppercase text-slate-400 font-bold`}>Model
-                                   Id</label>
-                               <input
-                                   className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
-                                   onBlur={()=>setSub(prev=>{
-                                       return {...prev, 'subId': sub._id}
-                                   })}
-                                   onChange={handleSubType} name={`modelId`} placeholder={sub.modelId}
-                                   type="text"/>
-                           </div>
-                           <div className={`flex flex-col gap-1`}>
-                               <label
-                                   className={`pt-1 uppercase text-slate-400 font-bold`}>Barcode</label>
-                               <div className={`flex items-center gap-2`}>
-                                   <input
-                                       className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
-                                       name={`barcode`} placeholder={sub.barcode}
-                                       onBlur={()=>setSub(prev=>{
-                                           return {...prev, 'subId': sub._id}
-                                       })}
-                                       onChange={handleSubType}
-                                       type="text"/>
-
-                               </div>
-                           </div>
-                           {sub.size && <div className={`flex flex-col gap-1 `}>
-                               <label className={`pt-1 uppercase text-slate-400 font-bold `}>
-                                   size
-                               </label>
-                               <input
-                                   onBlur={()=>setSub(prev=>{
-                                       return {...prev, 'subId': sub._id}
-                                   })}
-                                   onChange={handleSubType}
-                                   className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
-                                   type="text" placeholder={sub.size}/>
-                           </div>}
-                           {sub.color && <div className={`flex flex-col gap-1 `}>
-                               <label
-                                   className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
-
-                                   <input
-
-                                       onBlur={()=>setSub(prev=>{
-                                           return {...prev, 'subId': sub._id}
-                                       })}
-                                       onChange={handleSubType}
-                                       className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
-                                       type="text" placeholder={sub.color}/>
-
-                           </div>}
-                           <div className={`flex flex-col gap-1`}>
-                               <label
-                                   className={`pt-1 uppercase text-slate-400 font-bold`}>stock</label>
-                               <input
-
-                                   onBlur={()=>setSub(prev=>{
-                                       return {...prev, 'subId': sub._id}
-                                   })
-
-                               }
-                                  onChange={(e)=>{
-                                      setSub(prev=>{
-                                          return {...prev, [e.target.name]: Number(e.target.value)+sub.stock}})
-
-                                  }}
-                                   name={`stock`} placeholder={sub.stock}
-                                   className={`outline-none border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
-                                   type="number"/>
-                           </div>
-                           <div className={`relative flex  items-center`}>
-                               <CheckCircleIcon
-                                   onClick={()=>handleEdit('subType')}
-                                   className={`cursor-pointer absolute inset-0 left-4 h-8 w-8 text-green-500 drop-shadow-lg`}/>
-                           </div>
-                       </div>
-                   ))}
-
-               </div>
-
-                {/*<div className={`mx-10 flex flex-col items-center space-y-4 w-full `}>
+                    {/*<div className={`mx-10 flex flex-col items-center space-y-4 w-full `}>
                             <div className={` flex space-x-4 w-full`} action="">
                                 <div className={`flex items-center  justify-center`}>
                                     <div>
@@ -603,100 +608,103 @@ console.log(checked)
                             </div>
                             <div>
                                 <button onClick={addSub}
-                                        className={` uppercase whitespace-nowrap leading-none px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded`}>Add
+                                        className={` uppercase whitespace-nowrap leading-none px-4 py-3 bg-blue-500 hover:bg-indigo-700 text-white rounded`}>Add
                                     Type
                                 </button>
                             </div>
                         </div>
                         */}
-            </AccordionLayout>
-            <AccordionLayout
-                title={`Add Product Type`}
-                bg={`${activeIndex === 3 ? 'bg-slate-500' : 'bg-slate-400'}`}
-                text={'text-white'}
-                mx={'mx-16'}
-                bodyMargin={'mx-10'}
-                index={3}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-            >
-                <div className={`flex flex-col w-full items-center  space-y-5`}>
-                   <div className={`flex w-full items-center justify-evenly`}>
-                       <span className={`text-slate-500 font-bold uppercase text-lg`}>New Sub-types</span>
-                       <button className={`text-sm whitespace-nowrap leading-none py-3 px-4 text-white rounded bg-blue-500 hover:bg-blue-600 `}
-                               onClick={()=>setInputNumber(inputNumber + 1)}
-                       >Add Type</button>
-                   </div>
-                   <div className={`w-3/4 border border-b-2 `}></div>
-                   <SubTypes onChange={() => setColors(!colors)} onChange1={() => setSizes(!sizes)}
-                             onClick={() => setActiveIndex(1)} inputNumber={inputNumber}
-                             callbackfn={(el, idx) => (
-                                 <form className={`flex items-center justify-center space-x-2 text-sm w-full`}
-                                       key={idx}>
-                                     <div className={`flex flex-col gap-1`}>
-                                         <label className={`pt-1 uppercase text-slate-400 font-bold`}>Model
-                                             Id</label>
-                                         <input
-                                             className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
-                                             onChange={handleSubType} name={`modelId`}
-                                             type="text"/>
-                                     </div>
-                                     <div className={`flex flex-col gap-1`}>
-                                         <label
-                                             className={`pt-1 uppercase text-slate-400 font-bold`}>Barcode</label>
-                                         <div className={`flex items-center gap-2`}>
-                                             <input
-                                                 className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
-                                                 name={`barcode`}
+                </AccordionLayout>
+                <AccordionLayout
+                    title={`Add Product Type`}
+                    bg={`${activeIndex === 3 ? 'bg-slate-500' : 'bg-slate-400'}`}
+                    text={'text-white'}
+                    mx={'mx-16'}
+                    bodyMargin={'mx-10'}
+                    index={3}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                >
+                    <div className={`flex flex-col w-full items-center px-10  space-y-5`}>
+                        <div className={`flex w-full items-center justify-evenly`}>
+                            <span className={`text-slate-500 font-bold uppercase text-lg`}>New Sub-types</span>
+                            <button className={`text-sm whitespace-nowrap leading-none py-3 px-4 text-white rounded bg-blue-500 hover:bg-indigo-700 `}
+                                    onClick={()=> {
+                                        setInputNumber(inputNumber + 1)
+                                        setHeaderOptions(true)
+                                    }}
+                            >Add Type</button>
+                        </div>
+                        <div className={`w-3/4 border border-b-2 `}></div>
+                        <SubTypes onChange={() => setColors(!colors)} onChange1={() => setSizes(!sizes)}
+                                  onClick={() => setActiveIndex(1)} inputNumber={inputNumber} headerOptions={headerOptions}
+                                  callbackfn={(el, idx) => (
+                                      <form className={`flex items-center justify-center space-x-2 text-sm w-full`}
+                                            key={idx}>
+                                          <div className={`flex flex-col gap-1`}>
+                                              <label className={`pt-1 uppercase text-slate-400 font-bold`}>Model
+                                                  Id</label>
+                                              <input
+                                                  className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
+                                                  onChange={handleSubType} name={`modelId`}
+                                                  type="text"/>
+                                          </div>
+                                          <div className={`flex flex-col gap-1`}>
+                                              <label
+                                                  className={`pt-1 uppercase text-slate-400 font-bold`}>Barcode</label>
+                                              <div className={`flex items-center gap-2`}>
+                                                  <input
+                                                      className={`border border-slate-400  focus:outline-0 rounded text-sm p-1 `}
+                                                      name={`barcode`}
 
-                                                 onChange={handleSubType}
-                                                 type="text"/>
+                                                      onChange={handleSubType}
+                                                      type="text"/>
 
-                                         </div>
-                                     </div>
-                                     {sizes && <div className={`flex flex-col `}>
-                                         <label className={`pt-1 uppercase text-slate-400 font-bold text-sm`}>
-                                             size
-                                         </label>
-                                         <div className={`w-44 `}>
-                                             <SingleSelect data={sizeData} dataValue={'size'} category={`size`}
-                                                           selected={selected} setInputs={setSub}
-                                                           setSelected={setSelected}
-                                                           handleChange={handleSubType}/>
-                                         </div>
-                                     </div>}
-                                     {colors && <div className={`flex flex-col  `}>
-                                         <label
-                                             className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
-                                         <div className={`w-44`}>
-                                             <SingleSelect data={colorData} dataValue={'color'}
-                                                           category={`color`}
-                                                           selected={selected} setInputs={setSub}
-                                                           setSelected={setSelected}/>
-                                         </div>
-                                     </div>}
-                                     <div className={`flex flex-col gap-1`}>
-                                         <label
-                                             className={`pt-1 uppercase text-slate-400 font-bold`}>stock</label>
-                                         <input
-                                             onChange={handleSubType}
-                                             name={`stock`}
-                                             className={`outline-none border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
-                                             type="number"/>
-                                     </div>
+                                              </div>
+                                          </div>
+                                          {sizes && <div className={`flex flex-col `}>
+                                              <label className={`pt-1 uppercase text-slate-400 font-bold text-sm`}>
+                                                  size
+                                              </label>
+                                              <div className={`w-44 `}>
+                                                  <SingleSelect data={sizeData} dataValue={'size'} category={`size`}
+                                                                selected={selected} setInputs={setSub}
+                                                                setSelected={setSelected}
+                                                                handleChange={handleSubType}/>
+                                              </div>
+                                          </div>}
+                                          {colors && <div className={`flex flex-col  `}>
+                                              <label
+                                                  className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
+                                              <div className={`w-44`}>
+                                                  <SingleSelect data={colorData} dataValue={'color'}
+                                                                category={`color`}
+                                                                selected={selected} setInputs={setSub}
+                                                                setSelected={setSelected}/>
+                                              </div>
+                                          </div>}
+                                          <div className={`flex flex-col gap-1`}>
+                                              <label
+                                                  className={`pt-1 uppercase text-slate-400 font-bold`}>stock</label>
+                                              <input
+                                                  onChange={handleSubType}
+                                                  name={`stock`}
+                                                  className={`outline-none border border-slate-400 focus:outline-0 rounded text-sm p-1 `}
+                                                  type="number"/>
+                                          </div>
 
-                                     <div className={`relative flex h-full items-center`}>
-                                         <CheckCircleIcon
-                                             onClick={()=>handleEdit('subType')}
-                                             className={`cursor-pointer absolute -inset-1 left-4 h-8 w-8 text-green-500 drop-shadow-lg`}/>
-                                     </div>
-                                 </form>
-                             )}/>
-               </div>
+                                          <div className={`relative flex h-full items-center`}>
+                                              <CheckCircleIcon
+                                                  onClick={()=>handleEdit('newSubType')}
+                                                  className={`cursor-pointer absolute -inset-1 left-4 h-8 w-8 text-green-500 drop-shadow-lg`}/>
+                                          </div>
+                                      </form>
+                                  )}/>
+                    </div>
 
-            </AccordionLayout>
+                </AccordionLayout>
 
-        </div>
+            </div>
         </ProductPageDisplay>
     );
 };

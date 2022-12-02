@@ -166,7 +166,7 @@ const Index = () => {
 
     return (
         <div className={`p-10`}>
-            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
+
             <TableDisplay  columns={OrdersColumns} tableTitle={true} showFilter={true} font={'text-slate-800'} textSize={'text-3xl'} activeFilter={activeFilter} setActiveFilter={setActiveFilter}
                            rows={data} setRows={setData} handleReset={handleReset}  title={'Order'} checked={checked}  PageSize={10} display={`order`} handleFilter={handleFilter} filterColumns={filterColumns} filterData={filterData}
             />

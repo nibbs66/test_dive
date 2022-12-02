@@ -71,7 +71,7 @@ const Login = () => {
 
         <div className={`h-screen  p-16`}>
             <div className={`flex flex-col items-center`}>
-                <Toaster toastOptions={{className: 'text-xl text-center', duration: 5000,}}/>
+
                 <div className={`flex h-1/4`}>
                     <span className={`text-3xl text-slate-400  pb-5 uppercase`}>Login</span>
                 </div>

@@ -23,9 +23,10 @@ const SubTypes =(props)=> {
                 </div>
             </div>
             <div>
-                <button className={`text-sm whitespace-nowrap leading-none py-3 px-4 text-white rounded bg-blue-500 hover:bg-blue-600 `}
-                    onClick={()=>props.setInputNumber(props.inputNumber + 1)}
-                >Add Type</button>
+                {props.showButton && <button
+                    className={`text-sm whitespace-nowrap leading-none py-3 px-4 text-white rounded bg-blue-500 hover:bg-indigo-700 `}
+                    onClick={() => props.setInputNumber(props.inputNumber + 1)}
+                >Add Type</button>}
             </div>
         </div>}
         {[...Array(props.inputNumber)].map(props.callbackfn

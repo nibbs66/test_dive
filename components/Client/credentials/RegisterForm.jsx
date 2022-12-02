@@ -114,7 +114,7 @@ const handleClick = () => {
 
     return (
         <div className={`h-screen  pt-2  md:p-16`}>
-            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
+
             <div className={`flex flex-col items-center `}>
                 <div className={`flex justify-center `}>
                     <span className={`text-3xl text-slate-400 uppercase`}>Register</span>

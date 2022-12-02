@@ -209,7 +209,7 @@ const Index = ({vendors}) => {
 
     return (
         <div className={`p-10`}>
-            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
+
             <TableDisplay   columns={VendorColumns}  tableTitle={true} font={'text-slate-800'} textSize={'text-3xl'}
                             rows={rows} setRows={setRows}  title={'Vendor'}   handleReset={handleReset}
                             PageSize={10}

@@ -49,7 +49,7 @@ const Set = ({lostItem}) => {
 
     return (
         <ResetLayout onSubmit={onSubmit} handleSubmit={handleSubmit}>
-            <Toaster toastOptions={{className: 'text-center uppercase', duration: 5000,}}/>
+
             <span className={`uppercase text-slate-400 font-bold`}>Please Enter Your new password</span>
             <input className={`border border-slate-400 focus:outline-0 rounded text-sm p-1 text-slate-500 w-1/2  md:w-3/4`}
                    {...register("password")}

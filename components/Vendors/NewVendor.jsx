@@ -121,7 +121,7 @@ const NewVendorPage = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VendorPageDisplay product={inputs}  submitButton={true}>
-                <Toaster toastOptions={{className: 'text-center uppercase', duration: 5000,}}/>
+
                 <div className={`mt-10 `}>
                     <AccordionLayout
                         title={`Add Vendor`}

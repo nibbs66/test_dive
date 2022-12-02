@@ -143,10 +143,10 @@ const NewProductPage = () => {
     return (
         <div>
             <ErrorAlert showMessage={showMessage} setShowMessage={setShowMessage} color={messageColor} handleNewItems={handleNewItems} messageData={messageData}   message={message}/>
-            <form action="" onSubmit={handleSubmit}>
+            <div action="" >
                 <ProductPageDisplay product={inputs} handleSubmit={handleSubmit} submitButton={true} disabled={disabled} message={`Add Product Subtype before submitting!!`}>
 
-                    <Toaster toastOptions={{className: 'text-center uppercase', duration: 5000,}}/>
+
                     <div className={`flex flex-col gap-5 mt-10 `}>
                         <AccordionLayout
                             title={`Add Product`}
@@ -292,7 +292,7 @@ const NewProductPage = () => {
                             setActiveIndex={setActiveIndex}
                         >
                             <SubTypes onChange={() => setColors(!colors)} onChange1={() => setSizes(!sizes)}
-                                      onClick={() => setActiveIndex(1)} inputNumber={inputNumber} setInputNumber={setInputNumber} headerOptions={true}
+                                      onClick={() => setActiveIndex(1)} inputNumber={inputNumber} setInputNumber={setInputNumber} showButton={true} headerOptions={true}
                                       callbackfn={(el, idx) => (
                                           <div className={`flex items-center justify-center space-x-2 text-sm w-full`}
                                                key={idx}>
@@ -365,7 +365,7 @@ const NewProductPage = () => {
                         </AccordionLayout>
                     </div>
                 </ProductPageDisplay>
-            </form>
+            </div>
         </div>
     );
 };

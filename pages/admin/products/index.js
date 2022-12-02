@@ -192,7 +192,7 @@ const Index = ({products}) => {
 
     return (
         <div className={`p-10`}>
-            <Toaster toastOptions={{className: 'text-center', duration: 5000,}}/>
+
             <TableDisplay   columns={ProductsColumns} showFilter={true} tableTitle={true} font={'text-slate-800'} textSize={'text-3xl'}
                             rows={rows} setRows={setRows}  title={'Product'}  activeFilter={activeFilter} handleReset={handleReset}
                             PageSize={10} handleFilter={handleFilter} filterColumns={filterColumns} filterData={filterData} checked={checked}

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     await dbConnect()
 
     if(method==="GET"){
-        console.log(id)
+
         try{
             let product;
             if (subType) {
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
         }
     }
     if(method==="PUT"){
-
+        console.log(req.body)
 
         try{
             let product;
@@ -59,63 +59,62 @@ export default async function handler(req, res) {
                     {$inc: {[`productSubType.$[outer].stock`]: -quantity}},
                     { "arrayFilters": [{ "outer._id": update}], new: true}
                 );
+            }else if(req.body.newSub){
+                console.log(req.body)
+                product = await Product.updateOne(
+                    {_id: id},
+                    {$push: {
+                            productSubType:
+                                {$each:
+                                        [{modelId: req.body.sub.modelId,
+                                            barcode: req.body.sub.barcode,
+                                            stock: req.body.sub.stock,}]}}}
+
+                )
             }else if(req.body.productEdit){
 
-                const{sub} = req.body
-                console.log(sub)
-                if(!sub.subId){
-                    console.log('yes')
-                    product = await Product.findOneAndUpdate(
-                        id,
-                        {
-                            $push: {productSubType: {...sub}},
-
+                if(Object.keys(sub).includes('stock')){
+                    product = await Product.findByIdAndUpdate({
+                            _id: id
                         },
-                        {new: true}
-                    )
-                }else{
-                    if(Object.keys(sub).includes('stock')){
-                        product = await Product.findByIdAndUpdate({
-                                _id: id
-                            },
-                            {$set: {[`productSubType.$[outer].stock`]: sub.stock}},
-                            { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
+                        {$set: {[`productSubType.$[outer].stock`]: sub.stock}},
+                        { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
 
-                        );
-                    } if(Object.keys(sub).includes('modelId')){
-                        product = await Product.findByIdAndUpdate({
-                                _id: id
-                            },
-                            {$set: {[`productSubType.$[outer].modelId`]: sub.modelId}},
-                            { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
+                    );
+                } if(Object.keys(sub).includes('modelId')){
+                    product = await Product.findByIdAndUpdate({
+                            _id: id
+                        },
+                        {$set: {[`productSubType.$[outer].modelId`]: sub.modelId}},
+                        { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
 
-                        );
-                    } if(Object.keys(sub).includes('barcode')){
-                        product = await Product.findByIdAndUpdate({
-                                _id: id
-                            },
-                            {$set: {[`productSubType.$[outer].barcode`]: sub.barcode}},
-                            { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
+                    );
+                } if(Object.keys(sub).includes('barcode')){
+                    product = await Product.findByIdAndUpdate({
+                            _id: id
+                        },
+                        {$set: {[`productSubType.$[outer].barcode`]: sub.barcode}},
+                        { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
 
-                        );
-                    } if(Object.keys(sub).includes('size')){
-                        product = await Product.findByIdAndUpdate({
-                                _id: id
-                            },
-                            {$set: {[`productSubType.$[outer].size`]: sub.size}},
-                            { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
+                    );
+                } if(Object.keys(sub).includes('size')){
+                    product = await Product.findByIdAndUpdate({
+                            _id: id
+                        },
+                        {$set: {[`productSubType.$[outer].size`]: sub.size}},
+                        { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
 
-                        );
-                    }if(Object.keys(sub).includes('color')){
-                        product = await Product.findByIdAndUpdate({
-                                _id: id
-                            },
-                            {$set: {[`productSubType.$[outer].color`]: sub.color}},
-                            { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
+                    );
+                }if(Object.keys(sub).includes('color')){
+                    product = await Product.findByIdAndUpdate({
+                            _id: id
+                        },
+                        {$set: {[`productSubType.$[outer].color`]: sub.color}},
+                        { "arrayFilters": [{ "outer._id": sub.subId}], new: true}
 
-                        );
-                    }
+                    );
                 }
+
             }else{
                 product = await Product.findByIdAndUpdate(id, req.body, {new: true});
             }
