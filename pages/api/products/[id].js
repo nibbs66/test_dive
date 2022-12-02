@@ -66,7 +66,10 @@ export default async function handler(req, res) {
                     {$push: {
                             productSubType:
                                 {$each:
-                                        [{modelId: req.body.sub.modelId,
+                                        [{
+                                            modelId: req.body.sub.modelId,
+                                            color: req.body.sub.color,
+                                            size: req.body.color.size,
                                             barcode: req.body.sub.barcode,
                                             stock: req.body.sub.stock,}]}}}
 
