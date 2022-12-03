@@ -61,17 +61,24 @@ export default async function handler(req, res) {
                 );
             }else if(req.body.newSub){
                 console.log(req.body)
+                const {
+                    modelId,
+                    color,
+                    size,
+                    barcode,
+                    stock
+                } = req.body.sub
                 product = await Product.updateOne(
                     {_id: id},
                     {$push: {
                             productSubType:
                                 {$each:
                                         [{
-                                            modelId: req.body.sub.modelId,
-                                            color: req.body.sub.color,
-                                            size: req.body.color.size,
-                                            barcode: req.body.sub.barcode,
-                                            stock: req.body.sub.stock,}]}}}
+                                            modelId: modelId,
+                                            color: color,
+                                            size: size,
+                                            barcode: barcode,
+                                            stock: stock,}]}}}
 
                 )
             }else if(req.body.productEdit){
