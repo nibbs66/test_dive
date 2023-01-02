@@ -11,7 +11,6 @@ import {
     BuildingStorefrontIcon
 } from '@heroicons/react/24/outline'
 import {useRouter} from "next/router";
-import Link from "next/link";
 
 
 const Nieuw = ({showModal, setShowModal}) => {
@@ -55,7 +54,6 @@ const Nieuw = ({showModal, setShowModal}) => {
                        <AcademicCapIcon  className={`h-5 w-5 `}/>
                        <span >Book Lesson</span>
                    </li>
-
 
 
                </ul>

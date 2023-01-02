@@ -9,7 +9,7 @@ const Card = ({data, title, bg, box}) => {
 
     const month = dayjs().month()-1
     const date = new Date();
-    const testMonth = new Date(date.setMonth((date.getMonth() - 1)));;
+    const testMonth = new Date(date.setMonth((date.getMonth() - 1)));
     const today = dayjs().$d
 
 

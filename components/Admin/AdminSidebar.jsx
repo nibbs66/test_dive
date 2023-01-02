@@ -85,7 +85,7 @@ const AdminSidebar = () => {
                                 Cursus
                             </li>
                         </Link>
-                        <Link href="/admin/messages/tehuur" passHref>
+                        <Link href="/admin/messages/Tehuur" passHref>
                             <li className={'flex gap-2 items-center cursor-pointer '}>
                                 <ClockIcon className={`h-6 w-6 `}/>
                                 Rental

@@ -17,7 +17,7 @@ const CustomerDisplayList = ({setIndex, client, setCustomer, setShowModal, input
                         <span className={`text-lg`}>{client.name}</span>
                         <span
                             onClick={()=> {
-                                    setCustomer(client),
+                                    setCustomer(client)
                                     setShowModal(false)
                                 inputRef.current.focus()
                             }}

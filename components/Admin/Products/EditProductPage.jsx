@@ -12,13 +12,15 @@ import SubTypes from "./SubTypes";
 import SingleSelect from "../../Tools/SingleSelect";
 import {DocumentCheckIcon, DocumentChartBarIcon, PlusCircleIcon, XCircleIcon, CheckCircleIcon} from '@heroicons/react/24/outline'
 import useProduct from "../../../pages/api/hooks/useProduct";
+import SingleSelectWithSearch from "../../Tools/SingleSelectWithSearch";
+import ErrorAlert from "../../Alerts/ErrorAlert";
 const notificationMethods = [
     { id: 'add', title: 'Add Photo' },
     { id: 'delete', title: 'Delete Photo' },
 
 ]
 const EditProductPage = ({product}) => {
-    const {colorData, sizeData,  categoryData} = useProduct()
+    const {colorData, mutateColor, sizeData, mutateSize, vendors,  categoryData} = useProduct()
     const [currentStock, setCurrentStock] = useState(0)
     const [selected, setSelected] = useState('')
     const [sub, setSub] = useState({})
@@ -39,6 +41,14 @@ const EditProductPage = ({product}) => {
     const [productSubType, setProductSubType] = useState([])
     const [inputNumber, setInputNumber] = useState(0)
     const [headerOptions, setHeaderOptions] = useState(false)
+    const [messageColor, setMessageColor] = useState('green')
+    const [messageData, setMessageData] =useState({})
+    const [addColorItem, setAddColorItem] = useState(false)
+    const [addSizeItem, setAddSizeItem] = useState(false)
+    const[showMessage, setShowMessage] = useState(false)
+    const [selectColor, setSelectColor] = useState('')
+    const [selectSize, setSelectSize] = useState('')
+    const [message, setMessage] = useState('Upload Yeah')
     const newProduct =[{new: 'Nee'}, {new: 'Ja'}]
     const aanbiedingenProduct =[{new: 'Nee'}, {new: 'Ja'}]
 
@@ -120,7 +130,7 @@ const EditProductPage = ({product}) => {
 
 
     }
-    console.log('selected', inputs)
+    console.log('selected', sub)
     const addSub = (e) => {
         e.preventDefault()
         setProductSubType(prev=>[...prev, sub])
@@ -229,10 +239,34 @@ const EditProductPage = ({product}) => {
             console.log(err)
         }
     }
+    const handleNewItems = async() => {
+        setShowMessage(false)
+        try{
+            if(messageData.type === 'color'){
+                const newColor = messageData.name.charAt(0).toUpperCase() + messageData.name.slice(1)
+                setSub(prev=>{
+                    return {...prev, [messageData.type]: newColor}
+                })
+                const res = await axios.post(`/api/${messageData.type}`, {'color': newColor})
+                res.status === 201 && mutateColor()
+                console.log(res.data)
+            }else if(messageData.type === 'size'){
+                const newSize = messageData.name.toUpperCase()
+                setSub(prev=>{
+                    return {...prev, [messageData.type]: newSize}
+                })
+                const res = await axios.post(`/api/${messageData.type}`, {'size': newSize})
+                console.log(res.data)
+                res.status === 201 && mutateSize()
+            }
 
+        }catch(err){
+            console.log(err)
+        }
+    }
     return (
         <ProductPageDisplay  product={product} >
-
+            <ErrorAlert showMessage={showMessage} setShowMessage={setShowMessage} color={messageColor} handleNewItems={handleNewItems} messageData={messageData}   message={message}/>
             <div className={`flex flex-col gap-5 pt-5 mt-5`}>
                 <AccordionLayout
                     title={`Edit Product Img`}
@@ -667,20 +701,22 @@ const EditProductPage = ({product}) => {
                                                   size
                                               </label>
                                               <div className={`w-44 `}>
-                                                  <SingleSelect data={sizeData} dataValue={'size'} category={`size`}
-                                                                selected={selected} setInputs={setSub}
-                                                                setSelected={setSelected}
-                                                                handleChange={handleSubType}/>
+                                                  <SingleSelectWithSearch  data={sizeData} dataValue={'size'}
+                                                                           category={`size`} selected={selectSize} addItem={addSizeItem} setAddItem={setAddSizeItem}
+                                                                           setMessage={setMessage} setMessageColor={setMessageColor} setMessageData={setMessageData}
+                                                                           setInputs={setSub} setSelected={setSelectSize} setShowMessage={setShowMessage}
+                                                                           handleChange={handleSubType}/>
                                               </div>
                                           </div>}
                                           {colors && <div className={`flex flex-col  `}>
                                               <label
                                                   className={`pt-1 uppercase text-slate-400 font-bold`}>Color</label>
                                               <div className={`w-44`}>
-                                                  <SingleSelect data={colorData} dataValue={'color'}
-                                                                category={`color`}
-                                                                selected={selected} setInputs={setSub}
-                                                                setSelected={setSelected}/>
+                                                  <SingleSelectWithSearch  data={colorData} dataValue={'color'}
+                                                                           category={`color`} selected={selectColor} addItem={addColorItem} setAddItem={setAddColorItem}
+                                                                           setMessage={setMessage}  setMessageColor={setMessageColor} setMessageData={setMessageData}
+                                                                           setInputs={setSub} setSelected={setSelectColor} setShowMessage={setShowMessage}
+                                                                           handleChange={handleSubType}/>
                                               </div>
                                           </div>}
                                           <div className={`flex flex-col gap-1`}>
