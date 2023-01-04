@@ -27,17 +27,21 @@ import { Menu, Transition } from '@headlessui/react'
 import CustomerSearch from "../Admin/Pos/CustomerSearch";
 import {startDay, today, colStartClasses, hours, currentMinute} from "../../Time";
 import Link from "next/link";
+import Schedule from "./Schedule";
+import {calendarOption} from "../../calData";
+import CalendarView from "./CalendarView";
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 
-const Week = ({schedules}) => {
+const Week = ({schedules, cursus, viewSelector}) => {
     const router = useRouter()
     const {query} = router
-    const [showModal, setShowModal] = useState(false)
+
     const [currentMonth, setCurrentMonth] = useState(format(today, 'MMMM yyyy'))
     const [currentWeek, setCurrentWeek] = useState(startOfWeek(today))
+    const [selected, setSelected] = useState(calendarOption[0])
     const [selectedDay, setSelectedDay] = useState(today)
     const [View, setView] = useState('Month View')
     const firstDayCurrentMonth = parse(currentMonth, 'MMMM yyyy', new Date())
@@ -48,258 +52,21 @@ const Week = ({schedules}) => {
     const containerOffset = useRef(null)
     //console.log(((getHours(new Date(schedules[2].startTime)))-5)* 13 +1)
     const result = getDay(new Date(schedules[1].startTime))
-    console.log(currentWeek)
+
     useEffect(() => {
         // Set the container scroll position based on the current time.
         container.current.scrollTop =
             ((container.current.scrollHeight - containerNav.current.offsetHeight - containerOffset.current.offsetHeight) *
-                (currentMinute - 300)) /
+                (currentMinute)) /
             1440
     }, [])
     const week = eachDayOfInterval({start: currentWeek, end: endOfWeek(currentWeek),
     })
 //console.log(week)
-    const nextWeek = () => {
-
-
-            const firstDayNextWeek = addWeeks(currentWeek, 1)
-            const newMonth = (format(firstDayNextWeek, 'MMMM yyyy'))
-
-            setCurrentWeek(firstDayNextWeek)
-            setCurrentMonth(newMonth)
-            //setCurrentWeek(format(firstDayNextWeek, 'MMMM dd yyyy'))
-
-    }
-
-    const previousWeek = () => {
-
-            const firstDayNextWeek = addWeeks(currentWeek, -1)
-            const newMonth = (format(firstDayNextWeek, 'MMMM yyyy'))
-            setCurrentWeek(firstDayNextWeek)
-            setCurrentMonth(newMonth)
-
-    }
-
-    const handleToday = () => {
-
-            setCurrentWeek(startOfWeek(today))
-            setCurrentMonth(format(today, 'MMMM yyyy'))
-
-    }
 
     return (
 
-        <div className="lg:flex lg:h-screen lg:flex-col">
-            <CustomerSearch showModal={showModal} setShowModal={setShowModal} />
-            <header className="flex items-center justify-between border-b border-slate-200 py-4 px-6 lg:flex-none">
-                <h1 className="text-lg font-semibold text-slate-900">
-                    <time dateTime="2022-01">{format(firstDayCurrentMonth, 'MMMM yyyy')}</time>
-                </h1>
-                <div className="flex items-center">
-                    <div className="flex items-center rounded-md shadow-sm md:items-stretch">
-                        <button
-                            onClick={previousWeek}
-                            type="button"
-                            className="flex items-center justify-center rounded-l-md border border-r-0 border-slate-300 bg-white py-2 pl-3 pr-4 text-slate-400 hover:text-slate-500 focus:relative md:w-9 md:px-2 md:hover:bg-slate-50"
-                        >
-                            <span className="sr-only">Previous month</span>
-                            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                        </button>
-                        <button
-                            onClick={handleToday}
-                            type="button"
-                            className="hidden border-t border-b border-slate-300 bg-white px-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 focus:relative md:block"
-                        >
-                            Today
-                        </button>
-                        <span className="relative -mx-px h-5 w-px bg-slate-300 md:hidden" />
-                        <button
-                            onClick={nextWeek}
-                            type="button"
-                            className="flex items-center justify-center rounded-r-md border border-l-0 border-slate-300 bg-white py-2 pl-4 pr-3 text-slate-400 hover:text-slate-500 focus:relative md:w-9 md:px-2 md:hover:bg-slate-50"
-                        >
-                            <span className="sr-only">Next month</span>
-                            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                        </button>
-                    </div>
-                    <div className="hidden md:ml-4 md:flex md:items-center">
-                        <Menu as="div" className="relative">
-                            <Menu.Button
-                                type="button"
-                                className="flex items-center rounded-md border border-slate-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50"
-                            >
-                               Week View
-                                <ChevronDownIcon className="ml-2 h-5 w-5 text-slate-400" aria-hidden="true" />
-                            </Menu.Button>
-
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-100"
-                                enterFrom="transform opacity-0 scale-95"
-                                enterTo="transform opacity-100 scale-100"
-                                leave="transition ease-in duration-75"
-                                leaveFrom="transform opacity-100 scale-100"
-                                leaveTo="transform opacity-0 scale-95"
-                            >
-                                <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div className="py-1">
-                                        <Menu.Item>
-                                            <Link href={`/admin/calendar/daily/${query.id}`}>
-                                              <span    className={classNames(
-                                                  'text-slate-700 cursor-pointer',
-                                                  'block px-4 py-2 text-sm' )}>
-                                                   Day View
-                                             </span>
-                                            </Link>
-                                        </Menu.Item>
-                                        <Menu.Item>
-
-                                             <span onClick={()=>setView('Week View')}   className={classNames(
-                                                 'text-slate-700 cursor-pointer',
-                                                 'block px-4 py-2 text-sm' )}>
-                                                   Week View
-                                             </span>
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            <Link href={`/admin/calendar/monthly/${query.id}`}>
-                                            <span    className={classNames(
-                                                'text-slate-700 cursor-pointer',
-                                                'block px-4 py-2 text-sm' )}>
-                                                   Month View
-                                             </span>
-                                            </Link>
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="components/Calendar/Calendar#"
-                                                    className={classNames(
-                                                        active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                        'block px-4 py-2 text-sm'
-                                                    )}
-                                                >
-                                                    Year View
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                    </div>
-                                </Menu.Items>
-                            </Transition>
-                        </Menu>
-                        <div className="ml-6 h-6 w-px bg-slate-300" />
-                        <button
-                            onClick={()=>setShowModal(true)}
-                            type="button"
-                            className="ml-6 rounded-md border border-transparent bg-blue-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                            Add meeting
-                        </button>
-                    </div>
-                    <Menu as="div" className="relative ml-6 md:hidden">
-                        <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-slate-400 hover:text-slate-500">
-                            <span className="sr-only">Open menu</span>
-                            <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
-                        </Menu.Button>
-
-                        <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                        >
-                            <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-slate-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="components/Calendar/Calendar#"
-                                                className={classNames(
-                                                    active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Create meeting
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                </div>
-                                <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="components/Calendar/Calendar#"
-                                                className={classNames(
-                                                    active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Go to today
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                </div>
-                                <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="components/Calendar/Calendar#"
-                                                className={classNames(
-                                                    active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Day View
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="components/Calendar/Calendar#"
-                                                className={classNames(
-                                                    active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Week View
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="components/Calendar/Calendar#"
-                                                className={classNames(
-                                                    active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Month View
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item >
-                                        {({ active }) => (
-                                            <a
-                                                href="components/Calendar/Calendar#"
-                                                className={classNames(
-                                                    active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Year View
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                </div>
-                            </Menu.Items>
-                        </Transition>
-                    </Menu>
-                </div>
-            </header>
+        <CalendarView cursus={cursus} viewSelector={viewSelector} setCurrentMonth={setCurrentMonth} currentMonth={currentMonth} setCurrentWeek={setCurrentWeek} currentWeek={currentWeek}>
             <div ref={container} className="isolate flex flex-auto flex-col overflow-auto bg-white">
                 <div style={{ width: '165%' }} className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
                     <div
@@ -417,7 +184,7 @@ const Week = ({schedules}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </CalendarView>
 
     )
 }
