@@ -14,7 +14,7 @@ import UploadImg from "../ImageSelectors/UploadImg";
 import app from "../../lib/firebase";
 
 const EditVendorDisplay = ({vendor}) => {
-
+    console.log(vendor)
     const [activeIndex, setActiveIndex] = useState(4)
 
     const [file, setFile] = useState([])
@@ -42,7 +42,7 @@ const EditVendorDisplay = ({vendor}) => {
         const fileRef = ref(storage, file);
         deleteObject(fileRef).then(async() => {
             try{
-                const res =  await axios.put(`/api/products/${product._id}`, {removeImg: true, file})
+                const res =  await axios.put(`/api/vendors/${vendor[0]._id}`, {removeImg: true, file})
                 res.status === 201 && toast.success('Pic successfully deleted')
                 setFile([])
             }catch(err){
@@ -58,14 +58,73 @@ const EditVendorDisplay = ({vendor}) => {
         });
 
     }
+    const handleClick = async (e) =>{
+
+        e.preventDefault()
+
+        const fileName = new Date().getTime() + file.name;
+        const storage = getStorage(app);
+        const storageRef = ref(storage, fileName)
+
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+// Register three observers:
+// 1. 'state_changed' observer, called any time the state changes
+// 2. Error observer, called on failure
+// 3. Completion observer, called on successful completion
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                // Observe state change events such as progress, pause, and resume
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                switch (snapshot.state) {
+                    case 'paused':
+
+                        break;
+                    case 'running':
+
+                        break;
+                    default:
+                }
+            },
+            (error) => {
+                // Handle unsuccessful uploads
+            },
+            () => {
+                // Handle successful uploads on complete
+                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    if(downloadURL){
+
+                        setFile([])
+                        try{
+
+                            const res = await axios.put("/api/vendors/"+vendor[0]._id, {img: downloadURL})
+                            toast.success('Image Saved!!')
+                            setUpload(false)
+                            setFile([])
+                            setUpload(false)
+                        }catch(err){
+
+                        }
+                    }
+
+                });
+            }
+        );
+
+
+    }
 
     const handleEdit = async() => {
 
         try{
 
-                const res = await axios.put(`/api/vendors/${vendor[0]._id}`, {...inputs})
-                res.status === 201 && toast.success(`${vendor[0].vendor}  successfully updated`)
-                setInputs({})
+            const res = await axios.put(`/api/vendors/${vendor[0]._id}`, {...inputs})
+            res.status === 201 && toast.success(`${vendor[0].vendor}  successfully updated`)
+            setInputs({})
 
 
             //const res = await axios.put("/api/products/"+product._id, {...inputs})
@@ -145,20 +204,20 @@ const EditVendorDisplay = ({vendor}) => {
                     </div>}
 
                     <div className={`flex `}>
-                        {vendor[0].img.map((pic, idx) => (
-                            <div
-                                onClick={() => {
-                                    setImgIndex(idx)
-                                    setFile(pic)
-                                    setUpload(true)
-                                }}
 
-                                key={idx}
-                                className={`cursor-pointer`}>
-                                <Image src={pic} alt={''} height={100} width={100} objectFit={'contain'}/>
-                            </div>
+                        <div
+                            onClick={() => {
 
-                        ))}
+                                setFile(vendor[0].img)
+                                setUpload(true)
+                            }}
+
+
+                            className={`cursor-pointer`}>
+                            <Image src={vendor[0].img} alt={''} height={100} width={100} objectFit={'contain'}/>
+                        </div>
+
+
                     </div>
                 </div>}
             </AccordionLayout>
@@ -255,7 +314,7 @@ const EditVendorDisplay = ({vendor}) => {
                     <div className={`flex justify-center py-5`}>
                         <button
                             onClick={handleEdit}
-                            className={`bg-blue-500 hover:bg-blue-600 py-1 px-2 text-white rounded uppercase font-bold`} type={`submit`}>
+                            className={`bg-blue-500 hover:bg-indigo-700 py-1 px-2 text-white rounded uppercase font-bold`} type={`submit`}>
                             Confirm Changes
                         </button>
                     </div>
