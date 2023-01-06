@@ -19,7 +19,7 @@ const TableActions = ({link, editLink, handleDelete, item}) => {
                 </button>
             </Link>
 
-            <button onClick={()=>handleDelete(id)}
+            <button onClick={()=>handleDelete(item)}
                     type="button"
 
                     className=" bg-transparent hover:rounded text-red-600  flex justify-center hover:bg-red-600 hover:text-white  py-1 px-2 border-0 rounded  text-gray-500 text-xs font-semibold uppercase tracking-wide leading-loose no-underline cursor-pointer transition duration-100 text-xs rounded-sm py-1 px-2"
