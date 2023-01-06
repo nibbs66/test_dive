@@ -31,21 +31,21 @@ const NewVendorPage = () => {
         contact: yup.string().required('Required'),
         vendor: yup.string().required('Required'),
         link: yup.string().required('Required'),
-     address: yup.string().required('Required'),
+        address: yup.string().required('Required'),
         city: yup.string().required('Required'),
         postalCode: yup.string().required('Required')
             .matches({code}, ' does not match country format'),
         country: yup.string().required(),
         phone: yup.string().required('Required'),
         email: yup.string()
-                .required('Required')
-                .email('is not valid')
-                .matches(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'is not valid'),
-        })
-        //address: yup.string().required('Required'),
-        //city: yup.string().required('Required'),
-        /*postalCode: yup.string().required('Required')
-            .matches({code}, ' does not match country format'),*/
+            .required('Required')
+            .email('is not valid')
+            .matches(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'is not valid'),
+    })
+    //address: yup.string().required('Required'),
+    //city: yup.string().required('Required'),
+    /*postalCode: yup.string().required('Required')
+        .matches({code}, ' does not match country format'),*/
     //phone: yup.string().required('Required'),
 
     /*email: yup.string()
@@ -66,19 +66,19 @@ const NewVendorPage = () => {
             const res = await axios.post(`/api/vendors`,
                 {
 
-                        vendor: data.vendor,
-                        phone: telephone,
-                        email: data.email,
-                        link: data.link,
-                        contact: data.contact,
-                        address: data.address,
-                        city: data.city,
-                        postalCode: data.postalCode,
-                        country: data.country
+                    vendor: data.vendor,
+                    phone: telephone,
+                    email: data.email,
+                    link: data.link,
+                    contact: data.contact,
+                    address: data.address,
+                    city: data.city,
+                    postalCode: data.postalCode,
+                    country: data.country
 
                 });
 
-
+            res.status === 201 && toast.success('New Vendor Created!!')
             if (res.statusText === 'Created') {
                 reset()
             }
@@ -172,84 +172,84 @@ const NewVendorPage = () => {
 
                             <div className={`grid grid-cols-2 w-full my-4 mx-10 `}>
                                 <div className={`flex flex-col gap-2 text-sm`}>
-                                       <div className={`flex flex-col gap-1  text-sm`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.vendor && 'text-red-500 font-bold'}`}>Vendor {errors.vendor?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1  ${errors.vendor && 'border-2 border-red-500'}`}
-                                                  onChange={handleChange}  {...register("vendor")}
-                                                  type="text"/>
-                                       </div>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.link && 'text-red-500 font-bold'}`}> Website {errors.link?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.link && 'border-2 border-red-500'}`}
-                                                  onChange={handleChange} {...register("link")}
-                                                  type="text"/>
-                                       </div>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.address && 'text-red-500 font-bold'}`}>Address {errors.address?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.address && 'border-2 border-red-500'}`}
-                                                  onChange={handleChange} {...register("address")}
-                                                  type="text"/>
-                                       </div>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.city && 'text-red-500 font-bold'}`}>City {errors.city?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.city && 'border-2 border-red-500'}`}
-                                                  onChange={handleChange} {...register("city")}
-                                                  type="text"/>
-                                       </div>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.country && 'text-red-500 font-bold'}`}>Country {errors.country?.message}</label>
+                                    <div className={`flex flex-col gap-1  text-sm`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.vendor && 'text-red-500 font-bold'}`}>Vendor {errors.vendor?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1  ${errors.vendor && 'border-2 border-red-500'}`}
+                                               onChange={handleChange}  {...register("vendor")}
+                                               type="text"/>
+                                    </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.link && 'text-red-500 font-bold'}`}> Website {errors.link?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.link && 'border-2 border-red-500'}`}
+                                               onChange={handleChange} {...register("link")}
+                                               type="text"/>
+                                    </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.address && 'text-red-500 font-bold'}`}>Address {errors.address?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.address && 'border-2 border-red-500'}`}
+                                               onChange={handleChange} {...register("address")}
+                                               type="text"/>
+                                    </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.city && 'text-red-500 font-bold'}`}>City {errors.city?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.city && 'border-2 border-red-500'}`}
+                                               onChange={handleChange} {...register("city")}
+                                               type="text"/>
+                                    </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.country && 'text-red-500 font-bold'}`}>Country {errors.country?.message}</label>
 
-                                           <div>
-                                               <select  className={`border w-1/2 rounded border-slate-600 text-sm text-slate-500 p-1 focus:outline-0 ${errors.country && 'border-2 border-red-500'}`}
-                                                        {...register("country")}
-                                                        onChange={(e) => {
-                                                            setCountry(e.target.value)
-                                                            setCountryCode(getCountryCallingCode(e.target.value))
-                                                            setCode(postalCodes[e.target.value])
-                                                        }}
-                                               >
-                                                   <option value="NL">NL</option>
-                                                   <option value="DE">DE</option>
-                                                   <option value="BE">BE</option>
-                                                   {countries.map((country, idx)=>(
-                                                       <option key={idx} value={country.value}>{country.value}</option>
-                                                   ))}
-                                               </select>
-                                           </div>
+                                        <div>
+                                            <select  className={`border w-1/2 rounded border-slate-600 text-sm text-slate-500 p-1 focus:outline-0 ${errors.country && 'border-2 border-red-500'}`}
+                                                     {...register("country")}
+                                                     onChange={(e) => {
+                                                         setCountry(e.target.value)
+                                                         setCountryCode(getCountryCallingCode(e.target.value))
+                                                         setCode(postalCodes[e.target.value])
+                                                     }}
+                                            >
+                                                <option value="NL">NL</option>
+                                                <option value="DE">DE</option>
+                                                <option value="BE">BE</option>
+                                                {countries.map((country, idx)=>(
+                                                    <option key={idx} value={country.value}>{country.value}</option>
+                                                ))}
+                                            </select>
+                                        </div>
 
-                                       </div>
+                                    </div>
                                 </div>
                                 <div className={`flex flex-col gap-2 text-sm`}>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.postalCode && 'text-red-500 font-bold'}`}>Postal Code {errors.postalCode?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.postalCode && 'border-2 border-red-500'}`}
-                                                  onChange={handleChange} {...register("postalCode")}
-                                                  type="text"/>
-                                       </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.postalCode && 'text-red-500 font-bold'}`}>Postal Code {errors.postalCode?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.postalCode && 'border-2 border-red-500'}`}
+                                               onChange={handleChange} {...register("postalCode")}
+                                               type="text"/>
+                                    </div>
 
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.contact && 'text-red-500 font-bold'}`}>Contact {errors.contact?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.contact && 'border-2 border-red-500'}`}
-                                                  {...register("contact")}
-                                                  type="text"/>
-                                       </div>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.phone && 'text-red-500 font-bold'}`}>Contact Phone {errors.phone?.message}</label>
-                                           <Input   className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.phone && 'border-2 border-red-500'}`}
-                                                    {...register("phone")}
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.contact && 'text-red-500 font-bold'}`}>Contact {errors.contact?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.contact && 'border-2 border-red-500'}`}
+                                               {...register("contact")}
+                                               type="text"/>
+                                    </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.phone && 'text-red-500 font-bold'}`}>Contact Phone {errors.phone?.message}</label>
+                                        <Input   className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.phone && 'border-2 border-red-500'}`}
+                                                 {...register("phone")}
 
-                                                    defaultCountry={country}
-                                                    value={value}
-                                                    onChange={setValue}/>
-                                       </div>
-                                       <div className={`flex flex-col gap-1`}>
-                                           <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.email && 'text-red-500 font-bold'}`}>Contact Email {errors.email?.message}</label>
-                                           <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.email && 'border-2 border-red-500'}`}
-                                                  onChange={handleChange} {...register("email")}
-                                                  type="text"/>
-                                       </div>
-                                   </div>
-                               </div>
+                                                 defaultCountry={country}
+                                                 value={value}
+                                                 onChange={setValue}/>
+                                    </div>
+                                    <div className={`flex flex-col gap-1`}>
+                                        <label className={`pt-1 uppercase text-slate-400 font-bold ${errors.email && 'text-red-500 font-bold'}`}>Contact Email {errors.email?.message}</label>
+                                        <input className={`border w-1/2 border-slate-400 focus:outline-0 rounded text-sm p-1 ${errors.email && 'border-2 border-red-500'}`}
+                                               onChange={handleChange} {...register("email")}
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </div>
 
 
                         </div>
