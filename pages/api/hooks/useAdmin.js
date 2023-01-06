@@ -5,6 +5,7 @@ import {fetcher} from "../../../components/helper/fetcher";
 export default function useRegister (){
 
     const {data: notifications, error, isValidating, mutate} = useSWR( `/api/messages/`, fetcher)
+    const {data: vendors, error: vendorError, isValidating: validateVendor, mutate: mutateVendor} = useSWR( `/api/vendors/`, fetcher)
     const {data: orders, error: orderError, isValidating: validateOrder, mutate: mutateOrder} = useSWR( `/api/orders/`, fetcher)
     const {data: products, error: productError, isValidating: validateProduct, mutate: mutateProduct} = useSWR( `/api/products/`, fetcher)
 
@@ -21,7 +22,9 @@ export default function useRegister (){
         products,
         productError,
         validateProduct,
-        mutateProduct
+        mutateProduct,
+        vendors,
+        mutateVendor
 
     }
 }

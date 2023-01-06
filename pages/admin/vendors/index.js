@@ -10,7 +10,7 @@ import toast, {Toaster} from 'react-hot-toast'
 import app from "../../../lib/firebase";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject} from "firebase/storage";
 
-const Index = ({vendors}) => {
+const Index = () => {
     const [rows, setRows] = useState([]);
     const [filterManufacturer, setFilterManufacturer] = useState([])
     const [filterCategory, setFilterCategory] = useState([])
@@ -22,8 +22,8 @@ const Index = ({vendors}) => {
     const [deleteProduct, setDeleteProduct] = useState(false)
     const {
 
-        validateProduct,
-        mutateProduct
+        vendors,
+        mutateVendor
     } = useAdmin()
     const filterColumns = [
         { header: "Vendor", field: "vendor", },
@@ -113,7 +113,7 @@ const Index = ({vendors}) => {
         try{
             const res = await axios.delete(`/api/vendors/${vendor._id}`)
             res.status === 200 && toast.success('Vendor successfully deleted.')
-            mutateProduct()
+            mutateVendor()
         }catch(err){
             console.log(err)
         }
@@ -229,7 +229,7 @@ Index.getLayout = function getLayout(page){
 }
 export async function getServerSideProps(ctx){
     const host = ctx.req.headers.host;
-    const res = await axios.get(`https://`+host+`/api/vendors`)
+    const res = await axios.get(`http://`+host+`/api/vendors`)
     return{
         props: {
             vendors: res.data

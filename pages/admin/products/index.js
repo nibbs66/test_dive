@@ -10,7 +10,7 @@ import toast, {Toaster} from 'react-hot-toast'
 import app from "../../../lib/firebase";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject} from "firebase/storage";
 
-const Index = ({products}) => {
+const Index = () => {
     const [rows, setRows] = useState([]);
 
     const [activeFilter, setActiveFilter] = useState(false);
@@ -19,7 +19,7 @@ const Index = ({products}) => {
     const [deleteProduct, setDeleteProduct] = useState(false)
 
     const {
-
+        products,
         validateProduct,
         mutateProduct
     } = useAdmin()
@@ -209,14 +209,4 @@ Index.getLayout = function getLayout(page){
             {page}
         </Admin>
     )
-}
-export async function getServerSideProps(ctx){
-    const host = ctx.req.headers.host;
-    const res = await axios.get(`https://`+host+`/api/products`)
-    return{
-        props: {
-            products: res.data
-        }
-    }
-
 }
