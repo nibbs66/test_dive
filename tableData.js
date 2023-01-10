@@ -32,11 +32,12 @@ export const certificationColumns = [
 ]
 
 export const OrdersColumns = [
-    { header: "Order Number", field: "orderId",sortable: true },
+    { header: "Order", field: "orderId",sortable: true },
     { header: "Type", field: "type",  sortable: true },
     { header: "Total", field: "total",  sortable: true },
     { header: "Carrier", field: "carrier",  sortable: true},
     { header: "Status", field: "status",  sortable: true },
+    { header: "Paid", field: "paid",  sortable: true },
     { header: "Action", field: "action",  sortable: false },
 ]
 export const SalesColumns = [
@@ -92,11 +93,11 @@ export const ScubaItem = [
     { header: "Reserve", field: "reserve" },
 ]
 export const ProductSubType = [
-    { header: "Barcode", field: "barcode" },
-    { header: "Sub Id", field: "modelId" },
-    { header: "Color", field: "color" },
-    { header: "Size", field: "size" },
-    { header: "Stock", field: "stock" },
+    { header: "Barcode", field: "barcode", sortable: true },
+    { header: "Sub Id", field: "modelId", sortable: true },
+    { header: "Color", field: "color", sortable: true },
+    { header: "Size", field: "size", sortable: true },
+    { header: "Stock", field: "stock", sortable: true },
 ]
 export const ProductsColumns = [
     {field: "vendor", header: "Vendor", sortable: true},
