@@ -11,7 +11,7 @@ import TableActions from "../../Table/TableActions";
 import 'react-phone-number-input/style.css'
 import Input from 'react-phone-number-input/input'
 import UserLayout from "./UserLayout";
-import {ReceiptPercentIcon} from '@heroicons/react/24/outline'
+import {ReceiptPercentIcon} from '@heroicons/react/24/solid'
 
 
 
@@ -60,8 +60,8 @@ const Index = ({user, orders, sales}) => {
                 date: dayjs(option.createdAt).format('DD MMM YYYY'),
                 quantity: option.items.length,
                 amount: `€${option.total.toFixed(2)}`,
-                icon: <div className={`flex w-full justify-center cursor-pointer`}> <ReceiptPercentIcon className={`h-6 w-6 text-green-500`}/></div>,
-                action: <TableActions key={option._id} link={`/admin/orders/`} item={option}/>
+                icon: <div className={`flex w-full justify-center cursor-pointer`}> <ReceiptPercentIcon className={`h-6 w-6 ${option.total -option.amountPaid === 0 ? 'text-green-500' : 'text-red-600'}`}/></div>,
+                action: <TableActions key={option._id} link={`/admin/orders/`} item={option} showEdit={false}/>
 
             }])
 
