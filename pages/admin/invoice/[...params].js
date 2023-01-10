@@ -11,7 +11,7 @@ import useEmployee from "../../api/hooks/useEmployee";
 import {useSession} from "next-auth/react";
 const Betaal = ({sale, empFirst, empLast}) => {
     const router = useRouter()
-    const [complete, setComplete] = useState(false)
+    const [complete, setComplete] = useState(true)
     const [newPDF, setNewPDF] = useState(false)
     const [file, setFile] = useState([])
     const [inv, setInv] = useState([])
@@ -19,7 +19,8 @@ const Betaal = ({sale, empFirst, empLast}) => {
     const {query} = router
 
 
-    useEffect(()=>{
+
+    /*useEffect(()=>{
         if(typeof window === undefined ){
             console.log('not set')
         }
@@ -29,20 +30,19 @@ const Betaal = ({sale, empFirst, empLast}) => {
                 const res = await axios.post(`/api/invoice`, {saleId: query.params[1], invoicePage: query.params[0]+'/'+query.params[1]+'/'+query.params[2]})
 
                 if (res.status === 200) {
-                    console.log('huzzah!!!')
+                    console.log('huzzah!!!', res)
                     setComplete(true)}
             }catch(err){
                 console.log(err)
             }
         }, 10000)
 
-    },[])
+    },[])*/
 
     useEffect(()=>{
         const loadUser = async()=>{
             try{
                 const res = await axios.get(`/api/users/${sale.userId}`)
-                console.log(res.data)
                 setNaam(res.data.firstName+' '+res.data.lastName)
                 //res.status === 200 && await handlePDF()
 
@@ -99,7 +99,10 @@ const Betaal = ({sale, empFirst, empLast}) => {
             }
         );
     }
-    console.log(inv)
+    const handleChange = () => {
+
+    }
+    console.log(file)
 
     return (
         <>
@@ -112,24 +115,24 @@ const Betaal = ({sale, empFirst, empLast}) => {
 
 
 
-                    {complete && <div className={`absolute absolute flex w-full h-full bg-black/50  items-center justify-center cursor-pointer  z-20  `}>
+                {!complete && <div className={`absolute absolute flex w-full h-full bg-black/50  items-center justify-center cursor-pointer  z-20  `}>
 
 
-                        <input
-                            className={`flex  file:bg-[#3b81f6] py-5 px-4 drop-shadow-lg rounded bg-white/80 file:text-white file:mr-4 file:py-2 text-sm text-slate-400
+                    <input
+                        className={`flex  file:bg-[#3b81f6] py-5 px-4 drop-shadow-lg rounded bg-white/80 file:text-white file:mr-4 file:py-2 text-sm text-slate-400
                                     file:uppercase file:text-sm file:px-4 file:rounded-full file:border-0
                                     file:cursor-pointer
                                     `}
-                            type="file"
-                            id="file"
-                            onChange={(e) => {
-                                setFile(e.target.files[0])
-                                setNewPDF(true)
+                        type="file"
+                        id="file"
+                        onChange={(e) => {
+                            setFile(e.target.files[0])
+                            setNewPDF(true)
 
-                            }}
+                        }}
 
-                        />
-                    </div>}
+                    />
+                </div>}
 
 
             </div>

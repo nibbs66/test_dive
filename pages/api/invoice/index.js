@@ -14,10 +14,10 @@ const createPdf = async (req,res) => {
         const page = await browser.newPage();
         const pdFName = 'web'+ saleId + new Date().getTime()
         const options ={
-            path: `/invoice/${pdFName}.pdf`,
+            path: `./invoice/${pdFName}.pdf`,
             format: 'A4'
         }
-        await page.goto(`http://localhost:3000/admin/invoice/${invoicePage}`, { waitUntil: 'networkidle0' })
+        await page.goto(process.env.PUBLIC_URL+`/admin/invoice/${invoicePage}`, { waitUntil: 'networkidle0' })
         const newPage =  await page.pdf(options)
         res.end(newPage)
         await browser.close();

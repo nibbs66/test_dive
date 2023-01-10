@@ -85,7 +85,7 @@ const Index = ({orders, income, customers, sales}) => {
     return (
         <div className=' container flex flex-col  gap-16 bg-slate-200/70'>
             <div className={`grid grid-cols-5`}>
-                <HeaderCards data={income} orders={orders} sales={sales} title={'Web'} orderCat={`Web-shop`}  bg={'bg-[#61828A]/50'} box={true}/>
+                <HeaderCards data={income} orders={orders} sales={sales} title={'Web'} orderCat={`Web-Shop`}  bg={'bg-[#61828A]/50'} box={true}/>
                 <HeaderCards data={income} orders={orders} sales={sales} title={'Winkel'} orderCat={`Winkel`}  bg={'bg-[rgba(0,191,255,0.5)]'} box={true}/>
                 <HeaderCards data={income} orders={orders} sales={sales} title={'Huur'} orderCat={`Te Huur`} bg={'bg-[#143AA2]/40'} box={true}/>
                 <HeaderCards data={income} orders={orders} sales={sales} title={'Cursus'} orderCat={`Cursus`}  bg={'bg-[rgba(102,205,170,0.5)]'} box={true}/>

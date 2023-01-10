@@ -9,7 +9,7 @@ const HeaderCards = ({data, title, bg, box, orders, orderCat, sales}) => {
     const [lastMonthTotal, setLastMonthTotal] = useState(0)
     const [saleChange, setSaleChange] = useState(0)
 
-
+    console.log(sales)
 //const MTDOrders = orders.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs()))
 
     useEffect(()=>{

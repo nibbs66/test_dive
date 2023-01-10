@@ -14,6 +14,7 @@ const Index = () => {
         validateOrder,
         mutateOrder
     } = useAdmin()
+
     const [activeFilter, setActiveFilter] = useState(false);
     const [data, setData] = useState([]);
     const [filterData, setFilterData] = useState([])
@@ -27,6 +28,7 @@ const Index = () => {
         { header: "Type", field: "type",  sortable: true },
         { header: "Carrier", field: "carrier",  sortable: true},
         { header: "Status", field: "status",  sortable: true },
+        { header: "Paid", field: "paid",  sortable: true },
     ]
 
     useEffect(()=>{
@@ -35,27 +37,20 @@ const Index = () => {
 
 
         const getOrders = async()=>{
+            let paymentStatus;
+            await orders?.map((option, idx)=> {
 
-            await orders?.map((option, idx)=>{
-                if(!option.amountPaid || (option.total - option.amountPaid === 0)){
-                    setData( (prev)=>[...prev, {
-                        id: option._id,
+                setData((prev) => [...prev, {
+                    id: option._id,
 
-                        orderId: '...'+option._id.slice(-5),
-                        type: option.purchaseType,
-                        total: '€'+ option.total.toFixed(2),
-                        carrier: option.shippingMethod?.method,
-                        status: option.status,
-                        action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
-
-
-                    }])
-                }
-                setSearchList((prev)=>[...prev, {
-
+                    orderId: '...' + option._id.slice(-5),
                     type: option.purchaseType,
+                    total: '€' + option.total.toFixed(2),
                     carrier: option.shippingMethod.method,
                     status: option.status,
+                    paid: option.total - option.amountPaid,
+                    action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
+
 
                 }])
 
@@ -82,13 +77,15 @@ const Index = () => {
         })
 
         status.map((item)=>{
+
             setFilterData((prev)=>[...prev,
                 item
             ])
         })
-
+        setFilterData((prev)=>[...prev, {paid: 'Paid'}, {paid: 'Unpaid'}])
 
     },[carrier, type, status])
+
     const handleFilter = (e, item, field) => {
 
         setChecked(e.target.value)
@@ -103,11 +100,24 @@ const Index = () => {
             setData([])
             filteredOrders =  orders.filter((order)=>order.shippingMethod.method === item)
 
+        }else if(field === 'paid'){
+            setData([])
+            if(item === 'Paid'){
+
+                filteredOrders =  orders.filter((order)=> order.total-order.amountPaid === 0 )
+
+
+            }else if(item === 'Unpaid'){
+
+                filteredOrders =  orders.filter((order)=> order.total-order.amountPaid > 0)
+
+            }
         }else {
 
             setData([])
             filteredOrders =  orders.filter((order)=>  order[field] === item)
         }
+        console.log(filteredOrders.length)
         filteredOrders.map((option, idx)=>{
             setData( (prev)=>[...prev, {
                 id: option._id,
@@ -117,12 +127,14 @@ const Index = () => {
                 total: '€'+ option.total.toFixed(2),
                 carrier: option.shippingMethod.method,
                 status: option.status,
+                paid: option.total - option.amountPaid,
                 action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
 
 
             }])
 
         })
+
 
 
 
@@ -142,21 +154,23 @@ const Index = () => {
         setData([])
         setChecked('')
         setActiveFilter(false)
+
         orders?.map((option, idx)=> {
-            if (!option.amountPaid || (option.total - option.amountPaid === 0)) {
-                setData((prev) => [...prev, {
-                    id: option._id,
 
-                    orderId: '...' + option._id.slice(-5),
-                    type: option.purchaseType,
-                    total: '€' + option.total.toFixed(2),
-                    carrier: option.shippingMethod.method,
-                    status: option.status,
-                    action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
+            setData((prev) => [...prev, {
+                id: option._id,
+
+                orderId: '...' + option._id.slice(-5),
+                type: option.purchaseType,
+                total: '€' + option.total.toFixed(2),
+                carrier: option.shippingMethod.method,
+                status: option.status,
+                paid: option.total - option.amountPaid,
+                action: <TableActions key={idx} link={`/admin/orders/`} handleDelete={handleDelete} item={option}/>
 
 
-                }])
-            }
+            }])
+
         })
     }
 

@@ -38,12 +38,17 @@ const TableRow = ({data, columns, link}) => {
                                     <th key={field} className={` align-middle ${tData < 5 ? 'text-red-700' : 'text-green-500'}  text-sm whitespace-nowrap px-2 py-3 `}>
                                         {tData}
                                     </th>
+                                    : (field === 'paid') ?
+                                        <th className={`align-middle`}>
+                                            <button className={`   ${tData > 0 ? 'bg-red-500' : 'bg-green-500'} text-white  py-1 px-2 border-0 rounded  text-xs font-semibold uppercase tracking-wide leading-loose no-underline cursor-pointer transition duration-100 text-xs rounded py-1 px-2`}>
+                                                {tData > 0 ? 'Unpaid' : 'Paid' }
+                                            </button>
+                                        </th>
 
+                                        : <th key={field} className={` align-middle  font-light text-sm whitespace-nowrap px-2 py-3 `}>
+                                            {tData}
 
-                                    : <th key={field} className={` align-middle  font-light text-sm whitespace-nowrap px-2 py-3 `}>
-                                        {tData}
-
-                                    </th>
+                                        </th>
 
                         }
 

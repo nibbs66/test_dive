@@ -21,7 +21,7 @@ const Card = ({data, title, bg, box, orderCat}) => {
     useEffect(()=>{
         let MTDOrders;
         if(orderCat === 'Web-shop'){
-            MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && (sale.purchaseType === orderCat || sale.purchaseType === 'Winkel'))
+            MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && (sale.purchaseType === 'Winkel' || sale.purchaseType === 'Web-Shop'))
         }else{
             MTDOrders = data.filter((sale) => dayjs(sale.createdAt).isBetween(dayjs().startOf('month'), dayjs())  && sale.purchaseType === orderCat)
         }
